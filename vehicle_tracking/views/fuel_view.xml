@@ -1,0 +1,33 @@
+<odoo>
+    <record id="action_fuel_configuration" model="ir.actions.act_window">
+        <field name="name">Vehicle Fuel Consumption</field>
+        <field name="res_model">fuel.consumption</field>
+        <field name="view_mode">tree,form</field>   
+     </record>
+    <menuitem id="fuel_related_menu_child" 
+     name="Fuel Consumption"
+     parent="fleet.menu_fleet_reporting"
+     action="action_fuel_configuration"
+     />
+
+     <record id="fuel_consumption_tree_view"  model="ir.ui.view">
+        <field name="name">Fuel Consumption tree list</field>
+        <field name="model">fuel.consumption</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vehicle_id"/>
+                <field name="total_cost"/>
+                <field name="payment_method"/>
+                <field name="fueling_station"/>
+                <field name="fueling_date"/>
+                <field name="fuel_type"/>
+                <field name="per_unit_price"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+
+</odoo>

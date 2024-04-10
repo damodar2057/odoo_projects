@@ -1,0 +1,109 @@
+<odoo>
+    <record id="view_expert" model="ir.ui.view">
+            <field name="name">Expert</field>
+            <field name="model">expert.experts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                    <group>
+                        <group>
+                            <separator  string='General Information' colspan="2"/>
+                            <!-- <field name="id" invisible="0"/> -->
+                            <field name="name"/>
+                            <field name="branch" />
+                            <field name="phone"/>
+                            <field name="email" />
+                            <field name="mobile"/>
+                            <field name="expert_type"/>
+
+                            <field name="category_id" invisible="1" defaultValue="Expert"/>
+                            
+
+                        </group>
+                        <group>
+                            <separator  string='Profile Image' colspan="2"/>                     
+                            <field name="image_1920" widget="image" style="height: 100px; width: 100px;" nolabel="1"/>
+                            <separator name="expert_location" string='Location' colspan="2"/>
+                            <field name="province" options="{'no_create': True}"/>
+                            <field name="district" domain="[('province_name', '=', province)]" options="{'no_create': True}"/>
+                            <field name="palika" domain="[('district_name', '=', district)]" options="{'no_create': True}"/>
+                            <field name="ward_no"/>
+                            <field name="tole"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record id="view_tree_expert" model="ir.ui.view">
+        <field name="name">Tree view</field>
+        <field name="model">expert.experts</field>
+        <field name="arch" type="xml">
+            <tree>
+             <field name="name"/>
+             <field name="branch"/>
+             <field name="mobile"/>
+            </tree>
+         </field>
+    </record>
+
+
+
+
+
+
+
+
+    <record id="view_technician" model="ir.ui.view">
+        <field name="name">Technician</field>
+        <field name="model">technician.technicians</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <group>
+                    <group>
+                        <separator  string='General Information' colspan="2"/>
+                        <!-- <field name="id" invisible="0"/> -->
+                        <field name="name"/>
+                        <field name="branch" />
+                        <field name="phone"/>
+                        <field name="email" />
+                        <field name="mobile"/>
+                        <field name="technician_type"/>
+                        <field name="category_id" invisible="1" defaultValue="Expert"/>
+                        
+
+                    </group>
+                    <group>
+                        <separator  string='Profile Image' colspan="2"/>                     
+                        <field name="image_1920" widget="image" style="height: 100px; width: 100px;" nolabel="1"/>
+                        <separator name="technician_location" string='Location' colspan="2"/>
+                            <field name="province" options="{'no_create': True}"/>
+                            <field name="district" domain="[('province_name', '=', province)]" options="{'no_create': True}"/>
+                            <field name="palika" domain="[('district_name', '=', district)]" options="{'no_create': True}"/>
+                            <field name="ward_no"/>
+                            <field name="tole"/>
+                    </group>
+                </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_tree_technician" model="ir.ui.view">
+        <field name="name">Tree view</field>
+        <field name="model">technician.technicians</field>
+        <field name="arch" type="xml">
+            <tree>
+            <field name="name"/>
+            <field name="branch"/>
+            <field name="mobile"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+
+</odoo>

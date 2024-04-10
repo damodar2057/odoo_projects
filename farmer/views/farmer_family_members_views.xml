@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+<!--        Farmer Family Member Form View-->
+        <record id="view_farmer_family_member_form" model="ir.ui.view">
+            <field name="name">Farmer Family Member Form</field>
+            <field name="model">farmer.family</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                        <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="member_dob"/>
+                            <field name="member_gender"/>
+                            <field name="member_qualification" widget="many2many_tags"/>
+                            <field name="member_occupation" />
+                            <field name="member_citizenship_photo"/>
+                            <field name="member_involved_in_agri"/>
+                            <field name="delete_request" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+<!--        Farmer Family Member Tree View-->
+        <record id="view_farmer_family_member_tree" model="ir.ui.view">
+            <field name="name">Farmer Family Member Tree</field>
+            <field name="model">farmer.family</field>
+            <field name="arch" type="xml">
+                <tree delete="0" decoration-danger="delete_request">
+                    <field name="name"/>
+                    <field name="member_dob"/>
+                    <field name="member_gender"/>
+                    <field name="member_qualification"/>
+                    <field name="member_occupation"/>
+                    <field name="member_citizenship_photo"/>
+                    <field name="member_involved_in_agri"/>
+                    <field name="delete_request" invisible="1"/>
+
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

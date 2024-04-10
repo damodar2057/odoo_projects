@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+        <!-- Configuration Servies Seedling Type Form View -->
+        <record id="view_seedling_lists_form" model="ir.ui.view">
+            <field name="name">Seedling Lists</field>
+            <field name="model">seedling.lists.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Servies Seedling Type Tree View -->
+        <record id="view_seedling_lists_tree" model="ir.ui.view">
+            <field name="name">Seedling Lists</field>
+            <field name="model">seedling.lists.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>           
+                </tree>
+            </field>
+        </record>
+        <!-- Configuration Servies Service Type Form View -->
+        <record id="view_service_lists_form" model="ir.ui.view">
+            <field name="name">Service Lists</field>
+            <field name="model">services.lists</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Servies Service Type Tree View -->
+        <record id="view_service_lists_tree" model="ir.ui.view">
+            <field name="name">Service Lists</field>
+            <field name="model">services.lists</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>           
+                </tree>
+            </field>
+        </record>
+        <!-- Configuration Servies Equipment Type Form View -->
+        <record id="view_equipment_lists_form" model="ir.ui.view">
+            <field name="name">Equipment Lists</field>
+            <field name="model">equipment.lists.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Servies Equipment Type Tree View -->
+        <record id="view_equipment_lists_tree" model="ir.ui.view">
+            <field name="name">Equipment Lists</field>
+            <field name="model">equipment.lists.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>           
+                </tree>
+            </field>
+        </record>
+
+        <!-- Configuration fish larva Type Form View -->
+        <record id="view_fish_larva_lists_form" model="ir.ui.view">
+            <field name="name">Fish Larva Lists</field>
+            <field name="model">fish_larva.lists.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration fish larva Type Tree View -->
+        <record id="view_fish_larva_lists_tree" model="ir.ui.view">
+            <field name="name">Fish Larva Lists</field>
+            <field name="model">fish_larva.lists.model</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>           
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

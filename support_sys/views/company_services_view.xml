@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Overview List View -->
+    <record model="ir.ui.view" id="company_services_list_view">
+        <field name="name">company.services.list.view</field>
+        <field name="model">company.services</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="service_name" />
+                <field name="url" />
+                <field name="demo_login_id" />
+                <field name="demo_login_password" />
+
+            </tree>
+        </field>
+    </record>
+    <!-- Company Bank Details View -->
+    <record model="ir.ui.view" id="company_bank_details_list_view">
+        <field name="name">company.bank.details.list.view</field>
+        <field name="model">company.bank.details</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="account_name" />
+                <field name="account_number" />
+                <field name="bank_name" />
+                <field name="branch_name" />
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for SupportSys -->
+    <!-- <record model="ir.ui.view" id="company_services_form_view">
+        <field name="name">company.services.form.view</field>
+        <field name="model">company.services</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="service_name" />
+                        <field name="url" />
+                        <field name="demo_login_id" />
+                        <field name="demo_login_password" />
+
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}" />
+                </div>
+            </form>
+        </field>
+    </record> -->
+
+
+</odoo>

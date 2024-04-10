@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+
+    <record id="action_vehicle_track_leaflet" model="ir.actions.client">
+            <field name="name">Track Vehicle</field>
+            <field name="tag">track.vehicle.owl.registry</field>
+        </record>
+         <menuitem id="menu_track_vehicle_in_parent_menu"
+              name="Track Vehicles"
+              action="action_vehicle_track_leaflet"
+               parent="fleet.menu_root"
+                    sequence="5"/>
+    </data>
+</odoo>

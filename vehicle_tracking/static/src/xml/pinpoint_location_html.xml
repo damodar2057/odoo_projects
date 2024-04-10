@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="leaflet.practice" owl="1">
+       <div class="oe_structure">
+           <div class="custom-html-container">
+               <button class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#exampleModal" >Add to map</button>
+           </div>
+           <div class="coordinates">
+               <span class="m-3" t-esc="state.coordinates.lat"/>
+               <span class="m-3" t-esc="state.coordinates.lng"/>
+           </div>
+       </div>
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Select Location</h5>
+      </div>
+      <div class="modal-body leaflet_display">
+        <!-- Map content goes here -->
+          <div id="leaflet-map" style="height:100%; width:100%">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" t-on-click="selectLocation" data-bs-dismiss="modal">Select</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </t>
+
+</templates>

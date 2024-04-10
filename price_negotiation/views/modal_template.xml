@@ -1,0 +1,92 @@
+  <!--portal page-->
+    <template id="portal_products" name="Products">
+
+        <!-- Modal -->
+        <div id="new_modal" class="modal fade mt-25" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update your Request</h5>
+                        <!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                        <!--                            <span aria-hidden="true">X</span>-->
+                        <!--                        </button>-->
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="expected_price">Expected Price:</label>
+                            <input type="text" class="form-control" id="expected_price" required="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="customer_status">Customer Status:</label>
+                            <select class="form-control" id="customer_status">
+                                <option value="Negotiating">Negotiating</option>
+                                <option value="Locked">Locked</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" t-attf-onclick="close_modal()">Close</button>
+                        <button type="button" class="btn btn-primary" id="save_changes"
+
+                        >Save changes</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Products</t>
+            </t>
+            <t t-if="products" t-call="portal.portal_table">
+
+                <thead>
+                    <tr class="active">
+                        <th>Product Name #</th>
+                        <th class="text-end">Reference No.</th>
+                        <th class="text-end">Quantity</th>
+                        <th class="text-end"> Actual Price</th>
+                        <th class="text-end"> Expected Price</th>
+                        <th class="text-end">Your Status</th>
+                        <th class="text-end">Counter Vendor Rate</th>
+                        <!--                        <th class="text-end">Counter Vendor Rate</th>-->
+                        <!--                        <th class="text-end">Final Price</th>-->
+                    </tr>
+                </thead>
+                <t t-foreach="products" t-as="product">
+                    <tr>
+                        <td><a t-att-href="'/my/products/%s' %slug(product)">
+                            <t t-out="product.product_name"/></a></td>
+                        <td class="text-end">
+                            <span t-field="product.ref"/>
+
+                        </td>
+                        <td class="text-end"><span t-field="product.quantity"/></td>
+                        <td class="text-end"><span t-field="product.actual_price"/></td>
+                        <td class="text-end"><span t-field="product.expected_price_per_unit"/></td>
+                        <td class="text-end">
+                            <span t-field="product.customer_status"/></td>
+                        <td class="text-center">
+                            <span t-field="product.counter_offer_price_per_unit"/></td>
+                        <td class="text-end">
+                            <t t-if="product.state == 'Accept'">
+
+                                <b style="color: #28a745">Accepted</b>
+
+                            </t>
+                            <t t-else="">
+                                <!-- Edit button -->
+                                <button t-attf-data-id="{{product.id}}" id="jpt" t-attf-onclick="edit_negotiation_request({{product.id}})" class="btn btn-primary btn-sm edit-product">Update</button>
+                                <!-- Delete button -->
+                                <button t-attf-data-id="{{product.id}}" class="btn btn-danger btn-sm delete-product" t-attf-onclick="delete_record({{product.id}})">Delete</button>
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+            <p t-else="">There are currently no Product for your account.</p>
+        </t>
+    </template>

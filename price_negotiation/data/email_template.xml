@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data noupdate="0">
+        <record id="price_negotiation_email_template_accept" model="mail.template">
+            <field name="name">Price Negotiation Request Template</field>
+            <field name="model_id" ref="price_negotiation.model_price_negotiation"/>
+            <field name="subject">Price negotiation request accepted </field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{object.email}}"</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;">
+                        <tbody>
+                            <!-- HEADER -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr><td valign="middle">
+                                            <span style="font-size: 20px; font-weight: bold;">
+                                                <!--                                                <t t-out="user.name or ''"></t>-->
+                                            </span>
+                                        </td><td valign="middle" align="right">
+                                            <!--                                            <img t-attf-src="/logo.png?company={{ user.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>-->
+                                        </td></tr>
+                                        <tr><td colspan="2" style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- CONTENT -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr><td valign="top" style="font-size: 13px;">
+                                            <div>
+                                                Dear <t t-out="object.customer or ''"></t>,<br/><br/>
+                                                Congratulations!! Your request for price negotiation has been accepted!!<br/>
+                                                Your Promo Code is <t t-out="object.negotiation_promo_code or ''"></t><br/><br/>
+                                                You can use this to get discount!!
+                                                <!--                                                Reference Number: <t t-out="object.ref or ''"/>-->
+
+                                                Do you want to proceed to checkout !!!
+                                                <a t-att-href="'/shop/payment?negotiation_token='+ object.negotiation_token +'&amp;promo_code=' +str(object.negotiation_promo_code)">Proceed to Payment</a>
+                                                <br/>
+                                                <br/>
+
+
+                                                If you do not expect this, you can safely ignore this email.<br/><br/>
+                                                Thanks,
+
+                                                <br/>
+                                                <!--                                                <t t-out="user.customer or ''">&#45;&#45;<br/></t>-->
+
+                                            </div>
+                                        </td></tr>
+                                        <tr><td style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td></tr>
+                </table>
+            </field>
+        </record>
+        <record id="price_negotiation_email_template_reject" model="mail.template">
+            <field name="name">Price Negotiation Request Template</field>
+            <field name="model_id" ref="price_negotiation.model_price_negotiation"/>
+            <field name="subject">Price negotiation request rejected </field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{object.email}}"</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;">
+                        <tbody>
+                            <!-- HEADER -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr><td valign="middle">
+                                            <span style="font-size: 20px; font-weight: bold;">
+                                                <!--                                                <t t-out="user.name or ''"></t>-->
+                                            </span>
+                                        </td><td valign="middle" align="right">
+                                            <!--                                            <img t-attf-src="/logo.png?company={{ user.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>-->
+                                        </td></tr>
+                                        <tr><td colspan="2" style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- CONTENT -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr><td valign="top" style="font-size: 13px;">
+                                            <div>
+                                                Dear <t t-out="object.customer or ''"></t>,<br/><br/>
+                                                Your request for price negotiation has been rejected!!<br/>
+                                                <!--                                                Reference Number: <t t-out="object.ref or ''"/>-->
+                                                <br/>
+                                                <br/>
+
+
+                                                If you do not expect this, you can safely ignore this email.<br/><br/>
+                                                Thanks,
+
+                                                <br/>
+                                                <!--                                                <t t-out="user.customer or ''">&#45;&#45;<br/></t>-->
+
+                                            </div>
+                                        </td></tr>
+                                        <tr><td style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td></tr>
+                </table>
+            </field>
+        </record>
+        <record id="price_negotiation_email_template_on_negotiation" model="mail.template">
+            <field name="name">Price Negotiation Request Template</field>
+            <field name="model_id" ref="price_negotiation.model_price_negotiation"/>
+            <field name="subject">Re: Revised Pricing Proposal for [Product Name] </field>
+            <field name="email_from">"{{ user.email }}"</field>
+            <field name="email_to">"{{object.email}}"</field>
+            <field name="body_html" type="html">
+                <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;">
+                        <tbody>
+                            <!-- HEADER -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                        <tr><td valign="middle">
+                                            <span style="font-size: 20px; font-weight: bold;">
+                                                <!--                                                <t t-out="user.name or ''"></t>-->
+                                            </span>
+                                        </td><td valign="middle" align="right">
+                                            <!--                                            <img t-attf-src="/logo.png?company={{ user.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>-->
+                                        </td></tr>
+                                        <tr><td colspan="2" style="text-align:center;">
+                                            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                        </td></tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- CONTENT -->
+                            <tr>
+                                <td align="center" style="min-width: 590px;">
+                                    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse: separate;">
+                                        <tr>
+                                            <td valign="top" style="font-size: 13px;">
+                                                <div>
+                                                    Dear <t t-out="object.customer or ''"></t>,<br/><br/>
+
+                                                    <!-- Reference Number: <t t-out="object.ref or ''"/> -->
+                                                    <br/>
+                                                    <br/>
+
+
+                                                    After reviewing your request for price negotiation on [Product Name], we're delighted to propose a new, more competitive price that we believe aligns with your needs.<br/><br/>
+                                                    Let's schedule a time to discuss this updated offer in detail. When would be convenient for you?<br/><br/>
+                                                    Thank you for considering our proposal.<br/><br/>
+                                                    If you want to re-negotiate please
+                                                    <a t-attf-href="/price/negotiation">Click here!!  </a>
+                                                    <br/>
+                                                    <br/>
+                                                    Best regards,<br/>
+                                                    [Your Name]<br/>
+                                                    [Your Position]<br/>
+                                                    [Your Company]<br/><br/>
+                                                    If you do not expect this, you can safely ignore this email.<br/><br/>
+
+                                                    <!-- End of the revised email content -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:center;">
+                                                <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </td></tr>
+                </table>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <record id="website.menu_reporting" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, ref('farmer.group_farmer_website_access'))]"/>
+        </record>
+    </data>
+</odoo>

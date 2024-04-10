@@ -1,0 +1,54 @@
+<odoo>
+    <!-- Farmer Crop View -->
+    <record id="view_form_farmer_crop" model="ir.ui.view">
+        <field name="name">Crop Form</field>
+        <field name="model">farmer.crop</field>
+        <field name="arch" type="xml">
+            <form string="Crop Information">
+                <header>
+                    <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                    <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                </header>
+                <sheet>
+                    <field name="crop_image" widget="image"/>
+                    <group>
+                        <field name="delete_request" invisible="1"/>
+                        <field name="crop_name" options= "{'no_create':True}"/>
+                        <field name="crops_types" widget="many2many_tags" domain="[('crop_name','=',crop_name)]" options= "{'no_create':True}"/>
+                        <!-- <field name="crop_type" widget="selection" options="{'no_create': True}"/> -->
+                        <field name="production_date_crop" widget="nepali_datepicker"/>
+                        <field name="production_quantity_crop"/>
+                        <field name="area"/>
+                        <field name="selling_price_crop"/>
+                        <field name="is_sellable" attrs="{'invisible': [('id', '!=', False)]}"/>
+                        <field name="sellable_quantity_crop" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                        <field name="crop_counts" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                        <field name="is_publishable" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                        <field name="dummy_name" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Farmer Crop Tree View -->
+    <record id="view_tree_farmer_crop" model="ir.ui.view">
+        <field name="name">Farmer crop Tree view</field>
+        <field name="model">farmer.crop</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request" >
+                <field name="delete_request" invisible="1"/>
+                <field name="crop_name" attrs="{'readonly': [('id', '!=', False)]}"/>
+                <field name="crops_types"/>
+                <field name="area"/>
+                <field name="crop_counts"/>
+                <field name="production_quantity_crop"/>
+                <field name="selling_price_crop"/>
+                <field name="dummy_name" invisible="1"/>
+                <field name="is_sellable" invisible="1"/>
+                <field name="is_publishable" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

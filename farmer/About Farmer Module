@@ -1,0 +1,97 @@
+# Module with language file translation: Saurav Thakur
+1. web
+2. contacts
+3. project
+4. palika
+5. employee
+6. disscuss
+7. calender
+8. farmer
+
+# Producer Model made which inherits from res.partner(later updated to res.user by Damodar Aryal): Saurav Thakur
+
+# Models that inherit from Producer Model: Saurav Thakur
+1. Farmer
+2. Farmer Group
+3. Household
+note: This was done so that service menu can access all three of the above mentioned producer as request recipient
+
+# Congiguration Menu(Including models and views) added: Saurav Thakur
+1. Local Production Types
+2. Qualification 
+3. Occupation
+
+# Refactoring backend request view: Saurav Thakur, Bisesh Koirala
+1. Domain restrictions
+2. Selected Producers Details
+3. Created By and Created On(Nepali Date) in tree view
+
+# Added Farmer ID report: Saurav Thakur, Siddhartha Sitaula 
+1. Nepali Font needs to be added to server to support nepali characters. Answer by ohadperry in https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3108 will help in this part.
+
+# Request Forms added to website: Saurav Thakur
+1. Serive Request
+2. Equipment Request
+3. Seedling Request
+4. Expert Request
+note: template needs to follow a certain format for the best functionality.farmer/views/farmer_form_template.xml has example code for all the relevent fields except many2many which can be found in farmer/views/request_form_template.xml
+
+
+# Security Acess Groups: Saurav Thakur
+1. FIS/ User Producer Farmer Access 
+    i.  Only for Farmer User.
+    ii. Especially made for Farmer Profile Update Request functionality.
+
+# Added Farmer Profile Update Request functionality in website: Saurav Thakur
+1. Works for User Created from Farmer Menu.
+2. In case of other user redirects to my account page (/my/home)
+
+# Farmer Profile Update Request Approve and Decline Functionality: Saurav Thakur
+1. Cannot be decline until decline reason is set
+2. Is made readonly for all users in approved or declined state 
+3. Only FIS/ User Admin Access can approve or decline the request
+
+# Backend View for Profile Update Request (Tree, Form): Aaditya Singh
+
+# Khalti Payment Integration: Siddhartha Situala
+1. Added a module for integrating khalti payment
+2. Khalti API key is needed for this, must be given by going to payment providers in ecommerce
+
+# Website Menu Access: Siddhartha Situala
+1. Added a new module which hides all the menu of website from newly created users
+2. The website can be enabled by going to user profile's menu hide tab(newly created tab which contains info about hidden menu)
+
+# Farmer Group Identificatiob
+1. Added a new model for integrating group idnetification
+2. Default method added in farmer model which performs assignment
+3. This method is called in create method
+
+
+# Congiguration Menu(Including models and views) added: Bisesh Koirala
+1. Locaiton District Information 
+2. Location Palika Information
+3. Year Program Information
+4. Project Program Information
+
+# Security Acess Groups: Bisesh Koirala 
+1. FIS/ Surveyor Access 
+    i.   Access to Producer menu only
+    ii.  Models like Farmer & Farmer Group are given form access.
+    iii. Some sub-models from Configuration are given only read access.
+2. FIS/ User Access (Inherits Surveyour)
+    i.  Access to Request,Organization & Expert models and their form & tree views.
+    ii. Since it inherits Surveyour having Producer menu access is given.
+3. FIS/ User Admin Access (Inherits User)
+    i. It gets all model access except for Configuration.
+4. FIS/ Config Access 
+    i. This is only to give menu access for configuration if this is ticked then only configuration menu is shown.
+
+# Module with language file translation: Bisesh Koirala
+1. farmer(frontend website part)
+
+# Modified system to save records under res.users so that farmer, household can access website inventory.: Damodar Aryal
+
+# Automated the assignment of default access groups for farmer, household, and farmer group users, eliminating the need for manual access group configuration.: Damodar Aryal
+
+# Code organization: Damodar Aryal
+1. Models and views orgainsed in a file based on menu item.

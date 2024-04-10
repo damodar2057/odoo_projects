@@ -1,0 +1,9 @@
+<odoo>
+    <record id="driver_sequence" model="ir.sequence">
+        <field name="name">Driver Code</field>
+        <field name="code">vehicle.tracking.driver.sequence</field>
+        <field name="prefix">DVR_50</field>
+        <field name="padding">5</field>
+        <field name="number_increment" eval="1"/>
+    </record>
+</odoo>

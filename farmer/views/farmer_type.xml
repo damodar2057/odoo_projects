@@ -1,0 +1,151 @@
+<odoo>
+    <!-- Farmer Animal Form View -->
+<record id="view_form_farmer_type" model="ir.ui.view">
+    <field name="name">Farmer Type</field>
+    <field name="model">farmer.type</field>
+    <field name="arch" type="xml">
+        <form string="Farmer Type">
+            <sheet>
+                <group col="1">
+                    <group>
+                        <field name="type"/>
+                    </group>
+                    <group string="Yearly Investment" col="3">
+                        <group>
+                            <field name="yearly_investment_from"/>
+                        </group>
+                        <group>
+                            <field name="yearly_investment_type"/>
+                        </group>
+                        <group>
+                            <field name="yearly_investment_to"/>
+                        </group>
+                        <group>
+                            <field name="yearly_investment_field_select"/>
+                        </group>
+                        <group>
+                            <field name="yearly_investment_lt"/>
+                        </group>
+                    </group>
+
+                    <group string="Yearly Transaction" col="3">
+                        <group>
+                            <field name="yearly_transaction_from"/>
+                        </group>
+                        <group>
+                            <field name="yearly_transaction_type"/>
+                        </group>
+                        <group>
+                            <field name="yearly_transaction_to"/>
+                        </group>
+                        <group>
+                            <field name="yearly_transaction_field_select"/>
+                        </group>
+                        <group>
+                            <field name="yearly_transaction_lt"/>
+                        </group>
+                    </group>
+
+                    <group string="Yearly Minimum Monthly Income" col="3">
+                        <group>
+                            <field name="min_monthly_income_from"/>
+                        </group>
+                        <group>
+                            <field name="min_monthly_income_type"/>
+                        </group>
+                        <group>
+                            <field name="min_monthly_income_to"/>
+                        </group>
+                        <group>
+                            <field name="min_monthly_income_field_select"/>
+                        </group>
+                        <group>
+                            <field name="min_monthly_income_lt"/>
+                        </group>
+                    </group>
+
+                    <group string="Family Contribution" col="3">
+                        <group>
+                            <field name="family_contribution_from"/>
+                        </group>
+                        <group>
+                            <field name="family_contribution_type"/>
+                        </group>
+                        <group>
+                            <field name="family_contribution_to"/>
+                        </group>
+                        <group>
+                            <field name="family_contribution_field_select"/>
+                        </group>
+                        <group>
+                            <field name="family_contribution_lt"/>
+                        </group>
+                    </group>
+
+                    <group string="Number of Employees" col="3">
+                        <group>
+                            <field name="num_employees_from"/>
+                        </group>
+                        <group>
+                            <field name="num_employees_type"/>
+                        </group>
+                        <group>
+                            <field name="num_employees_to"/>
+                        </group>
+                        <group>
+                            <field name="num_employees_field_select"/>
+                        </group>
+                        <group>
+                            <field name="num_employees_lt"/>
+                        </group>
+                    </group>
+
+                    <group string="Number of Experience" col="3">
+                        <group>
+                            <field name="num_experience_from"/>
+                        </group>
+                        <group>
+                            <field name="num_experience_type"/>
+                        </group>
+                        <group>
+                            <field name="num_experience_to"/>
+                        </group>
+                        <group>
+                            <field name="num_experience_field_select"/>
+                        </group>
+                        <!-- <group>
+                            <field name="num_experience_lt"/>
+                        </group> -->
+                    </group>
+
+                    <group>
+                        <field name="ability_and_technology"/>
+                    </group>
+
+     
+
+
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!-- Farmer Animal Tree View -->
+<record id="view_tree_farmer_type" model="ir.ui.view">
+    <field name="name">Farmer Type Tree view</field>
+    <field name="model">farmer.type</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="type"/>
+            <field name="yearly_investment_display"/>
+            <field name="yearly_transaction_display"/>
+            <field name="min_monthly_income_display"/>
+            <field name="family_contribution_display"/>
+            <field name="num_employees_display"/>
+            <field name="num_experience_display"/>
+            <field name="ability_and_technology"/>
+        </tree>
+    </field>
+</record>
+</odoo>

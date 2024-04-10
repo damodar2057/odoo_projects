@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="vehicle.status.dashboard" owl="1">
+        <div class="vh-100 overflow-auto bg-muted">
+
+            <div class="row m-3">
+                <div class="col m-0 p-0">
+                    <div class="shadow-sm border m-2 p-2 bg-white">
+                         <div class="row m-2">
+                            <span class="text-center">Vehicles Status</span>
+                         </div>
+                        <div class="row m-2 d-flex align-items-center justify-content-between">
+                            <div class="col-lg-2 btn" id="all" t-on-click="allClick" style="cursor:pointer;">
+                                 <div class="shadow-lg m-2 p-4 text-white text-center">
+                                <div class="h3 fw-bolder text-info">All</div>
+                                <div class="h5 text-muted">
+                                    <span t-esc="state.allStatusLength"/>
+                                </div>
+                            </div>
+                            </div>
+
+                                   <div class="col-lg-2 btn" t-on-click="runningClick" id="running" style="cursor:pointer">
+<!--                                 <div class="shadow-lg m-2 p-4 text-white text-center" style="background-color:rgb(75, 192, 192)">-->
+                                 <div class="shadow-lg m-2 p-4 text-center">
+                                <div class="h3 fw-bolder text-success">Running</div>
+                                <div class="h5 text-muted">
+                                    <span t-esc="state.runningStatusLength"/>
+                                </div>
+                            </div>
+                            </div>
+
+                               <div class="col-lg-2 btn" t-on-click="activeClick" id="active" style="cursor:pointer">
+<!--                                 <div class="shadow-lg m-2 p-4 text-white text-center" style="background-color:rgb(29, 22, 245)">-->
+                                 <div class="shadow-lg m-2 p-4 text-white text-center" >
+
+                                <div class="h3 fw-bolder text-primary">Active</div>
+                                <div class="h5 text-muted">
+                                    <span t-esc="state.activeStatusLength"/>
+                                </div>
+                            </div>
+                            </div>
+
+                               <div class="col-lg-2 btn" t-on-click="inactiveClick" id="inactive" style="cursor:pointer">
+<!--                                 <div class="shadow-lg m-2 p-4 text-white text-center" style="background-color:rgb(255, 205, 86)">-->
+                                 <div class="shadow-lg m-2 p-4 text-white text-center">
+                                <div class="h3 fw-bolder text-warning">Inactive</div>
+                                <div class="h5 text-muted">
+                                    <span t-esc="state.inactiveStatusLength"/>
+                                </div>
+                            </div>
+                            </div>
+
+                             <div class="col-lg-2 btn" t-on-click="contactlessClick" id="contactless" style="cursor:pointer">
+<!--                                 <div class="shadow-lg m-2 p-4 text-white text-center" style="background-color:rgb(255, 99, 132)">-->
+                                 <div class="shadow-lg m-2 p-4 text-white text-center">
+                                <div class="h3 fw-bolder text-danger">Contactless</div>
+                                <div class="h5 text-muted">
+                                    <span t-esc="state.contactlessStatusLength"/>
+                                </div>
+                            </div>
+                            </div>
+
+                        </div>
+                     </div>
+                </div>
+            </div>
+            <div class="row shadow-lg bg-white p-2  justify-content-around">
+                <div class="col-lg-5 shadow-lg  bg-white my-3 ">
+                    <canvas class="" t-ref="chart"/>
+                </div>
+                <div class="col-lg-6 my-3 shadow-lg " style="height:350px;overflow:auto">
+                    <table class="table table-striped" id="map_viewing">
+                      <thead class="sticky-top" style="background:floralwhite">
+                        <tr >
+                          <th scope="col">License Plate</th>
+                          <th scope="col">Model</th>
+                          <th scope="col">Driver</th>
+                          <th scope="col">Status</th>
+<!--                            <th scope="col">lon</th>-->
+                            <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr t-foreach="state.allList" t-as="status" t-key="status.license_plate">
+<!--                            <div class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+                                <td><span t-esc="status.license_plate"/></td>
+                                  <td><span t-esc="status.model_id"/></td>
+                                  <td><span t-esc="status.driver_id"/></td>
+                                  <td><span t-esc="status.status"/></td>
+<!--                                  <td><span t-esc="status.longitude"/></td>-->
+
+                            <td>
+                                <button id="view_map" t-on-click="()=>this.loadMap(status.latitude,status.longitude)" class="btn" style="background:floralwhite" data-bs-toggle="modal" data-bs-target="#exampleModal" >View on Map</button>
+                            </td>
+<!--                            </div>-->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog for_width">
+                                        <div class="modal-content for_height">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">View Map</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                            <div class="modal-body  map_container_body">
+                                                <div id="map5"/>
+                                            </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+    </t>
+</templates>

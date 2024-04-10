@@ -1,0 +1,300 @@
+<odoo>
+    <!-- website form view of Service Request -->
+    <template id="request_service_request_template" name="Form fill">
+        <t t-call-assets="web.assets_common" t-js="false"/>
+        <t t-call="website.layout">
+            <div id="form_temp">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1>Service Request</h1>
+                        <div t-if="message" class="message">
+                            <span t-out="message"/>
+                        </div>
+                        <form method="post" action="/create/request/service_request" autocomplete="off">
+                            <div id="form_template">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group simple-form">
+                                    <!-- <label class="control-label" for="name">Year</label>
+                                    <div class="many2one_field custom-select" id="year">
+                                        <input type="text" name="year"
+                                            model="programs.year"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Program</label>
+                                    <div class="many2one_field custom-select" id="program">
+                                        <input type="text" name="program"
+                                            model="year.program"
+                                            domain= '[["year", "=", "year"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Project</label>
+                                    <div class="many2one_field custom-select" id="project">
+                                        <input type="text" name="project"
+                                            model="program.project"
+                                            domain= '[["program_name", "=", "program"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/> 
+                                    </div>  -->
+                                    <label class="control-label" for="name">Service Name</label>
+                                    <div class="many2one_field custom-select" id="service_name">
+                                        <input type="text" name="service_name"
+                                            model="services.lists"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <!-- <label class="control-label" for="name">Service Recipient</label>
+                                    <div class="many2one_field custom-select" id="service_recipient">
+                                        <input type="text" name="service_recipient"
+                                            model="farm.producer"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <button class="custom_create btn btn-primary btn-block">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- website form view of Equipment Request -->
+    <template id="request_equipment_request_template" name="Form fill">
+        <t t-call-assets="web.assets_common" t-js="false"/>
+        <t t-call="website.layout">
+            <div id="form_temp">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1>Equipment Request</h1>
+                        <div t-if="message" class="message">
+                            <span t-out="message"/>
+                        </div>
+                        <form method="post" action="/create/request/equipment_request" autocomplete="off">
+                            <div id="form_template">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group simple-form">
+                                    <!-- <label class="control-label" for="name">Year</label>
+                                    <div class="many2one_field custom-select" id="year">
+                                        <input type="text" name="year"
+                                            model="programs.year"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Program</label>
+                                    <div class="many2one_field custom-select" id="program">
+                                        <input type="text" name="program"
+                                            model="year.program"
+                                            domain= '[["year", "=", "year"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Project</label>
+                                    <div class="many2one_field custom-select" id="project">
+                                        <input type="text" name="project"
+                                            model="program.project"
+                                            domain= '[["program_name", "=", "program"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                    <label class="control-label" for="name">Equipment Type</label>
+                                    <div class="many2one_field custom-select" id="equipment_type">
+                                        <input type="text" name="equipment_type"
+                                            model="equipment.lists.model"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Equipment Quantity</label>
+                                    <div class="custom-select" id="equipment_quantity">
+                                        <input type="number" name="equipment_quantity"
+                                            class="form-control"
+                                            required="required"/>
+                                    </div>
+                                    <!-- <label class="control-label" for="name">Equipment Recipient</label>
+                                    <div class="many2one_field custom-select" id="equipment_recipient">
+                                        <input type="text" name="equipment_recipient"
+                                            model="farm.producer"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <button class="custom_create btn btn-primary btn-block">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- website form view of Seedling Request -->
+    <template id="request_seedling_request_template" name="Form fill">
+        <t t-call-assets="web.assets_common" t-js="false"/>
+        <t t-call="website.layout">
+            <div id="form_temp">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1>Seedling Request</h1>
+                        <div t-if="message" class="message">
+                            <span t-out="message"/>
+                        </div>
+                        <form method="post" action="/create/request/seedling_request" autocomplete="off">
+                            <div id="form_template">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group simple-form">
+                                    <!-- <label class="control-label" for="name">Year</label>
+                                    <div class="many2one_field custom-select" id="year">
+                                        <input type="text" name="year"
+                                            model="programs.year"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Program</label>
+                                    <div class="many2one_field custom-select" id="program">
+                                        <input type="text" name="program"
+                                            model="year.program"
+                                            domain= '[["year", "=", "year"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Project</label>
+                                    <div class="many2one_field custom-select" id="project">
+                                        <input type="text" name="project"
+                                            model="program.project"
+                                            domain= '[["program_name", "=", "program"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                    <label class="control-label" for="name">Seedling Type</label>
+                                    <div class="many2many_field custom-select" id="seedling_list">
+                                        <input type="text" name="seedling_list"
+                                            model="seedling.lists.model"
+                                            class="form-control"
+                                            required="required"
+                                            placeholder="Select Here..."/>
+                                    </div>
+                                    <label class="control-label" for="name">Seedling Quantity</label>
+                                    <div class="custom-select" id="seedling_quantity">
+                                        <input type="number" name="seedling_quantity"
+                                            class="form-control"
+                                            required="required"/>
+                                    </div>
+                                    <!-- <label class="control-label" for="name">Seedling Recipient</label>
+                                    <div class="many2one_field custom-select" id="seedling_recipient">
+                                        <input type="text" name="seedling_recipient"
+                                            model="farm.producer"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <button class="custom_create btn btn-primary btn-block">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- website form view of Expert Request -->
+    <template id="request_expert_request_template" name="Form fill">
+        <t t-call-assets="web.assets_common" t-js="false"/>
+        <t t-call="website.layout">
+            <div id="form_temp">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">
+                        <h1>Expert Request</h1>
+                        <div t-if="message" class="message">
+                            <span t-out="message"/>
+                        </div>
+                        <form method="post" action="/create/request/expert_request" autocomplete="off">
+                            <div id="form_template">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <div class="form-group simple-form">
+                                    <!-- <label class="control-label" for="name">Year</label>
+                                    <div class="many2one_field custom-select" id="year">
+                                        <input type="text" name="year"
+                                            model="programs.year"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Program</label>
+                                    <div class="many2one_field custom-select" id="program">
+                                        <input type="text" name="program"
+                                            model="year.program"
+                                            domain= '[["year", "=", "year"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <label class="control-label" for="name">Project</label>
+                                    <div class="many2one_field custom-select" id="project">
+                                        <input type="text" name="project"
+                                            model="program.project"
+                                            domain= '[["program_name", "=", "program"]]'
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                    <label class="control-label" for="name">Expert Type</label>
+                                    <div class="many2one_field custom-select" id="expert_id">
+                                        <input type="text" name="expert_id"
+                                            model="expert.lists.model"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div>
+                                    <!-- <label class="control-label" for="name">Expert Recipient</label>
+                                    <div class="many2one_field custom-select" id="expert_recipient">
+                                        <input type="text" name="expert_recipient"
+                                            model="farm.producer"
+                                            class="form-control"
+                                            placeholder="Select Here..."
+                                            required="required"/>
+                                    </div> -->
+                                </div>
+                                <div class="clearfix oe_login_buttons">
+                                    <button class="custom_create btn btn-primary btn-block">Submit Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- website success view of Request Sent -->
+    <template id="request_request_success_template" name="Form fill">
+        <t t-call-assets="web.assets_common" t-js="false"/>
+        <t t-call="website.layout">
+            <div id="success-container">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">    
+                        <h1>Successfully Request Sent!!!!</h1>
+                        Your request Code is <span t-out="request_code"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

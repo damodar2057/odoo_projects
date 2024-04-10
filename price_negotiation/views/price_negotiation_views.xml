@@ -1,0 +1,80 @@
+<odoo>
+
+
+    <!-- Farmer Equipment Request Form View -->
+    <record id="view_price_negotiation_request_form" model="ir.ui.view">
+        <field name="name">Negotiation Request</field>
+        <field name="model">price.negotiation</field>
+        <field name="arch" type="xml">
+            <form>
+                <!--                <field name="saved" attrs="{'invisible':1}"/>-->
+                <header class="d-flex" >
+                    <field name="state" widget="statusbar"  statusbar_visible='Draft,On Negotiation,Reject,Done'/>
+                    <!--                    <button class="custom_cancel btn btn-primary btn-block" type="object" name="reject_request" attrs="{'invisible':[('state','not in',('Draft'))]}">Accept</button>-->
+                    <div class="button-container">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="accept_request" attrs="{'invisible':['|',('state','in',('Accept')),('state','in',('Done')),]}">Accept</button>
+                        <button class="btn btn-primary btn-block" name="mark_as_done" string="Mark as Done" type="object"  attrs="{'invisible':[('state','not in',('Accept'))]}"/>
+                        <button class="btn btn-primary btn-secondary" name="mark_as_undo" string="Undo" type="object"  attrs="{'invisible':[('state','not in',('Done'))]}"/>
+                        <button class="custom_decline btn btn-secondary btn-block"  type="object" name="reject_request" attrs="{'invisible':[('state','in',('Done'))]}">Reject</button>
+                        <button class="custom_approve btn btn-secondary btn-block" type="object" name="action_open_counter_offer_popup" attrs="{'invisible':[('state','in',('Done'))]}">Negotiate</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="contact_customer">Contact to Customer</button>
+                    </div>
+                </header>
+                <sheet>
+                    <!--                    <widget name="web_ribbon" title="Approved" bg_color=Counter Suggested Rate?
+"bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>-->
+                    <!--                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>-->
+                    <!--                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>-->
+                    <!--                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>-->
+                    <!--                    <field name='equipment_recipient_set' invisible="1"/>-->
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group >
+                            <field name="customer" string="Customer" readonly="1"/>
+                            <field name="email" string="Email"  readonly="1"/>
+                            <field name="counter_offer_price_per_unit" attrs="{'invisible':[('state','not in',('On Negotiation'))]}" string="Counter Suggested Rate"/>
+                            <field name="product_name" string="Product"  readonly="1"/>
+                            <field name="actual_price" string="Actual Price"  readonly="1"/>
+
+                        </group>
+                        <group >
+                            <field name="expected_price_per_unit" string="Expected Price per Unit"  readonly="1"/>
+                            <field name="quantity" string="Quantity"  readonly="1"/>
+                            <field name="request_datetime" string="Request Datetime"  readonly="1"/>
+
+                        </group>
+                    </group>
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--    Farmer Fish Tree View-->
+    <record id="view_tree_farmer_fish" model="ir.ui.view">
+        <field name="name">Price Negotiation Tree View</field>
+        <field name="model">price.negotiation</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="ref" string="Reference Number"/>
+                <field name="customer" string="Customer"/>
+                <field name="email" string="Email"/>
+                <field name="product_name" string="Product"/>
+                <field name="counter_offer_price_per_unit"   string="Counter Rate" />
+                <field name="actual_price" string="Actual Price"/>
+                <field name="expected_price_per_unit" string="Expected Price per Unit"/>
+                <field name="quantity" string="Quantity"/>
+                <field name="request_datetime" string="Request Datetime"/>
+                <field name="customer_status" widget="badge" decoration-success="customer_status== 'Locked'" decoration-info="customer_status == 'negotiating'"/>
+                <field name="state" string="State"  widget="badge" decoration-info="state == 'Draft'" decoration-success="state == 'Done' or state == 'Accept'" decoration-danger="state == 'Reject'"  options="{'color_field': 'color'}"/>
+
+
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_price_negotiation_request" model="ir.actions.act_window">
+        <field name="name">Price Negotiation Request</field>
+        <field name="res_model">price.negotiation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="price_negotiation_menu_id" parent="farmer.menu_services_request" name="Price Negotiation Request" action="action_price_negotiation_request"/>
+</odoo>

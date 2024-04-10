@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <data>
+    <template id="price_negotiation_request_template">
+      <t t-call="website.layout">
+        <t t-set="page_js">
+          <!--          <script>-->
+          <!--            function validateForm() {-->
+          <!--            // Add custom validation logic here if needed-->
+          <!--            return false; // Change to false if you want to prevent the form submission under certain conditions-->
+          <!--            }-->
+          <!--          </script>-->
+        </t>
+
+        <div class="form-container" style="padding:2.5rem 32rem">
+
+          <form class="row g-3" action="/price/negotiation/submit" method="post" >
+            <div class="col-md-6">
+              <label for="inputCustomer4" class="form-label">Customer</label>
+              <input type="text" class="form-control" readonly="readonly" name="inputCustomer4" t-att-value="default_customer" />
+            </div>
+            <div class="col-md-6">
+              <label for="inputEmail4" class="form-label">Email</label>
+              <input type="email" class="form-control" name="inputEmail4"  t-att-value="default_user_email" />
+            </div>
+            <div class="col-md-6">
+              <label for="inputPhone" class="form-label">Phone</label>
+              <input type="text" class="form-control" name="inputPhone" readonly="readonly" t-att-value="default_user_phone" />
+            </div>
+            <div class="col-md-6">
+              <label for="inputProduct" class="form-label">Product</label>
+              <input type="text" class="form-control" name="inputProduct" readonly="readonly" t-att-value="default_product_name" />
+            </div>
+
+            <div class="col-12">
+              <label for="inputQuantity" class="form-label">Quantity</label>
+              <input type="number"  class="form-control" name="inputQuantity" t-att-value="default_min_quantity" readonly="readonly" />
+<!--              <input type="number"  class="form-control" name="inputQuantity" t-att-value="default_min_quantity" t-att-min="default_min_quantity" required="true" min="20" />-->
+            </div>
+            <div class="col-12">
+              <label for="inputActualPrice" class="form-label">Actual Price</label>
+              <input type="number"  class="form-control" name="inputActualPrice" t-att-value="default_product_price" readonly="readonly" required="true" />
+            </div>
+
+
+
+            <!-- Add a hidden input field for default_product_id -->
+            <input type="hidden" name="inputProductID" t-att-value="default_product_id" />
+
+            <div class="col-12">
+              <label for="inputExpectedPrice" class="form-label">Expected Price per Unit</label>
+              <input type="number" class="form-control" name="inputExpectedPrice" required="true" />
+            </div>
+            <div class="col-md-6">
+              <label for="inputDescription" class="form-label">Description</label>
+              <input type="text" class="form-control" name="inputDescription" required="true"/>
+            </div>
+            <div class="col-md-6">
+              <label for="inputStatus" class="form-label">Status</label>
+              <select name="inputStatus" class="form-control">
+                <option value="Locked">Locked</option>
+                <option value="Negotiating">Negotiating</option>
+              </select>
+            </div>
+
+
+
+            <!--            <div class="col-12">-->
+            <!--              <div class="form-check">-->
+            <!--                <input class="form-check-input" type="checkbox" id="gridCheck"/>-->
+            <!--                <label class="form-check-label" for="gridCheck">-->
+            <!--                  Check me out-->
+            <!--                </label>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary" style="padding:0.8rem;font-size:16px" id="submitEquipmentButton">Submit </button>
+            </div>
+          </form>
+
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

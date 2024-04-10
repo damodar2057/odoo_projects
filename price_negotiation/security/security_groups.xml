@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="group_price_negotiator_access" model="res.groups">
+            <field name="name">Price Negotiation Manager</field>
+            <field name="category_id" ref="farmer.module_category_farmer"/>
+        </record>
+
+
+    </data>
+</odoo>

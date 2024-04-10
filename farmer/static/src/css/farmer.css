@@ -1,0 +1,9 @@
+.farmer_profile {
+    max-width: 150px !important;
+    max-height:200px !important;
+}
+
+
+#crop_name{
+    display: relative;
+}

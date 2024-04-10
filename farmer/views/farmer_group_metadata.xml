@@ -1,0 +1,43 @@
+<odoo>
+    <record model="ir.actions.act_window" id="action_farmer_group_metadata">
+        <field name="name">Farmer Group Metadata</field>
+        <field name="res_model">farmer.group.metadata</field>
+        <field name="type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <!--    Farmer Fish Form View-->
+            <record id="view_farmer_group_metadata_form" model="ir.ui.view">
+                <field name="name">farmer.group.metadata.view</field>
+                <field name="model">farmer.group.metadata</field>
+                <field name="arch" type="xml">
+                    <form>
+
+                            <group col="4">
+                                <group><label for="yearly_investment"/></group>
+                                <group><label for="yearly_transaction"/></group>
+                                <group><label for="min_monthly_income"/></group>
+                                <group><label for="family_contribution"/></group>
+                            </group>
+                            <group col="4">
+                                <group><field name="yearly_investment" nolabel="1"/></group>
+                                <group><field name="yearly_transaction" nolabel="1"/></group>
+                                <group><field name="min_monthly_income" nolabel="1"/></group>
+                                <group><field name="family_contribution" nolabel="1"/></group>
+                            </group>
+                            <group col="4">
+                                <group><label for="num_employees"/></group>
+                                <group><label for="num_experience"/></group>
+                                <group><label for="ability_and_technology" colspan="2"/></group>
+                            </group>
+                            <group col="4">
+                                <group><field name="num_employees" nolabel="1"/></group>
+                                <group><field name="num_experience" nolabel="1"/></group>
+                                <group><field name="ability_and_technology" nolabel="1" colspan="2"/></group>
+                            </group>
+
+                    </form>
+                </field>
+            </record>
+    </odoo>
+    

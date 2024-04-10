@@ -1,0 +1,17 @@
+.leaflet_display {
+    overflow: hidden;
+    /* Add any additional styling as needed */
+}
+
+#leaflet-map {
+    height: 100%;
+    width: 100%;
+}
+.modal-dialog {
+    max-width: 50%;
+    margin: 0; /* Remove any default margin */
+}
+
+.modal-content {
+    height: 50vh; /* Set height to 100% of the viewport height */
+}

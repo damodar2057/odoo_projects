@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_price_negotiation_counter_offer_popup" model="ir.ui.view">
+        <field name="name">price.neg.counter.offer.wizard.form</field>
+        <field name="model">price.negotiation.counter.offer.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="counter_offer_price"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Confirm" type="object" name="update_counter_offer_price" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

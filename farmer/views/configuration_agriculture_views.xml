@@ -1,0 +1,118 @@
+<odoo>
+    <data>
+        <!-- Configuration Agriculture Agriculture Type Form View -->
+        <record id="view_agriculture_type_form" model="ir.ui.view">
+            <field name="name">Agriculture type</field>
+            <field name="model">farmer.agriculture.activities</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Configuration Agriculture Fish Type Form View -->
+        <record id="view_fish_type_form" model="ir.ui.view">
+            <field name="name">Fish type</field>
+            <field name="model">fish.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Configuration Agriculture Crop Type Form View -->
+        <record id="view_crop_type_form" model="ir.ui.view">
+            <field name="name">Crop type</field>
+            <field name="model">crop.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="crop_name"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Agriculture Crop Type tree View -->
+        <record id="view_crop_type_tree" model="ir.ui.view">
+            <field name="name">Crop type</field>
+            <field name="model">crop.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="crop_name"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Configuration Agriculture Animal Type Form View -->
+        <record id="view_animal_type_form" model="ir.ui.view">
+            <field name="name">Animal type</field>
+            <field name="model">animal.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="animal_name"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Agriculture Animal Type tree View -->
+        <record id="view_animal_type_tree" model="ir.ui.view">
+            <field name="name">Animal type</field>
+            <field name="model">animal.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="animal_name"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Configuration Agriculture Animal Purpose Form View -->
+        <record id="view_animal_purpose_form" model="ir.ui.view">
+            <field name="name">Animal purpose</field>
+            <field name="model">animal.purpose</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Configuration Agriculture Local Production Types Form View -->
+        <record id="view_local_production_types_form" model="ir.ui.view">
+            <field name="name">Local Production Types</field>
+            <field name="model">local.production.category</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

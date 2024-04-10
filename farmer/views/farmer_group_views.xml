@@ -1,0 +1,195 @@
+<odoo>
+    <data>
+        <record id="create_poc_window_action" model="ir.actions.act_window">
+            <field name="name">Create Farmer Group POC</field>
+            <field name="res_model">farmer.group.poc</field>
+<!--            <field name="context">{'default_group_id':context.get("id")}</field>-->
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="edit_poc_window_action" model="ir.actions.act_window">
+            <field name="name">Edit Farmer Group POC</field>
+            <field name="res_model">farmer.group.poc</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <record id="view_farmer_group_form" model="ir.ui.view">
+            <field name="name">Farmer Group Form</field>
+            <field name="model">farmer.group</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1>
+                            <field name="ref"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <separator name="institution" string='Institution general' colspan="2"/>
+                                <field name="id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="mobile"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                                <field name="website"/>
+
+                                <separator name = 'Identufy_doc' string= 'Identify Documents' colspan = '2'/>
+                                <field name="registration_number"/>
+                                <field name="registration_date_bs" widget="nepali_datepicker"/>
+                                <field name="pan_number"/>
+                                <field name="vat"/>
+
+                                <separator name = 'members' string = 'Members' colspan = '2'/>
+                                <field name = 'chairman'/>
+                                <field name = 'secretary'/>
+                                <field name = 'treasurer'/>
+
+                            </group>
+
+                            <group>
+                                <field name="image_1920" colspan="2" widget="image" style="height: 150px; width: 150px;" nolabel="1"/>
+
+                                <separator name = 'address' string = 'Address' colspan = '2'/>
+                                    <field name="province" options="{'no_create': True}" />
+                                    <field name="district" domain="[('province_name', '=', province)]" options="{'no_create': True}"/>
+                                    <field name="palika" domain="[('district_name', '=', district)]" options="{'no_create': True}"/>
+                                    <field name="ward_no"/>
+                                    <field name="tole" domain="[('palika_name', '=', palika)]" options="{'no_create': True}"/>
+
+
+                                <separator name = 'location' string = 'Location' colspan = '2'/>
+                                <field name = 'latitude'/>
+                                <field name = 'longitude'/>
+
+                                
+                                <field name="poc_id" invisible="1"/>
+                                <separator name="farmer_string" string='Point of Contact' colspan="2"/>
+
+                                <button name="%(create_poc_window_action)d"
+                                            class="oe_highlight"
+                                            colspan="2"
+                                            string="Add POC"
+                                            type="action"
+                                            attrs="{'invisible': ['|', ('poc_id', '!=', False), ('id', '=', False)]}"/>
+                                <div colspan="2" attrs="{'invisible':[('poc_id', '=', False)]}">
+                                    <field name="poc_name"/>
+                                    <field name="poc_mobile"/>
+                                    <field name="poc_email"/>
+                                    <button name="action_edit_poc"
+                                            class="oe_highlight"
+                                            colspan="2"
+                                            string="Edit POC"
+                                            type="object"/>
+                                </div>
+                            </group>
+
+                        </group>
+
+                        <group col="2">
+                            <group>
+                                <separator name="local_level_organization_registration_details " string='Local Registration Details' colspan="2"/>
+                                <field name="local_reg_number"/>
+                                <field name="local_reg_date_bs" widget="nepali_datetime"/>
+
+                            </group>
+                            <group>
+                                <separator name="functional_details " string='Organization Functional Details' colspan="2"/>
+                                <field name="start_date_bs" widget="nepali_datetime"/>
+                                <field name="close_date_bs" widget="nepali_datetime"/>
+                                <field name="recent_paid_tax_year"/>
+                                <field name="yearly_transaction"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="land_lines" string='Land'>
+                                <field name="land_ids">
+                                    <tree>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="crop_lines" string='Crops'>
+                                <field name="crop_ids">
+                                    <tree>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="fish_lines" string='Fish'>
+                                <field name="fish_ids">
+                                    <tree>
+                                        <field name="fish_types"/>
+                                        <field name="pond_area"/>
+                                        <field name="baby_fish_release_date"/>
+                                        <field name="production_date"/>
+                                        <field name="fish_production_quantity"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="animal_lines" string='Animals'>
+                                <field name="animal_ids">
+                                    <tree>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="documents_lines" string='Documents'>
+                                <field name="document_ids">
+                                    <tree>
+                                        <field name="documents_types"/>
+                                        <field name="file"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="loan_lines" string='Loans'>
+                                <field name="loan_ids">
+                                    <tree>
+                                        <field name="institution_name"/>
+                                        <field name="institution_type"/>
+                                        <field name="loan_amount"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page name="associated_lines" string='Associated Institution'>
+                                <field name="associated_ids">
+                                    <tree>
+                                        <field name="institution_name" widget="many2many_tags"/>
+                                        <field name="institution_type" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Local Production">
+                                <field name="local_production_ids"></field>
+                            </page>
+                            <page string="Members">
+                                <field name="farmer_group_membership_ids">
+                                    <tree>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_farmer_group_tree" model="ir.ui.view">
+            <field name="name">Farmer Group Tree View</field>
+            <field name="model">farmer.group</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="ref"/>
+                    <field name="name" string="Institution Name"/>
+                    <field name="poc_id"/>
+                    <field name="phone" string="Institution Phone"/>
+                    <field name="email" string="Institution Email"/>
+                    <field name="mobile" string="Institution Mobile" optional="hide"/>
+                    <field name="vat" string="Institution Tax ID" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

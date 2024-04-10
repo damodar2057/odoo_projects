@@ -1,0 +1,63 @@
+<odoo>
+<!--    Farmer Fish Form View-->
+        <record id="view_farmer_fish_form" model="ir.ui.view">
+            <field name="name">farmer.fish.models.view</field>
+            <field name="model">farmer.fish</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                        <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="fish_image" widget="image"/>
+                            <group>
+                                <separator name="fish_general" string="General" colspan="2"/>
+                                <field name="fish_types"  options= "{'no_create':True}" attrs="{'readonly': [('id', '!=', False)]}"/>
+                                <field name="pond_area"/>
+                                <field name="production_date" widget="nepali_datepicker"/>
+                                <field name="fish_production_quantity"/>
+                                <field name="is_sellable" attrs="{'invisible': [('id', '!=', False)]}"/>
+                                <field name="sellable_quantity_fish" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                                <field name="fish_counts" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                                <field name="is_publishable" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                                <field name="dummy_name" invisible="1"/>
+                            </group>
+                            <group>
+                                <separator name="fish_baby" string="Baby Fish" colspan="2"/>
+                                <field name="baby_fish_release_date" widget="nepali_datepicker"/>
+                                <field name="baby_fish_quantity"/>
+                                <field name="baby_fish_price"/>
+                                <field name="baby_fish_source"/>
+                            <field name="delete_request" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+<!--    Farmer Fish Tree View-->
+        <record id="view_tree_farmer_fish" model="ir.ui.view">
+        <field name="name">Farmer Fish Tree view</field>
+        <field name="model">farmer.fish</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request">
+                <field name="fish_types"/>
+                <field name="pond_area"/>
+                <field name="production_date"/>
+                <field name="fish_counts"/>
+                <field name="fish_production_quantity"/>
+                <field name="baby_fish_release_date"/>
+                <field name="baby_fish_quantity"/>
+                <field name="baby_fish_price"/>
+                <field name="baby_fish_source"/>
+                <field name="delete_request" invisible="1"/>
+                <field name="dummy_name" invisible="1"/>
+                <field name="is_sellable" invisible="1"/>
+                <field name="is_publishable" invisible="1"/>
+
+            </tree>
+        </field>
+    </record>
+</odoo>

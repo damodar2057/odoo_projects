@@ -1,0 +1,75 @@
+<odoo>
+<record id="view_form_organization" model="ir.ui.view">
+    <field name="name">Organization Form</field>
+    <field name="model">organization.farmer</field>
+    <field name="arch" type="xml">
+        <form string="Organization">
+        <sheet>
+            <group>
+                <group>
+                    <field name="id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="nature"/>
+                    <field name="phone"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                    <field name="website"/>
+                    <separator name="organization_registration_details " string='Registration Details' colspan="2"/>
+                    <field name="registration_number"/>
+                    <field name="registration_district"/>
+                    <field name="registration_date_bs" widget="nepali_datetime"/>
+                    <field name="pan_number"/>
+                    <field name="vat"/>
+
+
+                </group>
+                <group>
+                     <field name="image_1920" colspan="2" widget="image" style="height: 150px; width: 150px;" nolabel="1"/>
+                    <separator name="organization_address " string='Address' colspan="2"/>
+                    <field name="province" options="{'no_create': True}" />
+                    <field name="district" domain="[('province_name', '=', province)]" options="{'no_create': True}"/>
+                    <field name="palika" domain="[('district_name', '=', district)]" options="{'no_create': True}"/>
+                    <field name="ward_no"/>
+                    <field name="tole" domain="[('palika_name', '=', palika)]" options="{'no_create': True}"/>
+
+                </group>
+                </group>
+                <group col="2">
+                <group>
+                    <separator name="local_level_organization_registration_details " string='Local Registration Details' colspan="2"/>
+                    <field name="local_reg_number"/>
+                    <field name="local_reg_date_bs" widget="nepali_datetime"/>
+
+                </group>
+                <group>
+                    <separator name="functional_details " string='Organization Functional Details' colspan="2"/>
+                    <field name="start_date_bs" widget="nepali_datetime"/>
+                    <field name="close_date_bs" widget="nepali_datetime"/>
+                    <field name="recent_paid_tax_year"/>
+                    <field name="yearly_transaction"/>
+                </group>
+                </group>
+        </sheet>
+        </form>
+    </field>
+</record>
+
+
+    <record id="view_tree_organization" model="ir.ui.view">
+        <field name="name">Tree view</field>
+        <field name="model">organization.farmer</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="registration_number"/>
+                <field name="pan_number"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+

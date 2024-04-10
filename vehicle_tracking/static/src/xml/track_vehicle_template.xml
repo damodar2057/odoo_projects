@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<template xml:space="preserve">
+    <t t-name="track.vehicle.leaflet" owl="1">
+        <div class="container-fluid">
+            <div class="leaflet_cont">
+                <div id="track_vehicle_map"/>
+            </div>
+            <div class="container-fluid Vehicle_selection" >
+                <div class="row d-flex align-items-center">
+                    <div class="col btn p-4 d-flex flex-column text-center text-primary all-container" t-on-click="allClick" style="cursor:pointer;">
+                        <span class="h6">All</span>
+                        <span class="badge bg-white rounded-pill" t-esc="state.allStatusLength"/>
+                    </div>
+                     <div class="col btn p-4 d-flex flex-column text-center text-success running-container" t-on-click="runningClick" style="cursor:pointer;">
+                        <span class="h6">Running</span>
+                         <span class="badge bg-white rounded-pill" t-esc="state.runningStatusLength"/>
+                    </div>
+                    <div class="col btn p-4 d-flex flex-column text-center text-warning active-container" t-on-click="activeClick" style="cursor:pointer;">
+                        <span class="h6">Active</span>
+                        <span class="badge bg-white rounded-pill" t-esc="state.activeStatusLength"/>
+                    </div>
+                    <div class="col btn p-4 d-flex flex-column text-center text-danger  inactive-container" t-on-click="inactiveClick" style="cursor:pointer;">
+                        <span class="h6">Inactive</span>
+                        <span class="badge bg-white rounded-pill" t-esc="state.inactiveStatusLength"/>
+                    </div>
+                    <div class="col btn p-4 d-flex flex-column text-center text-primary contactless-container" t-on-click="contactlessClick" style="cursor:pointer;">
+                        <span class="h6">Contactless</span>
+                        <span class="badge bg-white rounded-pill" t-esc="state.contactlessStatusLength"/>
+                    </div>
+                </div>
+                <div class="row mt-3 shadow-lg" style="overflow:auto;">
+                    <table class="table table-striped">
+                      <thead class="sticky-top" style="background:floralwhite">
+                        <tr>
+                          <th scope="col">License Plate</th>
+                          <th scope="col">Model</th>
+                          <th scope="col">Driver</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <tr t-foreach="state.allList" t-as="status" t-key="status.license_plate" t-on-click="()=>this.loadMap(status.latitude,status.longitude)" style="cursor:pointer">
+                                <td><span t-esc="status.license_plate"/></td>
+                                <td><span t-esc="status.model_id"/></td>
+                                <td><span t-esc="status.driver_id"/></td>
+                                <td><span t-esc="status.status"/></td>
+                          </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>

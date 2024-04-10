@@ -1,0 +1,677 @@
+<odoo>
+    <data>
+        <!-- updating the sequence and name of website menu to 1 -->
+        <menuitem name="Website"
+            id="website.menu_website_configuration"
+            groups="base.group_user"
+            web_icon="website,static/description/icon.svg"
+            sequence="2"/>
+            <!--       Menu-->
+            <!--        Root Menu-->
+        <menuitem sequence="1" id="menu_farmer" name="FIS" groups="group_surveyor_access,group_producer_farmer_access,group_viewer_access,group_request_viewer_access"/>
+        
+        <!-- Homepage -->
+        <menuitem id="menu_fis_website_homepage"
+            name="Website"
+            parent="menu_farmer"
+            sequence="1" 
+            groups="group_surveyor_access,group_producer_farmer_access,group_viewer_access"
+            action="website.website_preview"/>
+
+        <!-- Product List -->
+        <menuitem id="menu_fis_website_product_list"
+            name="Products"
+            parent="menu_farmer"
+            sequence="2" 
+            groups="group_surveyor_access,group_producer_farmer_access,-group_viewer_access"
+            action="website_sale.product_template_action_website"/>
+
+        <!--Producer-->
+        <menuitem id="menu_producer_form"
+            name="Producer"
+            parent="menu_farmer"
+            sequence="5" groups="group_surveyor_access,group_viewer_access"/>
+
+        <!--        Producer Related Actions-->
+         <record id="action_form_farmer" model="ir.actions.act_window">
+            <field name="name">Farmer Information</field>
+            <field name="res_model">farm.farmer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="action_form_farmer_group" model="ir.actions.act_window">
+            <field name="name">Farmer Group Information</field>
+            <field name="res_model">farmer.group</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_form_household" model="ir.actions.act_window">
+            <field name="name">Household Information</field>
+            <field name="res_model">farm.household</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Producer Sub-Menu-->
+        <menuitem id="menu_farmer_form_submenu1"
+            name="Farmer"
+            parent="menu_producer_form"
+            action="action_form_farmer" />
+
+        <menuitem id="menu_farmer_form_submenu2"
+            name="Farmer Group"
+            parent="menu_producer_form"
+            action="action_form_farmer_group" />
+
+        <menuitem id="menu_farmer_form_submenu3"
+                  name="Household"
+                  parent="menu_producer_form"
+                  action="action_form_household" />
+
+        <!--Request-->
+        <menuitem id="menu_services_request"
+            name="Request"
+            parent="menu_farmer" groups="group_user_access,group_producer_farmer_access,group_viewer_access,group_request_viewer_access"/>
+
+        <!--        Request Related Actions-->
+        <record id="action_service_request" model="ir.actions.act_window">
+            <field name="name">Service Request</field>
+            <field name="res_model">services.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_equipment_request" model="ir.actions.act_window">
+            <field name="name">Equipment Request</field>
+            <field name="res_model">equipment.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_seedling_request" model="ir.actions.act_window">
+            <field name="name">Seedling Request</field>
+            <field name="res_model">seedling.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_expert_request" model="ir.actions.act_window">
+            <field name="name">Expert Request</field>
+            <field name="res_model">expert.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_fish_larva_request" model="ir.actions.act_window">
+            <field name="name">Fish Larva Request</field>
+            <field name="res_model">fish.larva.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_storage_request" model="ir.actions.act_window">
+            <field name="name">Storage Request</field>
+            <field name="res_model">warehouse.storage.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_other_request" model="ir.actions.act_window">
+            <field name="name">Other Request</field>
+            <field name="res_model">other.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_form_profile_update" model="ir.actions.act_window">
+            <field name="name">Profile Update</field>
+            <field name="res_model">profile.update.request</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Request Sub-Menu-->
+        <menuitem id="service_requests"
+            name="Service Request"
+            parent="menu_services_request"
+            action="action_service_request" />
+
+        <menuitem id="equipment_requests"
+            name="Equipment Request"
+            parent="menu_services_request"
+            action="action_equipment_request" />
+
+        <menuitem id="seedling_requests"
+            name="Seedling Request"
+            parent="menu_services_request"
+            action="action_seedling_request" />
+
+        <menuitem id="expert_requests"
+            name="Expert Request"
+            parent="menu_services_request"
+            action="action_expert_request" />
+
+        <menuitem id="fish_larva_requests"
+            name="Fish Larva Request"
+            parent="menu_services_request"
+            action="action_fish_larva_request" />
+
+        <menuitem id="storage_requests"
+            name="Storage Request"
+            parent="menu_services_request"
+            action="action_storage_request" />
+
+        <menuitem id="other_requests"
+            name="Other Request"
+            parent="menu_services_request"
+            action="action_other_request" />
+
+        <menuitem id="menu_profile_update"
+                  name="Profile Update Request"
+                  parent="menu_services_request" 
+                  action="action_form_profile_update"
+                  groups="group_user_access,group_producer_farmer_access,group_viewer_access,group_request_viewer_access"/>
+
+        <!--Produce-->
+        <!--        Produce Actions-->
+        <record id="action_produce" model="ir.actions.act_window">
+            <field name="name">Produce</field>
+            <field name="res_model">farm.produce</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_produce_form"
+            name="Product"
+            parent="menu_farmer"
+            action="action_produce" groups="group_user_access,group_viewer_access"/>
+
+        <!--warehouse Location-->
+        <!--        warehouse Location Actions-->
+        <record id="action_warehouse_location_producer" model="ir.actions.act_window">
+            <field name="name">Storage</field>
+            <field name="res_model">warehouse.location</field>
+            <field name="domain">[('allowed_users', 'in', [uid])]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_warehouse_location_producer"
+            name="Storage"
+            parent="menu_farmer"
+            action="action_warehouse_location_producer" groups="group_producer_farmer_access"/>
+
+        <record id="action_warehouse_location_user" model="ir.actions.act_window">
+            <field name="name">Storage</field>
+            <field name="res_model">warehouse.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_warehouse_location_user"
+            name="Storage"
+            parent="menu_farmer"
+            action="action_warehouse_location_user" groups="group_user_access,group_viewer_access"/>
+
+        <!--Organization-->
+        <!--        Organization Related Actions-->
+        <record id="action_form_organization" model="ir.actions.act_window">
+            <field name="name">Organization</field>
+            <field name="res_model">organization.farmer</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_organization_form"
+            name="Organization"
+            parent="menu_farmer"
+            action="action_form_organization" groups="group_user_access,group_viewer_access"/>
+
+
+ 
+        <!-- Specialist -->
+        <menuitem id="specialist_menu"
+            name="Specialist"
+            parent="menu_farmer" groups="group_user_access,group_viewer_access"/>
+        
+        <!-- Specialist related actions -->
+        <record id="expert_experts" model="ir.actions.act_window">
+            <field name="name">Expert</field>
+            <field name="res_model">expert.experts</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="technician_technicians" model="ir.actions.act_window">
+            <field name="name">Technician</field>
+            <field name="res_model">technician.technicians</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        
+        <!-- Specialist submenu -->
+        <menuitem id="expert_menu"
+            name="Expert"
+            parent="specialist_menu"
+            action="expert_experts" />
+
+        
+        <menuitem id="technician_menu"
+            name="Technician"
+            parent="specialist_menu"
+            action="technician_technicians" />
+
+
+        <!--Configuration-->
+        <menuitem id="config_menu"
+            name="Configuration"
+            parent="menu_farmer" groups="group_config_access"/>
+
+        <menuitem id="organization_submenu"
+            name="Organization"
+            parent="config_menu"
+            sequence="6" />
+
+       <record id="action_organization_type" model="ir.actions.act_window">
+            <field name="name">Organization Type</field>
+            <field name="res_model">organization.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_organization_type"
+            name="Organization Type"
+            parent="organization_submenu"
+            action="action_organization_type" groups="group_user_access"/>
+
+        <record id="action_organization_nature" model="ir.actions.act_window">
+            <field name="name">Organization Nature</field>
+            <field name="res_model">organization.nature</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_organization_nature"
+            name="Organization Nature"
+            parent="organization_submenu"
+            action="action_organization_nature" groups="group_user_access"/>
+
+        <record id="action_organization_closing_reason" model="ir.actions.act_window">
+            <field name="name">Organization Closing Reason</field>
+            <field name="res_model">organization.closing.reason</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_organization_closing_reason"
+            name="Organization Closing Reason"
+            parent="organization_submenu"
+            action="action_organization_closing_reason" groups="group_user_access"/>
+
+        <record id="action_fiscal_year" model="ir.actions.act_window">
+            <field name="name">Fiscal Year</field>
+            <field name="res_model">fiscal.year</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_fiscal_year"
+            name="Fiscal Year"
+            parent="organization_submenu"
+            action="action_fiscal_year" groups="group_user_access"/>
+
+
+
+            <!--        Agriculture Sub-Menu-->
+        <menuitem id="agriculture_submenu"
+            name="Agriculture"
+            parent="config_menu"
+            sequence="5" />
+        
+
+            
+        <!--        Agriculture Sub-Menu Related Actions-->
+        <!--        Agriculture Type-->
+        <record id="agriculture_types" model="ir.actions.act_window">
+            <field name="name">Agriculture Type</field>
+            <field name="res_model">farmer.agriculture.activities</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="farmer_agriculture_activities"
+            name="Agriculture Type"
+            parent="agriculture_submenu"
+            action="agriculture_types" />
+
+        <!--        Fish Type-->
+        <record id="fish_types" model="ir.actions.act_window">
+            <field name="name">Fish Type</field>
+            <field name="res_model">fish.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="fish_type"
+            name="Fish Type"
+            parent="agriculture_submenu"
+            action="fish_types" />
+
+        <!--        Crop Type-->
+        <record id="crop_types" model="ir.actions.act_window">
+            <field name="name">Crop Type</field>
+            <field name="res_model">crop.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="crop_type"
+            name="Crop Type"
+            parent="agriculture_submenu"
+            action="crop_types" />
+
+        <!--        Animal Type-->
+        <record id="animal_types" model="ir.actions.act_window">
+            <field name="name">Animal Type</field>
+            <field name="res_model">animal.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="animal_type"
+            name="Animal Type"
+            parent="agriculture_submenu"
+            action="animal_types" />
+
+        <!--        Animal Purpose-->
+        <record id="animal_purpose" model="ir.actions.act_window">
+            <field name="name">Animal Purpose</field>
+            <field name="res_model">animal.purpose</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="animal_purposes"
+            name="Animal Purpose"
+            parent="agriculture_submenu"
+            action="animal_purpose" />
+
+        <!--        Local Production Types-->
+        <record id="local_production_type" model="ir.actions.act_window">
+            <field name="name">Local Production Types</field>
+            <field name="res_model">local.production.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="local_production_types"
+            name="Local Production Types"
+            parent="agriculture_submenu"
+            action="local_production_type" />
+
+
+            <!--        Service Sub-Menu-->
+        <menuitem id="service_submenu"
+            name="Services"
+            parent="config_menu" />
+
+            <!--        Service Sub-Menu Related Actions-->
+        <!--        Seedling Type-->
+        <record id="seedling_lists" model="ir.actions.act_window">
+            <field name="name">Seedling Type</field>
+            <field name="res_model">seedling.lists.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="seedling_list"
+            name="Seedling Type"
+            parent="service_submenu"
+            action="seedling_lists" />
+
+        <!--        Service Type-->
+        <record id="service_lists" model="ir.actions.act_window">
+            <field name="name">Service Type</field>
+            <field name="res_model">services.lists</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="service_list"
+            name="Service Type"
+            parent="service_submenu"
+            action="service_lists" />
+
+        <!--        Equipment Lists-->
+        <record id="equipment_lists" model="ir.actions.act_window">
+            <field name="name">Equipment Type</field>
+            <field name="res_model">equipment.lists.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="equipment_list"
+            name="Equipment Type"
+            parent="service_submenu"
+            action="equipment_lists" />
+
+        
+        <!--        Fish Larva Type-->
+        <record id="fish_larva_lists" model="ir.actions.act_window">
+            <field name="name">Fish Larva Type</field>
+            <field name="res_model">fish_larva.lists.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="fish_larva_list"
+            name="Fish Larva Type"
+            parent="service_submenu"
+            action="fish_larva_lists" />
+
+            <!--        Loan and Institutions Sub-Menu-->
+        <menuitem id="loans_submenu"
+            name="Loans and Institutions"
+            parent="config_menu" />
+            <!--        Loan and Institutions Sub-Menu Related Actions-->
+
+            <!--        Institution Name-->
+        <record id="institution_name" model="ir.actions.act_window">
+            <field name="name">Institution Name</field>
+            <field name="res_model">institution.name</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="institution_names"
+            name="Institution Name"
+            parent="loans_submenu"
+            action="institution_name" />
+
+        <!--        Others Sub-Menu-->
+        <menuitem id="others_submenu"
+            name="Others"
+            parent="config_menu" />
+
+        <!--        Others Sub-Menu Related Actions-->
+        <!--Land Type-->
+        <record id="land_types" model="ir.actions.act_window">
+            <field name="name">Land Type</field>
+            <field name="res_model">land.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="land_type"
+            name="Land Types"
+            parent="others_submenu"
+            action="land_types" />
+
+        <!--Irrigation Type-->
+        <record id="irrigation_types" model="ir.actions.act_window">
+            <field name="name">Irrigation Type</field>
+            <field name="res_model">irrigation.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="irrigation_type"
+            name="Irrigation Type"
+            parent="others_submenu"
+            action="irrigation_types" />
+
+         <!--        Road Type-->
+        <record id="road_types" model="ir.actions.act_window">
+            <field name="name">Road Type</field>
+            <field name="res_model">road.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="road_type"
+            name="Road Type"
+            parent="others_submenu"
+            action="road_types" />
+
+           <!--        Document Type-->
+        <record id="documents_type" model="ir.actions.act_window">
+            <field name="name">Documents Type</field>
+            <field name="res_model">documents.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="documents_types"
+            name="Document Type"
+            parent="others_submenu"
+            action="documents_type" />
+          <!--        Location Sub-Menu-->
+        <menuitem id="location_submenu"
+            name="Location"
+            parent="config_menu" />
+
+        <!--Location Sub-Menu Related Actions-->
+
+        <!--Location District Information-->
+        <record id="location_district" model="ir.actions.act_window">
+            <field name="name">Location District</field>
+            <field name="res_model">location.district</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="location_district_menu"
+            name="Location District Information"
+            parent="location_submenu"
+            action="location_district" />
+
+        <!--Location Palika Information-->
+        <record id="location_palika" model="ir.actions.act_window">
+            <field name="name">Location Palika</field>
+            <field name="res_model">location.palika</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="location_palika_menu"
+            name="Location Palika Information"
+            parent="location_submenu"
+            action="location_palika" />
+        
+        <!--Location Tole Information-->
+        <record id="location_tole" model="ir.actions.act_window">
+            <field name="name">Location Tole</field>
+            <field name="res_model">location.tole</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="location_tole_menu"
+            name="Location Tole Information"
+            parent="location_submenu"
+            action="location_tole" />
+
+        <!--        Programs Sub-Menu-->
+        <menuitem id="programs_submenu"
+            name="Programs"
+            parent="config_menu" />
+
+        <!--Program Sub-Menu Related Actions-->
+
+        <!--Year Program Information-->
+        <record id="programs_year" model="ir.actions.act_window">
+            <field name="name">Year Program</field>
+            <field name="res_model">year.program</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="programs_year_project_menu"
+            name="Year Program Information"
+            parent="programs_submenu"
+            action="programs_year" />
+
+        <!--Program Project Information-->
+        <record id="programs_project" model="ir.actions.act_window">
+            <field name="name">Program Project</field>
+            <field name="res_model">program.project</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="programs_program_project_menu"
+            name="Program Project Information"
+            parent="programs_submenu"
+            action="programs_project" />
+        
+       <!--  Farmer Attributes Sub-Menu-->
+        <menuitem id="farmer_attributes_submenu"
+            name="Farmer Attributes"
+            parent="config_menu" />
+
+        <!--Farmer Attributes Sub-Menu Related Actions-->
+
+        <!--Farmer Attributes qualification Information-->
+        <record id="farmer_attributes_qualification" model="ir.actions.act_window">
+            <field name="name">Qualification</field>
+            <field name="res_model">farmer.qualification</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="farmer_attributes_qualification_menu"
+            name="Qualification"
+            parent="farmer_attributes_submenu"
+            action="farmer_attributes_qualification" />
+
+        <!--Farmer Attributes occupation Information-->
+        <record id="farmer_attributes_occupation" model="ir.actions.act_window">
+            <field name="name">Occupation</field>
+            <field name="res_model">farmer.occupation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="farmer_attributes_occupation_menu"
+            name="Occupation"
+            parent="farmer_attributes_submenu"
+            action="farmer_attributes_occupation" />
+
+
+        <record id="action_farmer_type" model="ir.actions.act_window">
+            <field name="name">Farmer Type</field>
+            <field name="res_model">farmer.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="menu_farmer_type"
+            name="Farmer type"
+            parent="farmer_attributes_submenu" 
+            action="action_farmer_type"/>
+
+        <!-- Speciality submenu -->
+        <menuitem id="speciality_submenu"
+            name="Speciality"
+            parent="config_menu"
+            sequence="5"/>
+
+        <!-- Speciality submenu related actions -->
+        <!-- Expert Type -->
+        <record id="action_expert_type" model="ir.actions.act_window">
+            <field name="name">Expert Type</field>
+            <field name="res_model">expert.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_conf_expert_type"
+            name="Expert Type"
+            parent="speciality_submenu"
+            action="action_expert_type" />
+
+        <!-- Technician Type -->
+        <record id="action_technician_type" model="ir.actions.act_window">
+            <field name="name">Technician Type</field>
+            <field name="res_model">technician.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_conf_technician_type"
+            name="Technician Type"
+            parent="speciality_submenu"
+            action="action_technician_type" />
+
+        <!-- warehouse Type -->
+        <record id="action_warehouse_type" model="ir.actions.act_window">
+            <field name="name">Storage Type</field>
+            <field name="res_model">warehouse.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_conf_warehouse_type"
+            name="Warehouse Type"
+            parent="config_menu"
+            action="action_warehouse_type" />
+
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="module_category_farmer" model="ir.module.category">
+             <field name="name">FIS Access Policy</field>
+             <field name="description">User access level for FIS</field>
+             <field name="sequence">20</field>
+        </record>
+        <record id="group_surveyor_access" model="res.groups">
+            <field name="name">FIS/ Surveyor Access</field>
+            <field name="category_id" ref="module_category_farmer"/>
+        </record>
+        <record id="group_user_access" model="res.groups">
+            <field name="name">FIS/ User Access</field>
+            <field name="category_id" ref="module_category_farmer"/>
+            <field name="implied_ids" eval="[(4, ref('group_surveyor_access'))]"/>
+        </record>
+        <record id="group_admin_access" model="res.groups">
+            <field name="name">FIS/ User Admin Access</field>
+            <field name="category_id" ref="module_category_farmer"/>
+            <field name="implied_ids" eval="[(4, ref('group_user_access'))]"/>
+        </record>
+        <record id="group_config_access" model="res.groups">
+            <field name="name">FIS/ Config Access</field>
+        </record>
+        <record id="group_producer_farmer_access" model="res.groups">
+            <field name="name">FIS/ User Producer Farmer Access</field>
+            <field name="category_id" ref="module_category_farmer"/>
+        </record>
+        <record id="group_viewer_access" model="res.groups">
+            <field name="name">FIS/ View User Access</field>
+            <field name="category_id" ref="module_category_farmer"/>
+        </record>
+        <record id="group_request_viewer_access" model="res.groups">
+            <field name="name">FIS/ View Request User Access</field>
+            <field name="category_id" ref="module_category_farmer"/>
+        </record>
+    </data>
+</odoo>

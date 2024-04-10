@@ -1,0 +1,74 @@
+<odoo>
+    <!-- Add the new fields to the form view -->
+        <record id="res_config_settings_view_form_inherit_fleet" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.fleet</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="fleet.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='fleet']" position="inside">
+                    <!-- Add your new field inside the existing div -->
+                    <div class="row mt16 o_settings_container" id="end_contract_setting">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Renewal Periods</span>
+                                <div class="text-muted content-group mt16">
+                                    <span>Send an alert </span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="renewal_alert_period" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                        <span>days before the document expires</span>
+                                    </div>
+                                </div>
+                                <!-- Add your new field here -->
+
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+     <record id="res_config_settings_view_form_inherit_fleet_fuels_price" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.hr.fleet.fuels.price</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="fleet.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='fleet']" position="inside">
+                    <!-- Add your new field inside the existing div -->
+                               <div class="row mt16 o_settings_container" id="end_contract_setting">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Fuel Prices</span>
+                                <div class="text-muted content-group mt16">
+                                    <span>Petrol Price: </span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="petrol_price" class="text-center" style="width: 10%; min-width: 4rem;" />
+<!--                                        <span>days before the document expires</span>-->
+                                    </div>
+                                </div>
+                                 <div class="text-muted content-group mt16">
+                                    <span>Diesel Price: </span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="diesel_price" class="text-center" style="width: 10%; min-width: 4rem;" />
+<!--                                        <span>days before the document expires</span>-->
+                                    </div>
+                                </div>
+                                 <div class="text-muted content-group mt16">
+                                    <span>Gasoline Price: </span>
+                                    <div class="text-muted content-group mt16">
+                                        <field name="gasoline_price" class="text-center" style="width: 10%; min-width: 4rem;" />
+<!--                                        <span>days before the document expires</span>-->
+                                    </div>
+                                </div>
+                                <!-- Add your new field here -->
+
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,54 @@
+<odoo>
+        <!-- Farmer Animal Form View -->
+    <record id="view_form_farmer_animal" model="ir.ui.view">
+        <field name="name">Animals</field>
+        <field name="model">farmer.animal</field>
+        <field name="arch" type="xml">
+            <form string="Animal Information">
+                <header>
+                    <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                    <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                </header>
+                <sheet>
+                    <field name="animal_image" widget="image"/>
+                    <group>
+                        <field name="animal_name" options= "{'no_create':True}" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        <!-- <field name="animal_type"/> -->
+                        <field name="animals_types" domain="[('animal_name','=',animal_name)]" options= "{'no_create':True}"/>
+                        <field name="animal_purpose"/>
+                        <field name="production_quantity"/>
+                        <field name="selling_price"/>
+                        <field name="is_sellable" attrs="{'invisible': [('id', '!=', False)]}"/>
+                        <field name="sellable_quantity" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                        <field name="animal_counts" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                        <field name="is_publishable" attrs="{'invisible': [('is_sellable', '!=', True)]}"/>
+                        <field name="delete_request" invisible="1"/>
+                        <field name="dummy_name" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Farmer Animal Tree View -->
+    <record id="view_tree_farmer_animal" model="ir.ui.view">
+        <field name="name">Farmer animal Tree view</field>
+        <field name="model">farmer.animal</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request">
+                <field name="delete_request" invisible="1"/>
+
+                <field name="animal_name"/>
+                <!-- <field name="animal_type"/> -->
+                <field name="animals_types"/>
+                <field name="animal_purpose"/>
+                <field name="animal_counts"/>
+                <field name="production_quantity"/>
+                <field name="selling_price"/>
+                <field name="dummy_name" invisible="1"/>
+                <field name="is_sellable" invisible="1"/>
+                <field name="is_publishable" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

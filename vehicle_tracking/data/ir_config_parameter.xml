@@ -1,0 +1,6 @@
+<odoo noupdate="1">
+    <record id="config_parameter_leaflet_tile_url" model="ir.config_parameter" forcecreate="True">
+        <field name="key">leaflet.tile_url</field>
+        <field name="value">https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png</field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+.map_container_body{
+    overflow: hidden;
+    /* Add any additional styling as needed */
+}
+
+#map5{
+    height: 100%;
+    width: 100%;
+}
+
+.for_width{
+    max-width: 100%;
+    margin: 0;
+}
+.for_height{
+    height: 100vh;
+}

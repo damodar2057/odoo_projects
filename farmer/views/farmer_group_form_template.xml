@@ -1,0 +1,283 @@
+<odoo>
+<template id="farmer_group_form_template" name="Form fill">
+	<t t-call-assets="web.assets_common" t-js="false"/>
+	<t t-call="website.layout">
+		<div id="form_temp">
+			<div id="wrap" class="oe_structure oe_empty">
+				<div class="container">
+					<form method="post" action="/create/farmer_group_record" autocomplete="off">
+						<div id="form_template">
+							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+							<div class="form-group">
+								<label class="control-label" for="name">Name</label>
+								<input type="text" name="name"
+									id="name"
+									class="form-control"
+									placeholder="Mitchel Admin"
+									required="required"/>
+							</div>
+							<div class="form-group">
+								<div class='row' style="width:99%;">
+									<div class="form-group col-12 show_total_project">
+                                        <div id="one2many_notebook">
+                                            <div class="notebook-heading d-flex flex-row flex-nowrap">
+                                                <div class="page-heading p-3">Crops</div>    
+                                                <div class="page-heading p-3">Loans</div>    
+                                            </div>
+                                            <div class="s_col_no_resize s_col_no_bgcolor" id="Crops">
+                                                <table class="table table-bordered total_project_costs" data-fieldName="crop_ids">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>Crop Name</strong>
+                                                            </td>
+                                                            <!-- <td>
+                                                                <strong>Crop Type</strong>
+                                                            </td> -->
+                                                            <td>
+                                                                <strong>Area</strong>
+                                                            </td>
+                                                            <td>
+                                                                <strong>Production Quantity</strong>
+                                                            </td>
+                                                            <td>
+                                                                <strong>Selling Price</strong>
+                                                            </td>
+                                                            <td width="5%"></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="collapse">
+                                                        <tbody>
+                                                            <tr class="one2many_lines">
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="crop_name"
+                                                                            id="crop_name"/>
+                                                                    </div>
+                                                                </td>
+                                                                <!-- <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="crops_types"
+                                                                            id="crops_types"/>
+                                                                    </div>
+                                                                </td> -->
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="area"
+                                                                            id="area"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            name="production_quantity_crop"
+                                                                            type="number"
+                                                                            id="production_quantity_crop"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            name="selling_price_crop"
+                                                                            type="number"
+                                                                            id="selling_price_crop"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn fa fa-trash-o remove_line"
+                                                                            style="color: red; padding: 0px; margin-left: -6px; margin-top: 6px;margin-bottom:15px;"
+                                                                            name="delete"
+                                                                            aria-label="Delete row 1"></button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="add_one2manylines select-hide">
+                                                                 <td>
+                                                                    <div class="d-flex">
+                                                                        <input
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="crop_name"
+                                                                            id="crop_name"/>
+                                                                    </div>
+                                                                </td>
+                                                                <!-- <td>
+                                                                    <div class="d-flex">
+                                                                        <input
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="crops_types"
+                                                                            id="crops_types"/>
+                                                                    </div>
+                                                                </td> -->
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="area"
+                                                                            id="area"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="production_quantity_crop"
+                                                                            id="production_quantity_crop"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input
+                                                                            class="form-control"
+                                                                            type="number"
+                                                                            name="selling_price_crop"
+                                                                            id="selling_price_crop"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn fa fa-trash-o remove_line"
+                                                                            style="color: red; padding: 0px; margin-left: -6px; margin-top: 6px;margin-bottom:15px;"
+                                                                            name="delete"
+                                                                            aria-label="Delete row 1"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </div>
+                                                </table>
+                                                <div>
+                                                    <button type="button"
+                                                            class="btn btn-info add_one2manylines_btn button-color"
+                                                            style="float: right; margin-right: -15px;">
+                                                        <i class="fa fa-plus"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="s_col_no_resize s_col_no_bgcolor" id="Loans">
+                                                <table class="table table-bordered total_project_costs" data-fieldName="loan_ids">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>
+                                                                <strong>institution_name</strong>
+                                                            </td>
+                                                            <td>
+                                                                <strong>institution_type</strong>
+                                                            </td>
+                                                            <td>
+                                                                <strong>loan_amount</strong>
+                                                            </td>
+                                                            <td width="5%"></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <div class="collapse">
+                                                        <tbody>
+                                                            <tr class="one2many_lines">
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            type="text"
+                                                                            name="institution_name"
+                                                                            id="institution_name"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            name="institution_type"
+                                                                            type="text"
+                                                                            id="institution_type"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input required="True"
+                                                                            class="form-control"
+                                                                            name="loan_amount"
+                                                                            type="number"
+                                                                            id="loan_amount"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn fa fa-trash-o remove_line"
+                                                                            style="color: red; padding: 0px; margin-left: -6px; margin-top: 6px;margin-bottom:15px;"
+                                                                            name="delete"
+                                                                            aria-label="Delete row 1"></button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="add_one2manylines select-hide">
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input 
+                                                                            class="form-control"
+                                                                            type="text"
+                                                                            name="institution_name"
+                                                                            id="institution_name"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input 
+                                                                            class="form-control"
+                                                                            name="institution_type"
+                                                                            type="text"
+                                                                            id="institution_type"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <input 
+                                                                            class="form-control"
+                                                                            name="loan_amount"
+                                                                            type="number"
+                                                                            id="loan_amount"/>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <button class="btn fa fa-trash-o remove_line"
+                                                                            style="color: red; padding: 0px; margin-left: -6px; margin-top: 6px;margin-bottom:15px;"
+                                                                            name="delete"
+                                                                            aria-label="Delete row 1"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </div>
+                                                </table>
+                                                <div>
+                                                    <button type="button"
+                                                            class="btn btn-info add_one2manylines_btn button-color"
+                                                            style="float: right; margin-right: -15px;">
+                                                        <i class="fa fa-plus"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <textarea class="d-none" id="one2many_data" name="one2many_data"></textarea>
+
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+							<div class="clearfix oe_login_buttons">
+								<button class="custom_create btn btn-primary btn-block">Create</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</t>
+</template>
+</odoo>

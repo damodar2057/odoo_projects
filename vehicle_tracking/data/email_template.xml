@@ -1,0 +1,142 @@
+<odoo>
+<record id="document_renewal_email_template" model="mail.template">
+    <field name="name">Document Renewal Template</field>
+    <field name="model_id" ref="vehicle_tracking.model_renewal_documents"/>
+    <field name="subject">Urgent Notice - Document Expiry Reminder</field>
+    <field name="email_from">"{{ user.email }}"</field>
+    <field name="email_to">"damodararyal2057@gmail.com"</field>
+    <field name="body_html" type="html">
+        <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;">
+                <tbody>
+                    <!-- HEADER -->
+                    <tr>
+                        <td align="center" style="min-width: 590px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                <tr><td valign="middle">
+                                    <span style="font-size: 20px; font-weight: bold;">
+                                        <!--                                                <t t-out="user.name or ''"></t>-->
+                                    </span>
+                                </td><td valign="middle" align="right">
+                                    <!--                                            <img t-attf-src="/logo.png?company={{ user.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>-->
+                                </td></tr>
+                                <tr><td colspan="2" style="text-align:center;">
+                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                </td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- CONTENT -->
+                    <tr>
+                        <td align="center" style="min-width: 590px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse: separate;">
+                                <tr>
+                                    <td valign="top" style="font-size: 13px;">
+                                        <div>
+                                            Dear,<br/><br/>
+                                            Your documents are set to expire soon.
+                                            <br/><br/>
+                                            Please!! Renew it as soon as possible.
+                                            <!-- Reference Number: <t t-out="object.ref or ''"/> -->
+                                            <br/>
+                                            <br/>
+
+                                            <!-- <a t-attf-href="/price/negotiation">Click here!!  </a> -->
+                                            <br/>
+                                            <br/>
+                                            Best regards,<br/>
+                                            [Your Name]<br/>
+                                            [Your Position]<br/>
+                                            [Your Company]<br/><br/>
+                                            If you do not expect this, you can safely ignore this email.<br/><br/>
+
+                                            <!-- End of the revised email content -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center;">
+                                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </td></tr>
+        </table>
+    </field>
+</record>
+
+    <!-- this is for the maintenance  -->
+<record id="vehicle_maintenance_email_template" model="mail.template">
+    <field name="name">Vehicle Maintenance Template</field>
+    <field name="model_id" ref="vehicle_tracking.model_fleet_vehicle"/>
+    <field name="subject">Urgent Notice - Vehicle Maintenance Reminder</field>
+    <field name="email_from">"{{ user.email }}"</field>
+    <field name="email_to">"damodararyal2057@gmail.com"</field>
+    <field name="body_html" type="html">
+        <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;">
+                <tbody>
+                    <!-- HEADER -->
+                    <tr>
+                        <td align="center" style="min-width: 590px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                                <tr><td valign="middle">
+                                    <span style="font-size: 20px; font-weight: bold;">
+                                        <!--                                                <t t-out="user.name or ''"></t>-->
+                                    </span>
+                                </td><td valign="middle" align="right">
+                                    <!--                                            <img t-attf-src="/logo.png?company={{ user.company_id.id }}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="user.company_id.name"/>-->
+                                </td></tr>
+                                <tr><td colspan="2" style="text-align:center;">
+                                    <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                </td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- CONTENT -->
+                    <tr>
+                        <td align="center" style="min-width: 590px;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse: separate;">
+                                <tr>
+                                    <td valign="top" style="font-size: 13px;">
+                                        <div>
+                                            Dear,<br/><br/>
+                                            Your vehicle needs an maintenance.
+                                            <br/><br/>
+                                            Please!! Do Maintenance for your overall safety <br/>and lasting of vehicle.
+                                            <!-- Reference Number: <t t-out="object.ref or ''"/> -->
+
+                                            <!-- <a t-attf-href="/price/negotiation">Click here!!  </a> -->
+                                            <br/>
+                                            <br/>
+                                            Best regards,<br/>
+                                            Damodar Aryal<br/>
+                                            Developer<br/>
+                                            Shangrila Microsystem<br/><br/>
+                                            If you do not expect this, you can safely ignore this email.<br/><br/>
+
+                                            <!-- End of the revised email content -->
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center;">
+                                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </td></tr>
+        </table>
+    </field>
+</record>
+</odoo>

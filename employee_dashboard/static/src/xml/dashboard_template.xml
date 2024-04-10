@@ -1,0 +1,287 @@
+<odoo>
+    
+        <!-- this is for dashboard template -->
+        <template id="dashboard_new_template">
+            <html>
+                <head>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <style>
+                        .notification-item{
+                            padding-left:8px;
+                        }
+                        .notification-dropdown{
+                            display:none;
+                            background-color: #ffffff; 
+                            box-shadow: 0px -5px 5px -5px rgba(0, 0, 0, 0.2), /* Top shadow */
+                            0px 5px 5px -5px rgba(0, 0, 0, 0.2); /* Bottom shadow */                        }
+                        .abcd{
+                            display:flex;
+                            flex-direction:column;
+                            gap:0.3rem;
+                        }
+                        .notification-item:hover{
+                            background-color:whitesmoke;
+                            width:100% !important;
+                        }
+                        ::-webkit-scrollbar {
+                            width: 3px; 
+                            height: 10px; 
+                        }
+                        ::-webkit-scrollbar-thumb {
+                            background: lightgrey; 
+                            border-radius: 5px; 
+                        }
+                    </style>
+                </head>
+                <body>
+
+                    
+                    <div class="container-fluid dashboard_container" style="background-color:#fff;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); max-width:1400px;margin-inline:auto;">
+                        <div class="dashboard-header m-center bg- " style="justify-content:space-between">
+                            <span>Attendance Dashboard</span>
+                            <span class="notification-bar"  style="background-color:lightgrey;position:relative;text-align:center;border-radius:50%;cursor:pointer;color:white;width:2rem;margin-right:1rem;font-size:1.3rem">
+                                <i class="fa fa-bell" aria-hidden="true"></i>
+                                <span class="bg-danger" style="position:absolute;display:flex;align-items:center;justify-content:center;font-size:0.8rem;height:20px;width:20px;top:-8px;border-radius:50%;right:-4px;"><t t-out="notification_count"/></span>
+                                <div class="notification-dropdown" style="padding-top:9px;padding-bottom:9px;background-color:#f8f8f8;position:absolute;overflow-y:auto;border-radius:1rem;right:1rem;background-color:;z-index:99;width:200px;min-width:100px;max-width:300px;max-height:200px;color:black;">                                    
+                                       <t t-foreach="notification_list" t-as="notifications">
+                                        <t t-foreach="notifications" t-as="notification">
+
+                                            
+                                            <div class="notification-item" t-attf-onclick="abcd({{notification.id}})" style="display:flex;cursor:pointer;border-bottom:0.4px solid lightgrey;
+                                            flex-direction:column;">
+                                            <div style="font-size:0.9rem;background-color:;text-align:left;color:red;"><t t-out="notification.message"/></div>
+                                            <input type="hidden" id="notification_link_id"
+													t-attf-value="{{notification.id}}" />
+                                            <div class="notification-time" style="font-size:0.7rem;text-align:left"><t t-out="notification.sent_at"/></div>
+                                        </div>
+                                    </t>
+                                </t>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="row m-cente dashboard-box px-4">
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-weight:bold;color:purple">
+                                        Employee
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                        <t t-out="request.env.user.name"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-weight:bold;color:green">
+                                        Worked Days
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                         <span t-esc="total_present_days"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-size:36px;font-weight:bold;color:red">
+                                        Worked Hours
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                     <span t-esc="worked_hours"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card" style="text-align:center;border:none;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)">
+                                    <div class="card-header" style="font-weight:bold;color:#ffc107">
+                                        Leave Count
+                                    </div>
+                                    <div class="card-body" style="font-size:22px;font-weight:bold">
+                                        <span t-esc="leave_count"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="container-fluid dashboard-chart-container">
+                            <div class="row dashboard-chart-container-inner" >
+                                <div class="col">
+                                    <div class="card pie-chart-dashboard-container" >
+                                        <span class="pie_chart_header">
+                                            Attendance - 30 Days
+                                        </span>
+
+                                        <canvas  id="pieChart" ></canvas>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card line-chart-container" >
+                                        <span class="line_chart_header">
+                                                Attendance - Monthly
+                                            </span>
+                                        <div style="top:50%;position:relative;transform:translate(0,-50%);">
+                                        <canvas  id="myEmployeeDashboardChart" height="200" width="300" ></canvas>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <script>
+                        var present_days_in_last_30_days= <t t-esc="present_days_in_last_30_days"/>;
+                        var worked_hours_in_last_30_days=<t t-esc="worked_hours_in_last_30_days"/>
+                        var archived_attendance=<t t-esc="archived_attendance"/>
+                        <!-- for pie chart -->
+                        const barctx = document.getElementById('pieChart');
+                        const data = {
+                            labels: [
+                              'Present',
+                              'Worked Hours',
+                              'Archived'
+                            ],
+                            datasets: [{
+                              label: 'My First Dataset',
+                              data: [present_days_in_last_30_days, worked_hours_in_last_30_days, archived_attendance],
+                              backgroundColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(54, 162, 235)',
+                                'rgb(255, 205, 86)'
+                              ],
+                              hoverOffset: 4
+                            }],
+
+                          };
+                        const config = {
+                            type:'doughnut',
+                            data:data,
+                            options: {
+                                animation: false,
+                                plugins: {
+                                    legend: {
+                                        position: "bottom",
+                                    },
+                                    tooltip: {
+                                        enabled: false,
+                                    },
+                                },
+                                }
+                        }
+                          new Chart(barctx,config)
+                          var jan=<t t-esc="monthly_attendance[1]"/>
+                          var feb=<t t-esc="monthly_attendance[2]"/>
+                          var mar=<t t-esc="monthly_attendance[3]"/>
+                          var apr=<t t-esc="monthly_attendance[4]"/>
+                          var may=<t t-esc="monthly_attendance[5]"/>
+                          var jun=<t t-esc="monthly_attendance[6]"/>
+                          var jul=<t t-esc="monthly_attendance[7]"/>
+                          var aug=<t t-esc="monthly_attendance[8]"/>
+                          var sep=<t t-esc="monthly_attendance[9]"/>
+                          var oct=<t t-esc="monthly_attendance[10]"/>
+                          var nov=<t t-esc="monthly_attendance[11]"/>
+                          var dec=<t t-esc="monthly_attendance[12]"/>
+                          <!-- For line chart -->
+
+                        const lineChartData = {
+                            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+                            datasets: [{
+                                label: 'Monthly Attendance',
+                                data: [jan, feb, mar, apr, may, jun, jul,aug,sep,oct,nov,dec],
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            }]
+                        };
+
+                          const lineChartCtx = document.getElementById('myEmployeeDashboardChart');
+                          const lineChartConfig = {
+                            type:'line',
+                            data:lineChartData
+                          }
+                          new Chart(lineChartCtx,lineChartConfig);
+                    </script>
+                    <script>
+                        
+                        var notificationBar = document.querySelector('.notification-bar');
+                        var notificationDropdown = document.querySelector('.notification-dropdown')
+                        var notificationItem = document.querySelector('.notification-item')
+                        <!-- var notificationLink = document.querySelector('#notification_link') -->
+                        var dropdownVisibility = false;
+                        function abcd(id){
+                          
+                            $.ajax({
+                                url: `removeCheckedNotification/${id}`,
+                                method: 'GET',
+                                success: function (data) {
+                                    console.log("Hello from notification jquery")
+                                    location.reload();
+                                },
+                                error: function (error) {
+                                    console.error('Error fetching data:', error);
+                                }
+                            });
+                        }
+                        <!-- to remove the notification from the list -->
+                        <!-- notificationItem.addEventListener('click',function(e){
+                            e.forEach((e)=>{
+                                console
+                            });
+                            const id = $("#notification_link_id").val();
+                            console.log(`The current id is ${id}`);
+                            $.ajax({
+                                url: `/removeCheckedNotification/${id}`,
+                                method: 'GET',
+                                dataType: 'json',
+                                success: function (data) {
+                                    console.log("Hello from notification jquery")
+                                },
+                                error: function (error) {
+                                    console.error('Error fetching data:', error);
+                                }
+                            });
+                        }) -->
+                        notificationBar.addEventListener('click',function(e){
+                            console.log("From block");
+                            notificationDropdown.classList.toggle('abcd');
+                            <!-- if (dropdownVisibility){
+                                notificationDropdown.style.display="block";
+                                dropdownVisibility = false;
+                            }
+                            else{
+                                notificationDropdown.style.display="none";
+                                dropdownVisibility = true;
+
+                            } -->
+                
+                        })
+                        document.addEventListener('click', function (event) {
+                            const isClickInsideMenu = notificationBar.contains(event.target);
+                            const isClickOnToggle = notificationItem.contains(event.target);
+                        
+                            if (!isClickInsideMenu &amp;&amp; !isClickOnToggle) {
+                                notificationDropdown.classList.remove('abcd');
+                            }
+                        });
+                    </script>
+
+                </body>
+            </html>
+        </template>
+
+<!-- 
+        <template id="dashboard_page">
+            <t t-call="website.layout">
+                <div class="main-container">
+                    <div class="container">
+                        <t t-call="employee_dashboard.sidear_template" />
+                    </div>
+                    <div class="dash-container"
+                        >
+                        <t t-call="employee_dashboard.dashboard_template" />
+                    </div>
+                </div>
+            </t>
+        </template> -->
+        
+</odoo>

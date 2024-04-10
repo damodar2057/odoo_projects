@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+        <record id="paperformat_farmer_id" model="report.paperformat">
+            <field name="name">Farmer ID</field>
+            <field name="format">custom</field>
+            <field name="page_height">90</field>
+            <field name="page_width">54</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">2</field>
+            <field name="margin_left">2</field>
+            <field name="margin_right">2</field>
+            <field name="header_line" eval="True"/>
+            <field name="header_spacing">2</field>
+            <field name="orientation">Landscape</field>
+            <field name="dpi">90</field>
+        </record>
+
+    <record id="action_farmer_id_report" model="ir.actions.report">
+        <field name="name">Farmer ID</field>
+        <field name="model">farm.farmer</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">farmer.farmer_id</field>
+        <field name="binding_model_id" ref="model_farm_farmer"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_farmer_id"/>
+    </record>
+
+    <record id="action_farmer_id_report_preview" model="ir.actions.report">
+        <field name="name">Farmer ID Preview</field>
+        <field name="model">farm.farmer</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">farmer.farmer_id_preview</field>
+        <field name="binding_model_id" ref=""/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="farmer_id_preview">
+       <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+<!--                <link rel="stylesheet" href="/farmer/static/src/css/style.css" />-->
+<center>
+</center>
+<t t-foreach="docs" t-as="o">
+    <div style="width:25rem;height:15rem;border:1px solid black;padding:1rem;">
+        <div style="font-size:6.5px;line-height: 1.5;position:relative; margin-bottom:20px;color:red;">
+            <img style="left:0;position:absolute;" height="45" width="45" src="/farmer/static/images/nepal.jpeg"/>
+            <t t-if="res_company.logo">
+                <img style="right:0;position:absolute;" height="45" width="45" t-att-src="image_data_uri(res_company.logo)"/>
+            </t>
+            <!-- <t t-else="">
+                <img style="float:right" height="45" width="45" alt=""/>
+            </t> -->
+            <div style="right:45;">
+                <center>
+                <strong><span style="font-weight:bold;font-size:8px;color:red;padding:0;margin:0" t-esc="res_company.name"></span></strong><br/>
+               <strong><span t-esc="res_company.street"></span></strong><br/>
+                <strong><span><span style="margin:0;padding:0" t-esc="res_company.city"></span>, <span style="margin:0;padding:0" t-esc="res_company.street2"></span></span></strong><br/>
+                <strong><span><span style="margin:0;padding:0" t-esc="res_company.state_id.name"></span>, <span style="margin:0;padding:0" t-esc="res_company.country_id.name"></span></span></strong><br/>
+                <strong><span style="font-weight:bold;font-size:10px;margin-bottom:4px;text-align:center;background-color:red;border-radius:2px;color:white;padding-left:3px;padding-right:2px;margin:0;width:fit-content">Farmer Identity Card</span></strong><br/>
+                </center>  
+            </div>
+        </div>
+        <div>
+        <div style="font-size:6.5px;line-height: 1.5;position:relative; margin-bottom:0px;;">
+                                <strong>Farmer ID: </strong><span t-field="o.ref" style="font-weight: lighter;"/><br />
+                                <strong>Name: </strong><span t-field="o.name"/><br />
+                                <div style="float:right;position: absolute;top: 0; right: 0;">
+                                    <t t-if="o.image_1920">
+                                        <img t-att-src="image_data_uri(o.image_1920)" alt="Not Found" height="40" width="40"/><br />
+                                    </t>
+                                    <t t-else="">
+                                        <img src="/farmer/static/images/avatar.png" alt="Not Found Here" height="40" width="40"/><br />
+                                    </t>
+                                    <img t-if="o.qr_code" t-att-src="image_data_uri(o.qr_code)" alt="Not Found" height="35" width="35" style="margin-left:3.75px;margin-top:4px;"/>
+                                </div>
+                                <strong>Gender: </strong><span t-field="o.gender"/><br />
+                                <strong>Date of Birth: </strong><span t-field="o.date_of_birth_bs"/><br />
+                                <strong>Address: </strong><span t-field="o.palika"/>-<span t-field="o.ward_no"/>, <span t-field="o.district"/>, <span t-field="o.province"/><br />
+                                <strong>Citizenship Number: </strong><span t-field="o.citizenship_number"/><br />
+                                <strong>Mobile: </strong><span t-field="o.mobile"/><br />
+                                <strong>Agriculture Activities: </strong><span t-field="o.agriculture_activites"/>
+                            </div>
+                            <!-- the code below is formatted differently for styling reasons DON'T CHANGE IT!!!!!!!!!!!! -->
+                            <div style="font-size:6.5px;line-height: 1.5;white-space: pre;margin-top:0px;;">
+    <strong>Approved By: ________________________</strong>       
+    <strong>                     Name:</strong>
+    <strong>                     Position:</strong>
+                            </div>
+
+                            </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+
+    <template id="farmer_id">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+<!--                <link rel="stylesheet" href="/farmer/static/src/css/style.css" />-->
+<center>
+</center>
+<t t-foreach="docs" t-as="o">
+    <div>
+        <div style="font-size:6.5px;line-height: 1.5;position:relative; margin-bottom:20px;color:red;">
+            <img style="left:0;position:absolute;" height="45" width="45" src="/farmer/static/images/nepal.jpeg"/>
+            <t t-if="res_company.logo">
+                <img style="right:0;position:absolute;" height="45" width="45" t-att-src="image_data_uri(res_company.logo)"/>
+            </t>
+            <!-- <t t-else="">
+                <img style="float:right" height="45" width="45" alt=""/>
+            </t> -->
+            <div style="right:45;">
+                <center>
+                <strong><span style="font-weight:bold;font-size:8px;color:red;padding:0;margin:0" t-esc="res_company.name"></span></strong><br/>
+               <strong><span t-esc="res_company.street"></span></strong><br/>
+                <strong><span><span style="margin:0;padding:0" t-esc="res_company.city"></span>, <span style="margin:0;padding:0" t-esc="res_company.street2"></span></span></strong><br/>
+                <strong><span><span style="margin:0;padding:0" t-esc="res_company.state_id.name"></span>, <span style="margin:0;padding:0" t-esc="res_company.country_id.name"></span></span></strong><br/>
+                <strong><span style="font-weight:bold;font-size:10px;margin-bottom:4px;text-align:center;background-color:red;border-radius:2px;color:white;padding-left:3px;padding-right:2px;margin:0;width:fit-content">Farmer Identity Card</span></strong><br/>
+                </center>  
+            </div>
+        </div>
+        <div>
+        <div style="font-size:6.5px;line-height: 1.5;position:relative; margin-bottom:0px;;">
+                                <strong>Farmer ID: </strong><span t-field="o.ref" style="font-weight: lighter;"/><br />
+                                <strong>Name: </strong><span t-field="o.name"/><br />
+                                <div style="float:right;position: absolute;top: 0; right: 0;">
+                                    <t t-if="o.image_1920">
+                                        <img t-att-src="image_data_uri(o.image_1920)" alt="Not Found" height="40" width="40"/><br />
+                                    </t>
+                                    <t t-else="">
+                                        <img src="/farmer/static/images/avatar.png" alt="Not Found Here" height="40" width="40"/><br />
+                                    </t>
+                                    <img t-if="o.qr_code" t-att-src="image_data_uri(o.qr_code)" alt="Not Found" height="35" width="35" style="margin-left:3.75px;margin-top:4px;"/>
+                                </div>
+                                <strong>Gender: </strong><span t-field="o.gender"/><br />
+                                <strong>Date of Birth: </strong><span t-field="o.date_of_birth_bs"/><br />
+                                <strong>Address: </strong><span t-field="o.palika"/>-<span t-field="o.ward_no"/>, <span t-field="o.district"/>, <span t-field="o.province"/><br />
+                                <strong>Citizenship Number: </strong><span t-field="o.citizenship_number"/><br />
+                                <strong>Mobile: </strong><span t-field="o.mobile"/><br />
+                                <strong>Agriculture Activities: </strong><span t-field="o.agriculture_activites"/>
+                            </div>
+                            <!-- the code below is formatted differently for styling reasons DON'T CHANGE IT!!!!!!!!!!!! -->
+                            <div style="font-size:6.5px;line-height: 1.5;white-space: pre;margin-top:0px;;">
+    <strong>Approved By: ________________________</strong>       
+    <strong>                     Name:</strong>
+    <strong>                     Position:</strong>
+                            </div>
+
+                            </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

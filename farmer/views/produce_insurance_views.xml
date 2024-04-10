@@ -1,0 +1,75 @@
+<odoo>
+    <!-- Produce Insurance Form View -->
+    <record id="view_form_produce_insurance" model="ir.ui.view">
+        <field name="name">Produce Insurance Form View</field>
+        <field name="model">produce.insurance</field>
+        <field name="arch" type="xml">
+            <form string="Produce Insurance Information">
+                <header>
+                    <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                    <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="id" invisible="1"/>
+                        <field name="farmer_id" invisible="1" readonly="1"/>
+                        <field name="farmer_group_id" invisible="1" readonly="1"/>
+                        <field name="delete_request" invisible="1"/>
+                        <field name="insured_produce" domain="[('farmer_id','=',farmer_id),('farmer_group_id','=',farmer_group_id)]" options= "{'no_create':True}"/>
+                        <field name="insured_amount"/>
+                        <field name="insurance_company" options= "{'no_create':True}"/>
+                        <field name="insured_date_bs" widget = "nepali_datepicker"/>
+                        <field name="validity_date_bs" widget = "nepali_datepicker"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Produce Insurance Tree View -->
+    <record id="view_tree_produce_insurance" model="ir.ui.view">
+        <field name="name">Product Insurance Tree view</field>
+        <field name="model">produce.insurance</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request" >
+                <field name="delete_request" invisible="1"/>
+                <field name="insured_produce"/>
+                <field name="insured_amount"/>
+                <field name="insurance_company"/>
+                <field name="insured_date_bs"/>
+                <field name="validity_date_bs"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Produce Form View -->
+    <record id="view_form_produce" model="ir.ui.view">
+        <field name="name">Product Form View</field>
+        <field name="model">farm.produce</field>
+        <field name="arch" type="xml">
+            <form string="Produce Information">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="farmer_id" readonly="1" />
+                        <field name="farmer_group_id"  readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Produce Tree View -->
+    <record id="view_tree_produce" model="ir.ui.view">
+        <field name="name">Product Tree view</field>
+        <field name="model">farm.produce</field>
+        <field name="arch" type="xml">
+            <tree delete="0" create="0">
+                <field name="name" />
+                <field name="farmer_id" />
+                <field name="farmer_group_id" />
+            </tree>
+        </field>
+    </record>
+</odoo>

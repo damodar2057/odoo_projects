@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_queue_job_garbage_collector" model="ir.cron">
+            <field name="name">Job to fetch Current Vehicle Location</field>
+            <field name="interval_number">3</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field ref="model_gps_device_info" name="model_id" />
+            <field name="state">code</field>
+            <field name="code">model.update_active_gps_devices_list()</field>
+        </record>
+    </data>
+</odoo>

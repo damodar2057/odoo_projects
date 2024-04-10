@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <!-- Configuration Programs Year Program Information Form View -->
+        <record id="view_programs_year_program_form" model="ir.ui.view">
+            <field name="name">Programs Year Program Form</field>
+            <field name="model">year.program</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="year"/>
+                            <field name="program_name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Configuration Programs Program Project Information Form View -->
+        <record id="view_programs_program_project_form" model="ir.ui.view">
+            <field name="name">Programs Project Form</field>
+            <field name="model">program.project</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="program_name"/>
+                            <field name="project_name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Configuration Programs Year Program Information Tree View -->
+        <record id="view_programs_year_program_tree" model="ir.ui.view">
+            <field name="name">Programs Year</field>
+            <field name="model">year.program</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="year"/>
+                    <field name="program_name"/>       
+                </tree>
+            </field>
+        </record>
+
+        <!-- Configuration Programs Program Project Information Tree View -->
+        <record id="view_programs_program_project_tree" model="ir.ui.view">
+            <field name="name">Program Project</field>
+            <field name="model">program.project</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="program_name"/>   
+                    <field name="project_name"/>      
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,144 @@
+<odoo>
+
+        <record id="create_warehouse_location_poc_window_action" model="ir.actions.act_window">
+            <field name="name">Create Storage POC</field>
+            <field name="res_model">warehouse.location.poc</field>
+<!--            <field name="context">{'default_group_id':context.get("id")}</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="edit_warehouse_location_poc_window_action" model="ir.actions.act_window">
+            <field name="name">Edit Storage POC</field>
+            <field name="res_model">warehouse.location.poc</field>
+            <field name="view_mode">form</field>
+        </record>
+
+<!--    Storage Form View-->
+    <record id="view_form_warehouse_location" model="ir.ui.view">
+        <field name="name">Storage Form</field>
+        <field name="model">warehouse.location</field>
+        <field name="arch" type="xml">
+            <form string="Storage Information">
+                <field name="active" invisible="1"/>
+                <sheet>
+                    <pages>
+                        <div class="oe_button_box" name="button_box">
+                            <button string="Current Stock" class="oe_stat_button" icon="fa-cubes" name="warehouse_storea_srocks_window" type="object"/>
+                            <button string="Storage Request" class="oe_stat_button" icon="fa-docs" name="warehouse_storage_request_window" type="object" attrs="{'invisible': [('allow_external_stocks', '=', False)]}"/>
+                        </div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <h1>
+                            <field name="ref"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="name" string="warehouse Name"/>
+                                <field name="warehouse_type" options="{'no_create': True}" />
+                                <field name="code"/>
+                                <field name="capacity"/>
+                                <field name="unit_of_measurement" options="{'no_create': True}" />
+                                <field name="details"/>
+                                <field name="allow_external_stocks"/>
+                                <separator name="warehouse_location_details" string="Address" colspan="2"/>
+                                <field name="province" options="{'no_create': True}" />
+                                <field name="district" domain="[('province_name', '=', province)]" options="{'no_create': True}"/>
+                                <field name="palika" domain="[('district_name', '=', district)]" options="{'no_create': True}"/>
+                                <field name="ward_no"/>
+                                <field name="tole" domain="[('palika_name', '=', palika)]" options="{'no_create': True}"/>
+                            </group>
+                            <group string="Point Of Contact">
+                                <field name="poc_id" invisible="1"/>
+                                <field name="id" invisible="1"/>
+                                <button name="%(create_warehouse_location_poc_window_action)d"
+                                            class="oe_highlight"
+                                            colspan="2"
+                                            string="Add POC"
+                                            type="action"
+                                            attrs="{'invisible': [('poc_id', '!=', False)]}"/>
+                                <div colspan="2" attrs="{'invisible':[('poc_id', '=', False)]}">
+                                    <field name="poc_name"/>
+                                    <field name="poc_mobile"/>
+                                    <field name="poc_email"/>
+                                    <button name="action_edit_poc"
+                                            class="oe_highlight"
+                                            colspan="2"
+                                            string="Edit POC"
+                                            type="object"/>
+                                </div>
+                                <!-- <separator name = 'members' string = 'Members' colspan = '2'/>
+                                <field name = 'chairman'/>
+                                <field name = 'secretary'/>
+                                <field name = 'treasurer'/> -->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Members">
+                                <field name="warehouse_location_membership_ids"/>
+                            </page>
+                        </notebook>
+                    </pages>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!--    Storage Tree View-->
+    <record id="view_tree_warehouse_location_producer" model="ir.ui.view">
+        <field name="name">Storage Tree</field>
+        <field name="model">warehouse.location</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="warehouse_type"/>
+                <field name="capacity"/>
+                <field name="unit_of_measurement"/>
+            </tree>
+        </field>
+    </record>
+
+<!--    Storage POC form View-->
+    <record id="view_form_warehouse_location_poc" model="ir.ui.view">
+        <field name="name">Storage poc</field>
+        <field name="model">warehouse.location.poc</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="warehouse_id" readonly="1" options="{'no_create': True}" />
+                    <field name="name"/>
+                    <field name="mobile"/>
+                    <field name="email"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+<!--    Storage member form View-->
+    <record id="view_form_warehouse_location_member" model="ir.ui.view">
+        <field name="name">Storage member</field>
+        <field name="model">warehouse.location.member</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="warehouse_id" readonly="1" options="{'no_create': True}" />
+                    <field name="farmer_id"/>
+                    <field name="position"/>
+                </group>
+            </form>
+        </field>
+    </record>
+<!--    Storage member tree View-->
+    <record id="view_tree_warehouse_location_member" model="ir.ui.view">
+        <field name="name">Storage member</field>
+        <field name="model">warehouse.location.member</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="farmer_id"/>
+                <field name="position"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
+	

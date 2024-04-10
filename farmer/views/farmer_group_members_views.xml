@@ -1,0 +1,65 @@
+<odoo>
+<!--    Farmer Group Member Form View-->
+    <record id="view_form_farmer_group_member" model="ir.ui.view">
+        <field name="name">Farmer Group Member Form</field>
+        <field name="model">farmer.group.member</field>
+        <field name="arch" type="xml">
+            <form string="Farmer Group Member Information">
+                <header>
+                    <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                    <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                </header>
+                <sheet>
+                    <pages>
+                        <group>
+                            <group>
+                                <field name="delete_request" invisible="1"/>
+                                <field name="farmer_id" options="{'no_create': True}"/>
+                                <field name="farmer_group_id" options="{'no_create': True}"/>
+                                <field name="position"/>
+                            </group>
+                        </group>
+                    </pages>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    Farmer Group Member Tree View-->
+    <record id="view_tree_farmer_group_member" model="ir.ui.view">
+        <field name="name">Farmer Group Member Tree</field>
+        <field name="model">farmer.group.member</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request">
+                <field name="farmer_id"/>
+                <field name="farmer_group_id"/>
+                <field name="position"/>
+                <field name="delete_request" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Farmer Group Member Tree Inherited View -->
+    <record id="view_farmer_group_member_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Farmer Group Member Tree Form Inherit User Access</field>
+        <field name="model">farmer.group.member</field>
+        <field name="inherit_id" ref="farmer.view_form_farmer_group_member"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='farmer_id']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='farmer_id' options="{'no_create': True}"/>
+                </t>
+                <t groups="farmer.group_producer_farmer_access">
+                    <field name='farmer_id' options="{'no_create': True}" readonly="1"/>
+                </t>
+            </xpath>
+            <!-- <xpath expr="//field[@name='farmer_group_id']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='farmer_group_id' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath> -->
+        </field>
+    </record>
+
+
+</odoo>
+	

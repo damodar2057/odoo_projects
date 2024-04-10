@@ -1,0 +1,356 @@
+<odoo>
+    <data>
+        <template id="view_assigned_tasks" name="View Tasks">
+            <t t-call="website.layout">
+                <link rel="stylesheet"
+                      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" />
+                <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js">
+                </script>
+
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                        crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+                        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+                        crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+                        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+                        crossorigin="anonymous"></script>
+
+                <div class="wrapper">
+                    <t t-call="support_sys.sidebar_template">
+                    </t>
+
+                    <div class="grey-bg container-fluid px-0 px-sm-5 template-wrapper daily_tasks" style="padding-top:0;">
+                        <link rel="stylesheet"
+                              href="/support_sys/static/src/scss/expenditure_data.scss" />
+                        <body>
+                            <style>
+                                 a{
+                text-decoration:none;
+                }
+                 .table-container {
+                    display: none;
+                    }
+                .table-container:target {
+                                width:106%;
+                                left:-3%;
+                    display: block;
+                                height:100vh;
+                                overflow:auto;
+                    }
+                    .taskInitiatedTime{
+                        visibility:hidden;
+                        width:0;
+                        height:0;
+                    }
+                    .taskCompletedTime{
+                        visibility:hidden;
+                        width:0;
+                        height:0;
+                    }
+                    #mark_as_done_button{
+                        display:none;
+                    }
+                    .taskInitiatedTimeTableHead{
+                        visibility:hidden;
+                        width:0;
+                        height:0;
+                    }
+                    .taskCompletedTimeTableHead{
+                        visibility:hidden;
+                        width:0;
+                        height:0;
+                    }
+                    .tableHeadPropertyClass{
+                        width:fit-content;
+                        height:fit-content;
+                    }
+                    .activeLink {
+                        background-color: lightgrey;
+                        color: white; /* Adjust text color for better visibility */
+                    }
+                    #linkContainerAssignedTask:hover{
+                        background-color:lightgrey;
+
+                    }
+                    #linkContainerCompletedTask:hover{
+                        background-color:lightgrey;
+
+                    }
+
+                            </style>
+                            <div class="card">
+
+                            <div class="head" >
+                                <div class="list-group" style="display:flex;flex-direction:row;float:right;font-style:inherit;gap:5px;font-weight:700;">
+                                    <div id="linkContainerAssignedTask" class="card card-list list-group-item">
+
+                                    <a href="#table_assigned_task" class="nav-link">
+<!--                                        <input type="radio" id="assigned"-->
+<!--                                               checked="true" />-->
+<!--                                        <label for="assigned">-->
+                                            Assigned Task
+<!--                                        </label>-->
+                                    </a>
+                                    </div>
+                                    <div id="linkContainerCompletedTask" class="card card-list list-group-item ">
+
+                                    <a href="#table_completed_task" class="nav-link">
+<!--                                        <input type="radio" id="completed" />-->
+<!--                                        <label for="completed">-->
+                                            Completed Task
+<!--                                        </label>-->
+                                    </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="table_assigned_task" class="table-container table-responsive" >
+                                <table class="table table-striped" style="font-size:0.9rem">
+                                    <thead style="position:sticky;">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Project</th>
+                                            <th scope="col">Client</th>
+                                            <th scope="col">Assigned Date</th>
+                                            <th scope="col">Deadline</th>
+                                            <th scope="col" class="taskInitiatedTimeTableHead">Initiated Time</th>
+                                            <th scope="col" class="taskCompletedTimeTableHead">Finished Time</th>
+                                            <th scope="col" id="buttonCellAssignedTask"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-if="task">
+                                        <t t-foreach="task" t-as="t" t-key="t.s_no">
+                                            <tr>
+                                                <td scope="row">
+                                                    <span t-esc="t['s_no']"/>
+                                                </td>
+                                                <td scope="row">
+                                                    <span t-esc="t['name']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-foreach="t['project']" t-as="tp">
+                                                        <span t-esc="tp['name']" style="background-color:antiquewhite;padding-inline:5px;border-radius:50%;"/>
+                                                    </t>
+                                                </td>
+                                                <td><t t-foreach="t['client']" t-as="tc">
+                                                    <span t-esc="tc['name']" style="background-color:antiquewhite;padding-inline:5px;border-radius:50%;"/>
+                                                </t>
+                                                </td>
+                                                <td> <span t-esc="t['assigned_date']"/></td>
+                                                <td><span t-esc="t['deadline']"/></td>
+                                                <td> <span class="taskInitiatedTime"></span></td>
+                                                <td> <span class="taskCompletedTime"></span></td>
+                                                <td>
+                                                <button  class="task_status_track initiate_task btn btn-primary" t-att-data-id="t['id']">Initiate Task</button></td>
+                                            </tr>
+                                        </t>
+
+                                        </t>
+                                        <t t-else="not task">
+                                            <tr><td colspan="7">#Not any task assigned yet.</td></tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="table_completed_task" class="table-container table-responsive" >
+                                    <table class="table table-striped" style="font-size:0.9rem">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Project</th>
+                                            <th scope="col">Client</th>
+                                            <th scope="col">Deadline</th>
+                                            <th scope="col" class="">Initiated Time</th>
+                                            <th scope="col" class="">Finished Time</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-if="completed">
+                                        <t t-foreach="completed" t-as="c" t-key="c.s_no">
+                                            <tr>
+                                                <td scope="row">
+                                                    <span t-esc="c['s_no']"/>
+                                                </td>
+                                                <td scope="row">
+                                                    <span t-esc="c['name']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-foreach="c['project']" t-as="cp">
+                                                        <span t-esc="cp['name']" style="background-color:antiquewhite;padding-inline:5px;border-radius:50%;"/>
+                                                    </t>
+                                                </td>
+                                                <td><t t-foreach="c['client']" t-as="cc">
+                                                    <span t-esc="cc['name']" style="background-color:antiquewhite;padding-inline:5px;border-radius:50%;"/>
+                                                </t>
+                                                </td>
+                                                <td><span t-esc="c['deadline']"/></td>
+                                                <td> <span class=""><t t-esc="c['task_initiated_time']"/></span></td>
+                                                <td> <span class=""><t t-esc="c['task_completed_time']"/></span></td>
+                                                <td><button id="task_not_completed" t-att-data-id="c['id']" class="btn btn-danger">Mark as not done</button></td>
+                                            </tr>
+                                        </t>
+                                        </t>
+                                        <t t-else="not completed">
+                                            <tr>
+                                                <td colspan="7">#Not any completed task yet.</td></tr>
+                                                                </t>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            </div>
+
+                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                        </body>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    window.onload=function(){
+                    window.location.hash = "#table_assigned_task";
+
+                    const fragmentIdentifier = window.location.hash;
+                    
+                    console.log("Fragment Identifier is:", fragmentIdentifier);
+                    
+<!-- 
+                    var branch_showing=document.querySelector('.branch_showing')
+                    branch_showing.style.display='none' -->
+
+                    var
+                    sidebarToggle=document.querySelector("#sidebar-toggle");
+                    sidebarToggle.addEventListener("click",function(){
+                        document.querySelector("#sidebar").classList.toggle("collapsed")});
+                    
+                    
+            
+                    }
+                </script>
+                <script>
+
+                    <!-- this below is for showing the active link -->
+                    const fragmentIdentifier = window.location.hash;
+                    var linkContainerAssignedTaskId = document.querySelector("#linkContainerAssignedTask")
+                    var linkContainerCompletedTaskId = document.querySelector("#linkContainerCompletedTask")
+                    <!-- if (fragmentIdentifier === "#table_assigned_task"){
+                        console.log("Hello damodar from active link");
+                        linkContainerAssignedTaskId.classList.add('activeLink');
+                    }
+                    else if (fragmentIdentifier === "#table_completed_task"){
+                        linkContainerCompletedTaskId.classList.add('activeLink');
+                    } -->
+                    linkContainerAssignedTaskId.addEventListener('click',function(){
+                        const fragmentIdentifier = window.location.hash;
+                        console.log(`Fragement isw ${fragmentIdentifier}`)
+                        if (fragmentIdentifier === "#table_assigned_task"){
+                            console.log("Hello damodar from active link");
+                            linkContainerAssignedTaskId.classList.add('activeLink');
+                            linkContainerCompletedTaskId.classList.remove('activeLink');
+
+                        }
+                    })
+                    linkContainerCompletedTaskId.addEventListener('click',function(){
+                        const fragmentIdentifier = window.location.hash;
+                        console.log(`Fragement isw ${fragmentIdentifier}`)
+                        if (fragmentIdentifier === "#table_completed_task"){
+                            linkContainerAssignedTaskId.classList.remove('activeLink');
+                            linkContainerCompletedTaskId.classList.add('activeLink');
+                        }
+                    })
+                    var initiate_task = document.querySelector('.initiate_task');
+                    var buttonCellId = document.querySelector('#buttonCellAssignedTask');
+                    var markDoneButtonId = document.querySelector('#mark_as_done_button');
+                    <!-- var taskStatusTrackId = document.querySelector('.task_status_track'); -->
+                    var taskInitiatedTimeId = document.querySelector('.taskInitiatedTime')
+                    var taskInitiatedTimeTableHead = document.querySelector('.taskInitiatedTimeTableHead')
+                    var taskCompletedTimeId = document.querySelector('.taskCompletedTime')
+                    var taskCompletedTimeTableHead = document.querySelector('.taskCompletedTimeTableHead')
+                    var initiate_task_buttons = document.querySelectorAll('.task_status_track');
+                    
+                    <!-- // Iterate over each button and attach event listener -->
+                    initiate_task_buttons.forEach(function(button) {
+                        button.addEventListener('click', function(e) {
+                            const now = new Date();
+                            const currentDateTime = now.toLocaleString();
+                            var taskId = this.getAttribute("data-id"); // Get the data-id attribute of the clicked button
+                            console.log(taskId)
+                    
+                            if (e &amp;&amp; e.target) {
+                                const isInitiateTaskClass = this.classList.contains('initiate_task');
+                    
+                                if (isInitiateTaskClass &amp;&amp; !this.classList.contains('endTask')) {
+                                    console.log(`Current Date is ${currentDateTime}`);
+                                    console.log("From Initiate task");
+                                    this.classList.add('endTask');
+                                    this.innerText = "End Task";
+                                    
+                                    // Find the corresponding initiated time span for this row
+                                    var taskInitiatedTimeId = this.parentElement.parentElement.querySelector('.taskInitiatedTime');
+                                    var taskInitiatedTimeTableHead = document.querySelector('.taskInitiatedTimeTableHead');
+                                    
+                                    taskInitiatedTimeId.innerText = `${currentDateTime}`;
+                                    taskInitiatedTimeTableHead.style.visibility = "visible";
+                                    taskInitiatedTimeTableHead.classList.add('tableHeadPropertyClass');
+                                    taskInitiatedTimeId.style.visibility = "visible";
+                                    taskInitiatedTimeId.classList.add('tableHeadPropertyClass');
+                    
+                                    // Store the task initiated time
+                                    $.ajax({
+                                        url: "storeInitiatedTime",
+                                        method: 'POST',
+                                        data: {
+                                            'id': taskId,
+                                            'assigned_time': currentDateTime,
+                                            'action': 'initiate',
+                                        },
+                                        success: function(data) {
+                                            console.log("Hello from initiated time");
+                                        },
+                                        error: function(error) {
+                                            console.error('Error fetching data', error);
+                                        }
+                                    });
+                                }else {
+                                    // Find the corresponding completed time span for this row
+                                    var taskCompletedTimeId = this.parentElement.parentElement.querySelector('.taskCompletedTime');
+                                    var taskCompletedTimeTableHead = document.querySelector('.taskCompletedTimeTableHead');
+                                    
+                                    console.log(`End  Date is ${currentDateTime}`);
+                                    this.style.display="none";
+                                    taskCompletedTimeTableHead.style.visibility = "visible";
+                                    taskCompletedTimeTableHead.classList.add('tableHeadPropertyClass');
+                                    taskCompletedTimeId.style.visibility = "visible";
+                                    taskCompletedTimeId.classList.add('tableHeadPropertyClass')
+                                    taskCompletedTimeId.innerText = `${currentDateTime}`;
+                                    // Store the task completed time
+                                    $.ajax({
+                                        url: "storeInitiatedTime/?",
+                                        method: 'POST',
+                                        data: {
+                                            'id': taskId,
+                                            'assigned_time': currentDateTime,
+                                            'action':"done",
+                                        },
+                                        success: function(data) {
+                                            window.location.reload();
+                                        },
+                                        error: function(error) {
+                                            console.error('Error fetching data', error);
+                                        }
+                                    });
+                                }
+                            }  else{
+                                console.log('Event is not found')
+                            }})
+                        })
+                </script>
+
+            </t>
+        </template>
+    </data>
+</odoo>

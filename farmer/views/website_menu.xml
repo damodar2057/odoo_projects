@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="website_producer_farmer_menu" model="website.menu">
+            <field name="name">Farmer</field>
+            <field name="url">/farmer_form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">1</field>
+        </record>
+        <record id="website_producer_farmer_group_menu" model="website.menu">
+            <field name="name">Farmer Group</field>
+            <field name="url">/farmer_group_form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">2</field>
+        </record>
+        <record id="website_producer_household_menu" model="website.menu">
+            <field name="name">Household</field>
+            <field name="url">/household_form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">3</field>
+        </record>
+    </data>
+</odoo>

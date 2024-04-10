@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+
+        <!-- Inherit Form View -->
+        <record id="view_res_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="login" position="after">
+                        <field name="field_latitude" string="Latitude"/>
+                        <field name="field_longitude" string="Longitude"/>
+                        <field name="field_title"/>
+                        <field name="field_address"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <!-- Inherit Tree View -->
+        <record id="view_res_users_tree_inherit" model="ir.ui.view">
+            <field name="name">res.users.tree.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="login" position="after">
+                        <field name="field_latitude"/>
+                        <field name="field_longitude"/>
+                        <field name="field_title"/>
+                        <field name="field_address"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+    </data>
+</odoo>

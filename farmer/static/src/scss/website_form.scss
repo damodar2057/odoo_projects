@@ -1,0 +1,189 @@
+/*the container must be positioned relative:*/
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select input{
+  width: 100%;
+}
+.select-selected {
+  background-color: white;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+.selected-items{
+  padding: 8px 16px;
+  height: 32px;
+  display: flex;
+}
+
+.many2many_selected_tag{
+  font-size: 10px;
+  height: 20px;
+  border: 1px solid gray;
+  border-radius: 8px;
+  width: fit-content;
+  padding: 1px 6px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 4px;
+
+  i{
+    padding-top: 3px;
+    cursor: pointer;
+  }
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: white;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  max-height: 168px;
+  overflow-y: scroll;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.data-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#form_temp{
+  padding: 50px;
+}
+
+.form-group{
+  margin-top: 10px;
+}
+
+.page-heading{
+  border-top: 0.5px solid lightgray;
+  border-right: 0.5px solid lightgray;
+  border-left: 0.5px solid lightgray;
+}
+
+.form-control{
+  border: none;
+  border-bottom: 0.5px solid lightgray;
+  border-radius: 0px;
+  &:active,&:focus{
+    border: none;
+    outline: none;
+    box-shadow: none;
+    border-bottom: 1px solid gray;
+  }
+}
+
+#form_template{
+
+  label{
+    color: gray;
+  }
+
+  input{
+    margin-bottom:20px;
+  }
+  .many2many_field{
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+
+    input{
+      margin-bottom: 0px;
+    }
+    margin-bottom: 20px;
+  }
+}
+
+
+#success-container{
+  padding: 10px;
+  padding: 20px;
+}
+
+#form_temp{
+  .container{
+    padding: 40px;
+    box-shadow: 2px 2px 25px gray;
+
+    h1{
+      color: rgb(90, 90, 90);
+    }
+
+    .message{
+      background-color: yellow;
+      padding: 8px 6px;
+      span{
+        color: red;
+        font-size: 12px;
+      }
+    }
+  }
+  #wrap{
+    width:50%;
+    margin: 0px auto;
+  }
+}
+
+.clearfix{
+  margin-top: 50px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 900px) {
+  #form_temp{
+    #wrap{
+      width: 85%;
+    }
+  }
+}
+@media only screen and (max-width: 500px) {
+  #form_temp{
+    #wrap{
+      width: 95%;
+    }
+  }
+}

@@ -1,0 +1,160 @@
+<odoo>
+    <data>
+
+        <!-- Add the new fields to the tree view -->
+        <record id="fleet_vehicle_tree_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.tree.inherit</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree" />
+            <field name="arch" type="xml">
+                <field name="driver_id" position="after">
+                    <field name="vehicle_attached_gps_imei" />
+                    <field name="vehicle_attached_gps_sim_card_no" />
+                    <field name="is_gps_activated" />
+                </field>
+            </field>
+        </record>
+
+        <!-- Add the new fields to the form view -->
+        <record id="fleet_vehicle_form_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.form.inherit</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="inside">
+                    <!-- New group with the mentioned fields -->
+                    <group string="GPS Information">
+                        <field name="vehicle_attached_gps_imei" />
+                        <field name="vehicle_attached_gps_sim_card_no" />
+                    </group>
+                    <group>
+                        <separator string="Threshold Info"/>
+                        <field name="threshold_mileage" />
+                        <field name="threshold_engine_hours" />
+                    </group>
+                    <group string="Maintenace Information">
+                        <br />
+                        <group>
+                            <field name="default_maintenance_interval" />
+                            <field name="manufacturer_recommended_interval" />
+                            <field name="regulator_recommended_interval" />
+                            <field name="interval" />
+                        </group>
+
+                        <!--                        <field name="is_gps_activated" readonly="True"/>-->
+                    </group>
+                </xpath>
+
+                <!-- Add the button to the header -->
+                <xpath expr="//header" position="inside">
+                    <button string="Check Maintenance" class="oe_highlight" type="object"
+                        name="check_for_maintenance" />
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Renewal Documents">
+                        <field name="renewal_documents_ids">
+                            <tree>
+
+                                <field name="document_id" string="Document"/>
+                                <field name="expiry_date" string="Expiry Date"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+
+                                        <field name="document_id" string="Document"/>
+                                        <field name="expiry_date" string="Expiry Date"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+ 
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Add the new fields to the form view -->
+        <record id="stock_warehouse_form_inherit" model="ir.ui.view">
+            <field name="name">stock.warehouse.form.inherit</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <!-- New group with the mentioned fields -->
+                    <page string="Location Coordinates">
+                        <group>
+
+                            <field name="latitude" />
+                            <field name="longitude" />
+                        </group>
+                        <!--                        <field name="is_gps_activated" readonly="True"/>-->
+                    </page>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <!-- Add the new fields to the form view -->
+        <record id="stock_warehouse_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.warehouse.tree.inherit</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="." position="inside">
+
+                    <field name="latitude" />
+                    <field name="longitude" />
+
+                </xpath>
+
+
+            </field>
+        </record>
+        <!-- Add the new fields to the form view of res.partner -->
+        <record id="res_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <!-- New group with the mentioned fields -->
+
+
+                    <field name="latitude" />
+                    <field name="longitude" />
+
+
+                </xpath>
+
+            </field>
+        </record>
+        <!-- Add the new fields to the form view of res.users
+        <record id="res_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_driver" string="Is Driver" />
+                </xpath>
+            </field>
+        </record> -->
+
+        <!-- Add the new fields to the form view of stock.picking -->
+        <record id="stock_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="assigned_vehicle" />
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

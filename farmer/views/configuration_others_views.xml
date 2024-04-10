@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <!-- Configuration Others Land Type Form View -->
+        <record id="view_land_type_form" model="ir.ui.view">
+            <field name="name">Land type</field>
+            <field name="model">land.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Others Irrigation Type Form View -->
+        <record id="view_irrigation_type_form" model="ir.ui.view">
+            <field name="name">Irrigation type</field>
+            <field name="model">irrigation.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Others Road Type Form View -->
+        <record id="view_road_type_form" model="ir.ui.view">
+            <field name="name">Road type</field>
+            <field name="model">road.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Others Documents Type Form View -->
+        <record id="view_documents_type_form" model="ir.ui.view">
+            <field name="name">Documents Type</field>
+            <field name="model">documents.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

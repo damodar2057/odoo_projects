@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <template id="custom_snippet_negotiation_dynamic_content" name="Price Negotiation Dynamic Content Snippet">
+            <section class="oe_structure container_fluid js_dynamic_snippet_farmer" style="display:inline; width:12px">
+                <button type="button"  class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+<!--                                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Some text in the modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </template>
+
+
+        <template id="static_snippet_structure" inherit_id="website.snippets" name="Farmer Snippets">
+            <xpath expr="//div[@id='snippet_effect']/div[hasclass('o_panel_body')]" position="inside">
+                <t t-snippet="price_negotiation.custom_snippet_negotiation_dynamic_content">
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

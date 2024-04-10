@@ -1,0 +1,1109 @@
+<odoo>
+
+    <!--Farmer Service Request Form View-->
+    <record id="view_services_request_form" model="ir.ui.view">
+        <field name="name">Farmer Services Request Form</field>
+        <field name="model">services.request</field>
+        <field name="arch" type="xml">
+            <form string = 'Services Request'>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('saved','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                    <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                    <div class="button-container">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Decline</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="hold_request">Keep On hold</button>
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>
+                    <field name='service_recipient_set' invisible="1"/>
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group string="Service Details">
+                            <field name='year' options="{'no_create': True}"/>
+                            <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]"/>
+                            <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]"/>
+                            <field name='service_name' options="{'no_create': True}"/>
+                            <field name='service_recipient' options="{'no_create': True}" readonly="1"/>
+                            <!-- <field name='service_recipient_gender' options="{'no_create': True}"/> -->
+
+
+                        </group>
+                        <group string="Service Recipient Details" attrs="{'invisible':[('service_recipient_set','=',False)]}">
+                            <field name='service_recipient_name'/>
+                            <field name='service_recipient_phone'/>
+                            <field name='service_recipient_mobile'/>
+                            <field name='service_recipient_vat'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Previous Requests">
+                            <field name='service_request_dynamic_state'/>
+                            <field name='previous_service_requests'/>
+                        </page>
+                    </notebook>
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Service Request From Inherited View -->
+    <record id="view_services_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Service Request Form Inherit User Access</field>
+        <field name="model">services.request</field>
+        <field name="inherit_id" ref="farmer.view_services_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath>
+            <xpath expr="///button[@name='cancel_request']" position="attributes">
+                <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+            </xpath>
+            <xpath expr="//field[@name='year']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='year' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='program']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='project']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='service_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='service_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Farmer Service Request Tree View-->
+    <record id="view_services_request_tree" model="ir.ui.view">
+        <field name="name">Farmer Services Request Tree</field>
+        <field name="model">services.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='year'/>
+                <field name='service_name'/>
+                <field name='service_recipient_farmer_group'/>
+                <field name='service_recipient_gender'/>
+                <field name='service_recipient'/>
+                <field name='update_date_bs'/>
+                <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Farmer Service Request Search View-->
+    <record id="view_services_request_search" model="ir.ui.view">
+        <field name="name">Farmer Services Request Search</field>
+        <field name="model">services.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='year'/>
+                <field name='service_name'/>
+                <field name='service_recipient_farmer_group'/>
+                <field name='service_recipient_gender'/>
+                <field name='service_recipient'/>
+                <field name='update_date_bs'/>
+                <field name='state'/>
+                <filter string="Female" name="serive_request_search_filter_female" domain="[('service_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="serive_request_search_filter_male" domain="[('service_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="serive_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="serive_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="serive_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="serive_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="serive_request_search_group_by_farmer_group" context="{'group_by': 'service_recipient_farmer_group'}"/>
+                    <filter string="Year" name="serive_request_search_group_by_year" context="{'group_by': 'year'}"/>
+                    <filter string="Service Name" name="serive_request_search_group_by_service_name" context="{'group_by': 'service_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Farmer Equipment Request Form View -->
+    <record id="view_equipment_request_form" model="ir.ui.view">
+        <field name="name">Equipment Request</field>
+        <field name="model">equipment.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('saved','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                    <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                    <div class="button-container" attrs="{'invisible':[('state','in',('Canceled'))]}">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Decline</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="hold_request">Keep On hold</button>
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>
+                    <field name='equipment_recipient_set' invisible="1"/>
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group string="Equipment Details">
+                            <field name='year' options="{'no_create': True}"/>
+                            <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]"/>
+                            <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]"/>
+                            <!-- <field name="eq_type"/> -->
+                            <field name="equipment_type"/>
+                            <field name="equipment_quantity"/>
+                            <field name='unit'/>
+
+                            <field name='equipment_recipient' options="{'no_create': True}" readonly="1"/>
+                        </group>
+                        <group string="Equipment Recipient Details" attrs="{'invisible':[('equipment_recipient_set','=',False)]}">
+                            <field name='equipment_recipient_name'/>
+                            <field name='equipment_recipient_gender'/>
+                            <field name='equipment_recipient_phone'/>
+                            <field name='equipment_recipient_mobile'/>
+                            <field name='equipment_recipient_vat'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Previous Requests">
+                            <field name='equipment_request_dynamic_state'/>
+                            <field name='previous_equipment_requests'/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!--Equipment Request Form Inherited View-->
+    <record id="view_equipment_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Equipment Request Form Inherit User Access</field>
+        <field name="model">equipment.request</field>
+        <field name="inherit_id" ref="farmer.view_equipment_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath>
+            <xpath expr="///button[@name='cancel_request']" position="attributes">
+                <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+            </xpath>
+            <xpath expr="//field[@name='year']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='year' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='program']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='project']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='equipment_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='equipment_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Farmer Equipment Request Tree View -->
+    <record id="view_equipment_request_tree" model="ir.ui.view">
+            <field name="name">Equipment request tree view</field>
+            <field name="model">equipment.request</field>
+            <field name="arch" type="xml">
+                <tree delete='0'>
+                    <field name='year'/>
+                    <field name='equipment_recipient'/>
+                    <field name='equipment_recipient_farmer_group'/>
+                    <field name='equipment_recipient_gender'/>
+                    <field name='equipment_type'/>
+                    <field name='equipment_quantity'/>
+                    <field name='unit'/>
+
+                    <field name='update_date_bs'/>
+                    <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+
+    <!--Farmer equipment Request Search View-->
+    <record id="view_equipments_request_search" model="ir.ui.view">
+        <field name="name">Farmer equipments Request Search</field>
+        <field name="model">equipment.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='year'/>
+                <field name='equipment_type'/>
+                <field name='equipment_recipient_farmer_group'/>
+                <field name='equipment_recipient_gender'/>
+                <field name='equipment_recipient'/>
+                <field name='update_date_bs'/>
+                <field name='state'/>
+                <filter string="Female" name="equipment_request_search_filter_female" domain="[('equipment_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="equipment_request_search_filter_male" domain="[('equipment_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="equipment_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="equipment_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="equipment_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="equipment_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="equipment_request_search_group_by_farmer_group" context="{'group_by': 'equipment_recipient_farmer_group'}"/>
+                    <filter string="Year" name="equipment_request_search_group_by_year" context="{'group_by': 'year'}"/>
+                    <filter string="Equipment Type" name="equipment_request_search_group_by_equipment_type" context="{'group_by': 'equipment_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Farmer Seedling Request Form View -->
+    <record id="view_seedling_request_form" model="ir.ui.view">
+        <field name="name">Seedling Request Form</field>
+        <field name="model">seedling.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('saved','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                    <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                    <div class="button-container" attrs="{'invisible':[('state','in',('Canceled'))]}">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Decline</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="hold_request">Keep On hold</button>
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>
+                    <field name='seedling_recipient_set' invisible="1"/>
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group string="Seedling Details">
+                            <field name='year' options="{'no_create': True}"/>
+                            <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]"/>
+                            <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]"/>
+                            <field name="seedling_list" widget="many2many_tags"/>
+                            <field name="seedling_quantity"/>
+                            <field name='unit'/>
+                            <field name='seedling_recipient' options="{'no_create': True}" readonly="1"/>
+                        </group>
+                        <group string="Seedling Recipient Details" attrs="{'invisible':[('seedling_recipient_set','=',False)]}">
+                            <field name='seedling_recipient_name'/>
+                            <field name='seedling_recipient_phone'/>
+                            <field name='seedling_recipient_mobile'/>
+                            <field name='seedling_recipient_vat'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Previous Requests">
+                            <field name='seedling_request_dynamic_state'/>
+                            <field name='previous_seedling_requests'/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Seedling Request Form Inherited View -->
+    <record id="view_seedling_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Seedling Request Form Inherit User Access</field>
+        <field name="model">seedling.request</field>
+        <field name="inherit_id" ref="farmer.view_seedling_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath>
+            <xpath expr="///button[@name='cancel_request']" position="attributes">
+                <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+            </xpath>
+            <xpath expr="//field[@name='year']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='year' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='program']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='project']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='seedling_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='seedling_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Farmer Seedling Request Tree View -->
+    <record id="view_seedling_request_tree" model="ir.ui.view">
+        <field name="name">Seedling Request Tree</field>
+        <field name="model">seedling.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='year'/>
+                <field name='seedling_recipient'/>
+                <field name='seedling_recipient_farmer_group'/>
+                <field name='seedling_recipient_gender'/>
+                <field name="seedling_list" widget="many2many_tags"/>
+                <field name="seedling_quantity"/>
+                <field name='unit'/>
+                <field name='update_date_bs'/>
+                <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Farmer seedling Request Search View-->
+    <record id="view_seedlings_request_search" model="ir.ui.view">
+        <field name="name">Farmer seedlings Request Search</field>
+        <field name="model">seedling.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='year'/>
+                <field name='seedling_list'/>
+                <field name='seedling_recipient_farmer_group'/>
+                <field name='seedling_recipient_gender'/>
+                <field name='seedling_recipient'/>
+                <field name='update_date_bs'/>
+                <field name='state'/>
+                <filter string="Female" name="seedling_request_search_filter_female" domain="[('seedling_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="seedling_request_search_filter_male" domain="[('seedling_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="seedling_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="seedling_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="seedling_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="seedling_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="seedling_request_search_group_by_farmer_group" context="{'group_by': 'seedling_recipient_farmer_group'}"/>
+                    <filter string="Year" name="seedling_request_search_group_by_year" context="{'group_by': 'year'}"/>
+                    <filter string="Seedling Type" name="seedling_request_search_group_by_seedling_list" context="{'group_by': 'seedling_list'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Farmer Expert Request Form View -->
+    <record id="view_expert_request_form" model="ir.ui.view">
+        <field name="name">Expert Request Form View</field>
+        <field name="model">expert.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('saved','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                    <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                    <div class="button-container" attrs="{'invisible':[('state','in',('Canceled'))]}">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Decline</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="hold_request">Keep On hold</button>
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>
+                    <field name='expert_recipient_set' invisible="1" options="{'no_create': True}" readonly="1"/>
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group string="Expert's Details">
+                            <field name='year' options="{'no_create': True}"/>
+                            <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]"/>
+                            <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]"/>
+                            <!-- <field name="expert_type"/> -->
+                            <field name="expert_id"/>
+                            <field name="expert_quantity"/>
+                            <field name='expert_recipient'/>
+                        </group>
+                        <group string="expert Recipient Details" attrs="{'invisible':[('expert_recipient_set','=',False)]}">
+                            <field name='expert_recipient_name'/>
+                            <field name='expert_recipient_phone'/>
+                            <field name='expert_recipient_mobile'/>
+                            <field name='expert_recipient_vat'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Previous Requests">
+                            <field name='expert_request_dynamic_state'/>
+                            <field name='previous_expert_requests'/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Expert Request Form Inherited View -->
+    <record id="view_expert_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Expert Request Form Inherit User Access</field>
+        <field name="model">expert.request</field>
+        <field name="inherit_id" ref="farmer.view_expert_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath>
+            <xpath expr="///button[@name='cancel_request']" position="attributes">
+                <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+            </xpath>
+            <xpath expr="//field[@name='year']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='year' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='program']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='project']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='expert_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='expert_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Farmer Expert Request Tree View -->
+    <record id="view_expert_request_tree" model="ir.ui.view">
+        <field name="name">Expert Request Tree View</field>
+        <field name="model">expert.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='year'/>
+                <field name='expert_recipient'/>
+                <field name='expert_recipient_farmer_group'/>
+                <field name='expert_recipient_gender'/>
+                <field name="expert_id"/>
+                <field name='expert_quantity'/>
+                <field name='update_date_bs'/>
+                <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!--Farmer expert Request Search View-->
+    <record id="view_experts_request_search" model="ir.ui.view">
+        <field name="name">Farmer experts Request Search</field>
+        <field name="model">expert.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='year'/>
+                <field name='expert_id'/>
+                <field name='expert_recipient_farmer_group'/>
+                <field name='expert_recipient_gender'/>
+                <field name='expert_recipient'/>
+                <field name='update_date_bs'/>
+                <field name='state'/>
+                <filter string="Female" name="expert_request_search_filter_female" domain="[('expert_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="expert_request_search_filter_male" domain="[('expert_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="expert_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="expert_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="expert_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="expert_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="expert_request_search_group_by_farmer_group" context="{'group_by': 'expert_recipient_farmer_group'}"/>
+                    <filter string="Year" name="expert_request_search_group_by_year" context="{'group_by': 'year'}"/>
+                    <filter string="expert Name" name="expert_request_search_group_by_expert_id" context="{'group_by': 'expert_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!--Fish Larva Request Form View-->
+    <record id="view_fish_larva_request_form" model="ir.ui.view">
+        <field name="name">Fish Larva Request Form</field>
+        <field name="model">fish.larva.request</field>
+        <field name="arch" type="xml">
+            <form string = 'Fish Larva Request'>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('saved','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                        <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                    <div class="button-container">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Decline</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="hold_request">Keep On hold</button>                  
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>  
+                    <field name='fish_larva_recipient_set' invisible="1"/>
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group string="Fish Larva Details">
+                            <field name='year' options="{'no_create': True}"/>
+                            <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]"/>
+                            <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]"/>
+                            <!-- <field name='fish_larva_name' options="{'no_create': True}"/> -->
+                            <field name='fish_larva_recipient' options="{'no_create': True}" readonly="1"/>
+                            <!-- <field name='larva_recipient_gender' options="{'no_create': True}"/> -->
+
+                            <field name="fish_larva_list" widget="many2many_tags"/>
+
+                            <!-- <field name='fish_larva_recipient_gender' options="{'no_create': True}"/> -->
+                            
+                            <field name="fish_larva_quantity"/>
+                            <field name ="unit"/>
+
+                        </group>
+                        <group string="Fish Larva Recipient Details" attrs="{'invisible':[('fish_larva_recipient_set','=',False)]}">
+                            <field name='fish_larva_recipient_name'/>
+                            <field name='fish_larva_recipient_gender'/>
+                            <field name='fish_larva_recipient_phone'/>
+                            <field name='fish_larva_recipient_mobile'/>
+                            <field name='fish_larva_recipient_gender'/>
+                            <field name='fish_larva_recipient_vat'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Previous Requests">
+                            <field name='fish_larva_request_dynamic_state'/>
+                            <field name='previous_fish_larva_requests'/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Fish Larva Request From Inherited View -->
+    <record id="view_fish_larva_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Fish Larva Request Form Inherit User Access</field>
+        <field name="model">fish.larva.request</field>
+        <field name="inherit_id" ref="farmer.view_fish_larva_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath>
+            <xpath expr="///button[@name='cancel_request']" position="attributes">
+                <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+            </xpath>
+            <xpath expr="//field[@name='year']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='year' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='program']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='project']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='fish_larva_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='fish_larva_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Farmer Fish Larva Request Tree View-->
+    <record id="view_fish_larva_request_tree" model="ir.ui.view">
+        <field name="name">Fish Larva Request Tree</field>
+        <field name="model">fish.larva.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='year'/>
+                <field name='fish_larva_recipient'/>
+                <field name='fish_larva_recipient_farmer_group'/>
+                <field name='fish_larva_recipient_gender'/>
+                <field name='fish_larva_list'/>
+                <field name='fish_larva_quantity'/>
+                <field name='unit'/>
+                <field name='update_date_bs'/>
+                <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Farmer fish larva Request Search View-->
+    <record id="view_fish_larvas_request_search" model="ir.ui.view">
+        <field name="name">Farmer fish larvas Request Search</field>
+        <field name="model">fish.larva.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='year'/>
+                <field name='fish_larva_recipient'/>
+                <field name='fish_larva_recipient_gender'/>
+                <field name='fish_larva_list'/>
+                <field name='state'/>
+                <filter string="Female" name="fish_larva_request_search_filter_female" domain="[('fish_larva_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="fish_larva_request_search_filter_male" domain="[('fish_larva_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="fish_larva_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="fish_larva_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="fish_larva_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="fish_larva_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="fish_larva_request_search_group_by_fish_larva_recipient_farmer_group" context="{'group_by': 'fish_larva_recipient_farmer_group'}"/>
+                    <filter string="Year" name="fish_larva_request_search_group_by_year" context="{'group_by': 'year'}"/>
+                    <filter string="Fish Larva Name" name="fish_larva_request_search_group_by_fish_larva_list" context="{'group_by': 'fish_larva_list'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <!--Other Request Form View-->
+    <record id="view_other_request_form" model="ir.ui.view">
+        <field name="name">Other Request Form</field>
+        <field name="model">other.request</field>
+        <field name="arch" type="xml">
+            <form string = 'Other Request'>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('saved','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                        <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                    <div class="button-container">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Decline</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="hold_request">Keep On hold</button>                  
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="On Hold" bg_color="bg-warning" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined','Canceled'))]}"/>  
+                    <field name='other_recipient_set' invisible="1"/>
+                    <h1><field name="ref"/></h1>
+                    <group>
+                        <group string="Other Details">
+                            <field name='year' options="{'no_create': True}"/>
+                            <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]"/>
+                            <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]"/>
+                            <field name='other_recipient' options="{'no_create': True}" readonly="1"/>
+                            <field name="request_detail"/>
+                        </group>
+                        <group string="Other Recipient Details" attrs="{'invisible':[('other_recipient_set','=',False)]}">
+                            <field name='other_recipient_name'/>
+                            <field name='other_recipient_gender'/>
+                            <field name='other_recipient_phone'/>
+                            <field name='other_recipient_mobile'/>
+                            <field name='other_recipient_gender'/>
+                            <field name='other_recipient_vat'/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Previous Requests">
+                            <field name='other_request_dynamic_state'/>
+                            <field name='previous_other_requests'/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Other Request From Inherited View -->
+    <record id="view_other_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Other Request Form Inherit User Access</field>
+        <field name="model">other.request</field>
+        <field name="inherit_id" ref="farmer.view_other_request_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath>
+            <xpath expr="///button[@name='cancel_request']" position="attributes">
+                <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+            </xpath>
+            <xpath expr="//field[@name='year']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='year' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='program']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='program' options="{'no_create': True}" domain="[('year', '=', year)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='project']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='project' options="{'no_create': True}" domain="[('program_name', '=', program)]" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//field[@name='other_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='other_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Farmer Other Request Tree View-->
+    <record id="view_other_request_tree" model="ir.ui.view">
+        <field name="name">Other Request Tree</field>
+        <field name="model">other.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='year'/>
+                <field name='other_recipient'/>
+                <field name='other_recipient_farmer_group'/>
+                <field name='other_recipient_gender'/>
+                <field name='update_date_bs'/>
+                <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Farmer Other Request Search View-->
+    <record id="view_others_request_search" model="ir.ui.view">
+        <field name="name">Farmer Others Request Search</field>
+        <field name="model">other.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='year'/>
+                <field name='other_recipient'/>
+                <field name='other_recipient_gender'/>
+                <field name='state'/>
+                <filter string="Female" name="other_request_search_filter_female" domain="[('other_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="other_request_search_filter_male" domain="[('other_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="other_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="other_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="other_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="other_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="other_request_search_group_by_other_recipient_farmer_group" context="{'group_by': 'other_recipient_farmer_group'}"/>
+                    <filter string="Year" name="other_request_search_group_by_year" context="{'group_by': 'year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--Storage Request Form View-->
+    <record id="view_storage_request_form" model="ir.ui.view">
+        <field name="name">Storage Request Form</field>
+        <field name="model">warehouse.storage.request</field>
+        <field name="arch" type="xml">
+            <form string = 'Storage Request'>
+                <field name="saved" attrs="{'invisible':1}"/>
+                <header class="d-flex" attrs="{'invisible':[('id','=',False)]}">
+                    <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined,On Hold'/>
+                    <!-- <button class="custom_cancel btn btn-primary btn-block" type="object" name="cancel_request" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button> -->
+                    <div class="button-container">
+                        <button class="custom_approve btn btn-primary btn-block" type="object" name="approve_request">Approve</button>
+                        <button class="custom_decline btn btn-secondary btn-block" type="object" name="decline_request">Cancel</button>               
+                    </div>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled','On Hold'))]}"/>
+                    <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled','On Hold'))]}"/>
+                    <field name='storage_recipient_set' invisible="1"/>
+                    <group>
+                        <group string="Request Details">
+                            <field name='warehouse_id' domain="[('allow_external_stocks','=',True)]" options="{'no_create': True}"/>
+                            <field name='storage_recipient' options="{'no_create': True}" readonly="1"/>
+                            <field name='requested_amount'/>
+                            <field name='unit_of_measurement'/>
+                        </group>
+                        <group string="Request Recipient Details" attrs="{'invisible':[('storage_recipient_set','=',False)]}">
+                            <field name='storage_recipient_name'/>
+                            <field name='storage_recipient_gender'/>
+                            <field name='storage_recipient_phone'/>
+                            <field name='storage_recipient_mobile'/>
+                            <field name='storage_recipient_gender'/>
+                            <field name='storage_recipient_vat'/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- storage Request From Inherited View -->
+    <record id="view_storage_request_form_inherit_user_access" model="ir.ui.view">
+        <field name="name">Storage Request Form Inherit User Access</field>
+        <field name="model">warehouse.storage.request</field>
+        <field name="inherit_id" ref="farmer.view_storage_request_form"/>
+        <field name="arch" type="xml">
+            <!-- <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                <attribute name="groups">farmer.group_user_access</attribute>
+            </xpath> -->
+            <xpath expr="//field[@name='storage_recipient']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <field name='storage_recipient' options="{'no_create': True}" readonly="0"/>
+                </t>
+            </xpath>
+            <!-- <xpath expr="//div[@class='oe_chatter']" position="replace">
+                <t groups="farmer.group_user_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+                <t groups="farmer.group_request_viewer_access">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </t>
+            </xpath> -->
+        </field>
+    </record>
+
+    <!--Farmer storage Request Tree View-->
+    <record id="view_storage_request_tree" model="ir.ui.view">
+        <field name="name">Storage Request Tree</field>
+        <field name="model">warehouse.storage.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='storage_recipient'/>
+                <field name='storage_recipient_farmer_group'/>
+                <field name='storage_recipient_gender'/>
+                <field name='update_date_bs'/>
+                <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Farmer storage Request Search View-->
+    <record id="view_storages_request_search" model="ir.ui.view">
+        <field name="name">Farmer storages Request Search</field>
+        <field name="model">warehouse.storage.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name='storage_recipient'/>
+                <field name='storage_recipient_gender'/>
+                <field name='state'/>
+                <filter string="Female" name="storage_request_search_filter_female" domain="[('storage_recipient_gender', '=', 'female')]"/>
+                <filter string="Male" name="storage_request_search_filter_male" domain="[('storage_recipient_gender', '=', 'male')]"/>
+                <separator />
+                <filter string="Pending" name="storage_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                <filter string="Approved" name="storage_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                <filter string="Declined" name="storage_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                <filter string="On Hold" name="storage_request_search_filter_on_hold" domain="[('state', '=', 'On Hold')]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Farmer Type" name="storage_request_search_group_by_storage_recipient_farmer_group" context="{'group_by': 'storage_recipient_farmer_group'}"/>
+
+                </group>
+            </search>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,200 @@
+<odoo>
+    <!-- Userwise Project Visibility Rule Applied on default Project User -->
+    <!-- <record id="record_rule_project_visible_user_wise" model="ir.rule">
+        <field name="name">Project User-wise Visible</field>
+        <field name="model_id" ref="model_project_project"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+    </record> -->
+
+    <!-- Farmer should only be able to view and edit its own profile  -->
+    <record id="farmer_profile_access_rule" model="ir.rule">
+        <field name="name">Profile Access</field>
+        <field ref="model_farm_farmer" name="model_id"/>
+        <field name="domain_force">[('user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own profile update request  -->
+    <record id="farmer_profile_update_request_access_rule" model="ir.rule">
+        <field name="name">Profile Update Request Access</field>
+        <field ref="model_profile_update_request" name="model_id"/>
+        <field name="domain_force">[('create_uid','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own service request  -->
+    <record id="farmer_service_request_access_rule" model="ir.rule">
+        <field name="name">Service Request Access</field>
+        <field ref="model_services_request" name="model_id"/>
+        <field name="domain_force">[('service_recipient.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own equipment request  -->
+    <record id="farmer_equipment_request_access_rule" model="ir.rule">
+        <field name="name">Equipment Request Access</field>
+        <field ref="model_equipment_request" name="model_id"/>
+        <field name="domain_force">[('equipment_recipient.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own seedling request  -->
+    <record id="farmer_seedling_request_access_rule" model="ir.rule">
+        <field name="name">Seedling Request Access</field>
+        <field ref="model_seedling_request" name="model_id"/>
+        <field name="domain_force">[('seedling_recipient.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own expert request  -->
+    <record id="farmer_expert_request_access_rule" model="ir.rule">
+        <field name="name">Expert Request Access</field>
+        <field ref="model_expert_request" name="model_id"/>
+        <field name="domain_force">[('expert_recipient.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own fish larva request  -->
+    <record id="farmer_fish_larva_request_access_rule" model="ir.rule">
+        <field name="name">Fish larva Request Access</field>
+        <field ref="model_fish_larva_request" name="model_id"/>
+        <field name="domain_force">[('fish_larva_recipient.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own Other request  -->
+    <record id="farmer_other_request_access_rule" model="ir.rule">
+        <field name="name">Other Request Access</field>
+        <field ref="model_other_request" name="model_id"/>
+        <field name="domain_force">[('other_recipient.user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Farmer should only be able to view and edit its own storage request  -->
+    <record id="farmer_storage_request_access_rule" model="ir.rule">
+        <field name="name">Storage Request Access</field>
+        <field ref="model_warehouse_storage_request" name="model_id"/>
+        <field name="domain_force">['|',('storage_recipient.user_id','=',user.id),('warehouse_id.allowed_users', 'in', [user.id])]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+
+    <!-- Producer should only be able to view and edit his own product  -->
+    <record id="farmer_product_access_rule" model="ir.rule">
+        <field name="name">Product Access</field>
+        <field ref="website_sale.model_product_template" name="model_id"/>
+        <field name="domain_force">[('create_uid', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_producer_farmer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+
+
+    <!-- Request viewer should be only able to view pending request -->
+    <record id="pending_service_request_view_rule" model="ir.rule">
+        <field name="name">Pending services request view</field>
+        <field ref="model_services_request" name="model_id"/>
+        <field name="domain_force">[('state', '=', 'Pending')]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_request_viewer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+        <record id="pending_seedling_request_view_rule" model="ir.rule">
+        <field name="name">Pending seedling request view</field>
+        <field ref="model_seedling_request" name="model_id"/>
+        <field name="domain_force">[('state', '=', 'Pending')]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_request_viewer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+        <record id="pending_equipment_request_view_rule" model="ir.rule">
+        <field name="name">Pending equipment request view</field>
+        <field ref="model_equipment_request" name="model_id"/>
+        <field name="domain_force">[('state', '=', 'Pending')]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_request_viewer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+        <record id="pending_fish_request_view_rule" model="ir.rule">
+        <field name="name">Pending fish request view</field>
+        <field ref="model_fish_larva_request" name="model_id"/>
+        <field name="domain_force">[('state', '=', 'Pending')]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_request_viewer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+    
+        <record id="pending_expert_request_view_rule" model="ir.rule">
+        <field name="name">Pending expert request view</field>
+        <field ref="model_expert_request" name="model_id"/>
+        <field name="domain_force">[('state', '=', 'Pending')]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_request_viewer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+        <record id="pending_other_request_view_rule" model="ir.rule">
+        <field name="name">Pending other request view</field>
+        <field ref="model_other_request" name="model_id"/>
+        <field name="domain_force">[('state', '=', 'Pending')]</field>
+        <field name="groups" eval="[(4, ref('farmer.group_request_viewer_access'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+</odoo>

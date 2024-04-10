@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+            <!-- Overview List View -->
+            <record model="ir.ui.view" id="employee_residence_list_view">
+                <field name="name">employee.residence.list.view</field>
+                <field name="model">hotel.stay.model</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="employee_id"/>
+                        <field name="residence"/>
+                         <field name="hotel_name"/>
+                         <field name="contact_person"/>
+                         <field name="contact_number"/>
+                         <field name="client_id"/>
+                         <field name="estimated_accomodation_expenditure"/>
+                         <field name="estimated_meals_expenditure"/>
+                    </tree>
+                </field>
+            </record>
+    
+            <!-- Form View for SupportSys -->
+            <record model="ir.ui.view" id="employee_residence_form_view">
+                <field name="name">employee.residence.form.view</field>
+                <field name="model">hotel.stay.model</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="employee_id"/>
+                                    <field name="residence"/>
+                                     <field name="hotel_name"/>
+                                     <field name="client_id"/>
+                                     <field name="contact_person"/>
+                                    </group>
+                                    <group>
+                                        
+                                     <field name="contact_number"/>
+                                     <field name="estimated_accomodation_expenditure"/>
+                                     <field name="estimated_meals_expenditure"/>
+                                     <field name="supporting_documents"/>
+                                </group>
+                            </group>
+                        </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids"/>
+                            <field name="activity_ids"/>
+                            <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                        </div>
+                    </form>
+                </field>
+            </record>
+    
+          
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_product_template_form_inherited" model="ir.ui.view">
+            <field name="name">product.template.form.inherited</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//notebook" position="inside">
+                        <page string="Negotiation" groups="price_negotiation.group_price_negotiator_access">
+                            <group>
+                                <group>
+                                    <field name="is_negotiation_allowed" string="Allow Negotiation"/>
+                                </group>
+                                <group>
+                                    <field name="min_quantity" string="Minimum Negotiable Quantity"/>
+                                </group>
+                            </group>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+<!--        <record id="view_product_pricelist_tree_view_inherited" model="ir.ui.view">-->
+<!--            <field name="name">product.pricelist.tree.inherited</field>-->
+<!--            <field name="model">product.pricelist</field>-->
+<!--            <field name="inherit_id" ref="product.product_pricelist_view_tree"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <data>-->
+<!--                    <xpath expr="//tree" position="inside">-->
+<!--                        <field name="is_negotiation_pricelist" />-->
+<!--&lt;!&ndash;                        <field name="is_negotiation_pricelist_used" />&ndash;&gt;-->
+<!--                    </xpath>-->
+<!--                </data>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

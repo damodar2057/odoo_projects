@@ -1,0 +1,21 @@
+<odoo>
+
+    <template id="price_negotiation_template">
+
+        <h1>Price Negotiation Form</h1>
+        <form action="/price/negotiation/submit" method="post">
+            <input type="text" name="name" placeholder="Your name"/>
+            <input type="email" name="email" placeholder="Your email"/>
+            <select name="product_id">
+                <option value="">Select a product</option>
+                {% for product in products %}
+                <option value="{{ product.id }}">{{ product.name }}</option>
+                {% endfor %}
+            </select>
+            <input type="number" name="desired_price" placeholder="Desired price"/>
+            <textarea name="reason" placeholder="Reason for negotiation"></textarea>
+            <input type="submit" value="Submit"/>
+        </form>
+    </template>
+
+</odoo>

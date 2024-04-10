@@ -1,0 +1,58 @@
+        <!-- Define a new action -->
+<odoo>
+
+    <record id="action_get_attendance_counts" model="ir.actions.server">
+        <field name="name">Get Attendance Counts</field>
+        <field name="model_id" ref="model_meal_request" />
+        <field name="state">code</field>
+        <field name="code">
+            model.get_attendance_counts()
+        </field>
+    </record>
+    <record id="view_food_list_tree" model="ir.ui.view">
+        <field name="name">meal.request.tree</field>
+        <field name="model">meal.request</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <!-- Add a button to the header of the tree view -->
+                <header>
+                    <button string="Get Attendance Counts" type="action"
+                        name="%(action_get_attendance_counts)d" />
+                </header>
+                <field name="employee_id" />
+                <field name="meal_time" />
+                <field name="food_id" widget="many2many_tags" />
+                <field name="requested_date" />
+                <field name="day_of_week" />
+                <field name="state" widget="badge" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_food_list_search" model="ir.ui.view">
+        <field name="name">meal.request.search</field>
+        <field name="model">meal.request</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- <filter string="Today" name="requesteddfsd_date" context="{'group_by':'employee_id'}"  /> -->
+                <!-- <filter name="requested_date" string="Latest Date Records"
+                domain ="[('requested_date','=',(time.strftime('%Y-%m-%d'))]"/> -->
+                <filter string="Today Orders" name="requested_date" domain="[('requested_date', '=', datetime.datetime.now().strftime('%Y-%m-%d'))]"/> 
+
+            </search>
+        </field>
+    </record>
+
+    <record id="action_meal_request_list" model="ir.actions.act_window">
+        <field name="name">Meal Request</field>
+        <field name="res_model">meal.request</field>
+        <field name="view_mode">tree,form,search</field>
+        <field name="context">{"search_default_requested_date":1}</field>
+
+    </record>
+
+
+    <menuitem id="menu_food_request_list" name="Food Request"
+        parent="menu_kitchen_info"
+        action="action_meal_request_list"
+        sequence="3" />
+</odoo>

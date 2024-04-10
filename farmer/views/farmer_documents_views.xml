@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+<!--        Farmer Document Form View-->
+        <record id="view_farmer_documents_form" model="ir.ui.view">
+            <field name="name">Farmer Documents Form</field>
+            <field name="model">farmer.documents</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                        <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="delete_request" invisible="1"/>
+                            <field name="documents_types"/>
+                            <field name="file"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+<!--        Farmer Document Tree View-->
+        <record id="view_farmer_documents_tree" model="ir.ui.view">
+            <field name="name">Farmer Documents Tree</field>
+            <field name="model">farmer.documents</field>
+            <field name="arch" type="xml">
+                <tree delete="0" decoration-danger="delete_request">
+                    <field name="delete_request" invisible="1"/>
+                    <field name="documents_types"/>
+                    <field name="file"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

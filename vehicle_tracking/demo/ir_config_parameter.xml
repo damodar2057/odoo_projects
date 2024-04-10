@@ -1,0 +1,6 @@
+<odoo noupdate="1">
+    <record id="config_parameter_leaflet_copyright" model="ir.config_parameter" forcecreate="True">
+        <field name="key">leaflet.copyright</field>
+        <field name="value">© OpenStreetMap contributors</field>
+    </record>
+</odoo>

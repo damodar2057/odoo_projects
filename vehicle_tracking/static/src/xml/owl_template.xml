@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <t t-name="todo.TodoList">
+        <div>
+            <h1>To-Do List</h1>
+            <ul>
+                <li t-foreach="task in state.tasks" t-as="task" t-key="task.id">
+                    <input type="checkbox" t-att-checked="task.completed" t-on-click="toggleTask(index)"/>
+                    <span t-att-class="{'completed': task.completed}">[[task.text]]</span>
+                    <span class="remove" t-on-click="removeTask(index)">X</span>
+                </li>
+            </ul>
+            <div>
+                <input type="text" t-model="state.newTask" placeholder="Add a new task"/>
+                <button t-on-click="addTask">Add Task</button>
+            </div>
+        </div>
+    </t>
+</templates>

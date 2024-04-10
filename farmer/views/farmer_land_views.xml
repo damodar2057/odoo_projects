@@ -1,0 +1,73 @@
+<odoo>
+<!--    Farmer Land Form View-->
+    <record id="view_form_farmer_land" model="ir.ui.view">
+        <field name="name">Land Form</field>
+        <field name="model">farmer.land</field>
+        <field name="arch" type="xml">
+            <form string="Farmer Land Information">
+                <header>
+                    <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                    <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                </header>
+                <sheet>
+                    <pages>
+                        <group>
+                            <group>
+                                <field name="id" invisible="1"/>
+                                <field name="land_types" widget="many2many_tags"/>
+                                <field name="is_leased"/>
+                                <field name="has_irrigation"/>
+                                <field name="irrigation_area" attrs="{'invisible': [('has_irrigation','=',False)]}"/>          
+                                <field name="irrigation_types" widget="many2many_tags" attrs="{'invisible': [('has_irrigation','=',False)]}"/>
+                            </group>
+                            <group>
+                                <field name="delete_request" invisible="1"/>
+                                <field name="has_road_access"/>
+                                <field name="road_types" widget="many2many_tags" attrs="{'invisible': [('has_road_access','=',False)]}"/>
+                                <field name="has_tunnel_agriculture"/>
+                                <field name="tunnel_count" attrs="{'invisible': [('has_tunnel_agriculture','=',False)]}"/>
+                                <field name="tunnel_size" attrs="{'invisible': [('has_tunnel_agriculture','=',False)]}"/>
+                                <field name="tunnel_area" attrs="{'invisible': [('has_tunnel_agriculture','=',False)]}"/>
+                            </group>
+                        </group>
+                        <group col="1">
+                            <field name="land_area" widget="area_conversion"/>
+                            <!-- <group>
+                                <field name="unit_of_measurement"/>
+                            </group> -->
+                        </group>
+                        <!-- <group>
+                            <field name="land_area_m2"/>
+                        </group> -->
+                    </pages>
+                </sheet>
+            </form>
+        </field>
+    </record>
+<!--    Farmer Land Tree View-->
+    <record id="view_tree_farmer_land" model="ir.ui.view">
+        <field name="name">Land Tree</field>
+        <field name="model">farmer.land</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request">
+                <field name="delete_request" invisible="1"/>
+
+                <field name="id" invisible="1"/>
+                <field name="land_types" widget="many2many_tags"/>
+                <field name="irrigation_area"/>
+                <field name="land_area"/>
+                <field name="unit_of_measurement"/>
+                <field name="irrigation_types"/>
+                <field name="road_types"/>
+                <field name="tunnel_count"/>
+                <field name="tunnel_size"/>
+                <field name="tunnel_area"/>
+                <field name="is_leased"/>
+                <field name="has_irrigation"/>
+                <field name="has_tunnel_agriculture"/>
+                <field name="has_road_access"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
+	

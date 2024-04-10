@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <!-- Configuration Loans and Institution Institution Type Form View -->
+        <record id="view_institution_type_form" model="ir.ui.view">
+            <field name="name">Institution Type</field>
+            <field name="model">institution.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Loans and Institution Institution Name Form View -->
+        <record id="view_institution_name_form" model="ir.ui.view">
+            <field name="name">Institution Name</field>
+            <field name="model">institution.name</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="institution_type"/>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- Configuration Loans and Institution Institution Name Tree View -->
+        <record id="view_institution_name_tree" model="ir.ui.view">
+            <field name="name">Institution Name</field>
+            <field name="model">institution.name</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="institution_type"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

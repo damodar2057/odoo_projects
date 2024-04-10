@@ -1,0 +1,67 @@
+<odoo>
+<data>
+    <record id="view_household_info_form" model="ir.ui.view">
+        <field name="name">Household Form</field>
+        <field name="model">farm.household</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button class="btn btn-primary btn-block" type="object" name="goto_website">Go To Website</button>
+                </header>
+                <sheet>
+                    <h1>
+                        <field name="ref"/>
+                    </h1>
+                        <group>
+                            <group>
+                                <separator name="household_general" string='General' colspan="2"/>
+                                <field name="id" invisible="1"/>
+                                <field name="name"/>
+                                <field name="gender"/>
+                                <field name="mobile"/>
+                                <field name="phone"/>
+                                <field name="date_of_birth_bs" widget="nepali_datepicker"/>
+                                <separator name="household_tax" string='Tax Information' colspan="2"/>
+                                <field name="pan_no"/>
+                                <field name="vat"/>
+                                <separator name="household_identity" string='Identity Document' colspan="2"/>
+                                <field name="citizenship_number"/>
+                                <field name="citizenship_issue_district" options="{'no_create': True}"/>
+                                <field name="citizenship_issue_date_bs" widget="nepali_datepicker"/>
+                            </group>
+
+                            <group>
+                                <field name="image_1920" widget="image" nolabel="1"/>
+                                <separator name="household_location" string='Location' colspan="2"/>
+                                <field name="province" options="{'no_create': True}" />
+                                <field name="district" domain="[('province_name', '=', province)]" options="{'no_create': True}"/>
+                                <field name="palika" domain="[('district_name', '=', district)]" options="{'no_create': True}"/>
+                                <field name="ward_no"/>
+                                <field name="tole" domain="[('palika_name', '=', palika)]" options="{'no_create': True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Local Production">
+                                <field name="local_production_ids">
+                                </field>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+            </field>
+    </record>
+
+    <record id="view_household_info_tree" model="ir.ui.view">
+        <field name="name">Household Tree View</field>
+        <field name="model">farm.household</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="mobile"/>
+            </tree>
+        </field>
+    </record>
+</data>
+</odoo>

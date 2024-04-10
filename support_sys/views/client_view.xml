@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    
+    <!-- Overview List View -->
+    <record model="ir.ui.view" id="client_info_list_view">
+        <field name="name">client.info.list.view</field>
+        <field name="model">client.info</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                <field name="client_name" />
+                <field name="client_location" />
+                <field name="branch_ids" widget="many2many_tags" />
+                <field name="is_organization" />
+                <field name="active" invisible="1"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for SupportSys -->
+    <record model="ir.ui.view" id="client_info_form_view">
+        <field name="name">client.info.form.view</field>
+        <field name="model">client.info</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="client_name" />
+                            <field name="client_location" attrs="{'invisible':[('is_organization','!=',False)]}"/>
+                            <field name="branch_ids" widget="many2many_tags"  attrs="{'invisible':[('is_organization','!=',True)]}"/>
+
+                        </group>
+                        <group>
+                            <field name="is_organization" />
+                            <field name="is_internet" />
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Organizational Structure">
+                            <field name="client_organization_structure_ids">
+                                <tree editable="bottom">
+                                    <field name="position_ref"/>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Software Usage">
+                            <field name="client_software_usage_ids">
+                                <tree editable="bottom">
+                                    <field name="software_identity"/>
+                                    <field name="url"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="purpose"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Additional Info">
+                            <field name="client_additional_info" placeholder="Notes.." />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_client_info">
+        <field name="name">Client Profile</field>
+        <field name="res_model">client.info</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- This below is for the client branch views for the branches which have any -->
+    <record model="ir.ui.view" id="branch_info_list_view">
+        <field name="name">branch.info.list.view</field>
+        <field name="model">branch.info</field>
+        <field name="arch" type="xml">
+            <tree>
+
+                <field name="name" />
+                <field name="location" />
+                <field name="related_client_id"/>
+
+
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for SupportSys -->
+    <record model="ir.ui.view" id="branch_info_form_view">
+        <field name="name">branch.info.form.view</field>
+        <field name="model">branch.info</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+
+                            <field name="name" />
+                            <field name="location" />
+                            
+                        </group>
+                        <group>
+                            <field name="related_client_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Additional Info">
+                            <field name="additional_info" placeholder="Notes.." />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_branch_info">
+        <field name="name">Client Branches</field>
+        <field name="res_model">branch.info</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- this below is for organization position -->
+    <record model="ir.ui.view" id="organization_positions_list_view">
+        <field name="name">organization.positions.list.view</field>
+        <field name="model">organization.positions</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+
+                <field name="name" />
+
+
+
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_organization_positions">
+        <field name="name">Positions</field>
+        <field name="res_model">organization.positions</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

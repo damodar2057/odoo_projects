@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="product_custom_text_for_negotiation" inherit_id="website_sale.product" active="True" name="Terms and Conditions" priority="21">
+        <xpath expr="//div[@id='o_product_terms_and_share']" position="before">
+            <p t-if="product.is_negotiation_allowed" class="text-muted mb-0">
+
+                <!--                <span  t-attf-onclick="call_price_negotiation_form(-->
+                <!--                        '{{ product.name }}',-->
+                <!--                        '{{ product.list_price }}',-->
+                <!--                        '{{ product.min_quantity }}',-->
+                <!--                        '{{ product.id }}',-->
+                <!--                              )" class="text-muted"><u style="color:green;cursor:pointer;">-->
+                <!--                    <t t-esc="'More than ' + str(product.min_quantity) + ' quantities? Get Negotiated Price'" />-->
+                <!--                </u></span><br/>-->
+                <a t-att-href="'/price/negotiation?product_name='+ product.name +'&amp;product_price=' +str(product.list_price) +'&amp;min_quantity='+ str(product.min_quantity)+'&amp;product_id='+ str(product.id) " class="text-muted"><u style="color:green;">
+                    <t t-esc="'More than ' + str(product.min_quantity) + ' quantities? Get Negotiated Price'" />
+                </u></a><br/>
+
+            </p>
+        </xpath>
+    </template>
+<!--    <template id="negotiation_code_placeholder_addition" inherit_id="website_sale.coupon_form">-->
+<!--        <xpath expr="//form[@name='coupon_code']//input[@name='promo']" position="attributes">-->
+<!--            <attribute name="placeholder">Negotiation code or discount code...</attribute>-->
+<!--        </xpath>-->
+<!--    </template>-->
+<!--    <template id="inserting_default_value_negotiation_code" inherit_id="website_sale.coupon_form">-->
+<!--&lt;!&ndash;        <t t-call="website_sale.payment"/>&ndash;&gt;-->
+<!--        <xpath expr="//form[@name='coupon_code']//input[@name='promo']" position="attributes">-->
+<!--            <attribute name="t-att-value">code</attribute>-->
+<!--&lt;!&ndash;            <attribute name="readonly">readonly</attribute> &lt;!&ndash; Adding readonly attribute &ndash;&gt;&ndash;&gt;-->
+
+<!--        </xpath>-->
+<!--    </template>-->
+    <!--    <template id="price_negotiation_portal" inherit_id="portal.portal_my_home" name="Negotiation">-->
+    <!--        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">-->
+    <!--            <t t-call="portal.portal_docs_entry">-->
+    <!--                <t t-set="url">/my/negotiations</t>-->
+    <!--                <t t-set="title">Price Negotiation</t>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+    <!-- website success view of Request Sent -->
+    <template id="negotiation_request_success_template" name="Form fill">
+        <t t-call-assets="web.assets_common" t-js="false"/>
+        <t t-call="website.layout">
+            <div id="success-container" style=" padding: 120px; text-align: center;">
+                <div class="container" style="max-width: 600px; margin: 0 auto;">
+                    <!--                <img src="success_icon.png" alt="Success Icon" style="width: 100px; height: 100px;"/>-->
+                    <h1 style="color: #333; font-size: 2em; margin-top: 20px;">Request Sent Successfully!</h1>
+                    <p style="color: #666; font-size: 1.2em; margin-top: 10px;">Thank you for your submission.</p>
+                    <!-- Your request Code is <span t-out="request_code"/> -->
+                    <button t-attf-onclick="redirect_to_shop()" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-top: 20px; cursor: pointer;">Go Back</button>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--    <template id="nego_reduction_code" inherit_id="website_sale.total" name="Negotiation Code">-->
+    <!--        <xpath expr="//div[@id='cart_total']//table/tr[last()]" position="after">-->
+    <!--            <tr t-if="not hide_promotions">-->
+    <!--                <td colspan="3" class="text-center text-xl-end border-0">-->
+    <!--                    <span class=''>-->
+    <!--                        <t t-set='force_coupon' t-value="website_sale_order.pricelist_id.code or request.params.get('code_not_available')"/>-->
+    <!--                        <t t-if="not force_coupon">-->
+    <!--                            <a href="#" class="show_coupon">I have a negotiation code</a>-->
+    <!--                        </t>-->
+    <!--                        <div t-attf-class="coupon_form #{not force_coupon and 'd-none'}">-->
+    <!--                            <t t-call="website_sale.coupon_form"/>-->
+    <!--                        </div>-->
+    <!--                    </span>-->
+    <!--                </td>-->
+    <!--            </tr>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+
+    <!--    <template id="cart_summary_with_negotiated_price" inherit_id="website_sale.cart_summary">-->
+
+    <!--        <xpath expr="//table[@id='cart_products']/thead/tr" position="inside">-->
+    <!--            <th class="border-top-0 text-center td-negotiated-price">Negotiated Price</th>-->
+    <!--        </xpath>-->
+
+    <!--        <xpath expr="//table[@id='cart_products']/tbody/tr" position="inside">-->
+    <!--            <td class="text-center td-negotiated-price">-->
+    <!--                <span t-field="line.negotiated_price" style="white-space: nowrap;"-->
+
+    <!--                      t-options="{'widget': 'monetary', 'display_currency': website_sale_order.currency_id}"-->
+
+    <!--                      groups="account.group_show_line_subtotals_tax_included" />-->
+
+    <!--            </td>-->
+    <!--        </xpath>-->
+
+    <!--    </template>-->
+
+    <!--    <template id='negotiation_form' name='Negotiation Promo Form' inherit_id="website_sale.coupon_form" active="True" priority="21">-->
+    <!--        <xpath expr="//div[@id='coupon_form']" position="after">-->
+
+    <!--            <form t-att-action="'/shop/pricelist%s' % (redirect and '?r=' + redirect or '')"-->
+    <!--                  method="post" name="coupon_code">-->
+    <!--                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" t-nocache="The csrf token must always be up to date."/>-->
+    <!--                <div class="input-group w-100">-->
+    <!--                    <input name="promo" class="form-control" type="text" placeholder="negotiation code..." t-att-value="website_sale_order.pricelist_id.code or None"/>-->
+    <!--                    <a href="#" role="button" class="btn btn-secondary a-submit">Apply</a>-->
+    <!--                </div>-->
+    <!--            </form>-->
+    <!--            <t t-if="request.params.get('code_not_available')" name="code_not_available">-->
+    <!--                <div class="alert alert-danger text-start" role="alert">This negotiation promo code is not available.</div>-->
+    <!--            </t>-->
+    <!--        </xpath>-->
+    <!--    </template>-->
+</odoo>

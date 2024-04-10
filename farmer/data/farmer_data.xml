@@ -1,0 +1,106 @@
+<odoo>
+    <data noupdate="1">
+        <record id="farmer_code_sequence_name" model="ir.sequence">
+            <field name="name">Farmer Code</field>
+            <field name="code">farmer.sequence</field>
+            <field name="prefix">FR-80-</field>
+            <field name="padding">6</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+        <record id="farmer_group_code_sequence" model="ir.sequence">
+            <field name="name">Farmer Group Code</field>
+            <field name="code">farmer.group.sequence</field>
+            <field name="prefix">FG-80-</field>
+            <field name="padding">6</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+        <record id="household_code_sequence" model="ir.sequence">
+            <field name="name">Household Code</field>
+            <field name="code">household.sequence</field>
+            <field name="prefix">HP-80-</field>
+            <field name="padding">6</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_service_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Service Request Code</field>
+            <field name="code">farmer.service.request.sequence</field>
+            <field name="prefix">SR-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_equipment_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Equipment Request Code</field>
+            <field name="code">farmer.equipment.request.sequence</field>
+            <field name="prefix">ER-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_expert_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Expert Request Code</field>
+            <field name="code">farmer.expert.request.sequence</field>
+            <field name="prefix">EX-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_seedling_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Seedling Request Code</field>
+            <field name="code">farmer.seedling.request.sequence</field>
+            <field name="prefix">SLR-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+
+        <record id="farmer_profile_update_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Profile Update Request Code</field>
+            <field name="code">farmer.profile.update.request.sequence</field>
+            <field name="prefix">PUR-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_warehouse_location_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Warehouse Location Code</field>
+            <field name="code">warehouse.location.sequence</field>
+            <field name="prefix">FL-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_crop_sequence" model="ir.sequence">
+            <field name="name">Farmer Crop Code</field>
+            <field name="code">farmer.crop.sequence</field>
+            <field name="prefix">CRO-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_animal_sequence" model="ir.sequence">
+            <field name="name">Farmer Animal Code</field>
+            <field name="code">farmer.animal.sequence</field>
+            <field name="prefix">ANI-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_fish_sequence" model="ir.sequence">
+            <field name="name">Farmer Fish Code</field>
+            <field name="code">farmer.fish.sequence</field>
+            <field name="prefix">FI-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+        <record id="farmer_other_request_sequence" model="ir.sequence">
+            <field name="name">Farmer Other Request Code</field>
+            <field name="code">farmer.other.request.sequence</field>
+            <field name="prefix">OR-80-</field>
+            <field name="padding">5</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+    </data>
+</odoo>

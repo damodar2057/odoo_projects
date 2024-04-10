@@ -1,0 +1,243 @@
+<odoo>
+    <data noupdate='1'>
+
+	<record id="farmer_type_0" model="farmer.type">
+		<field name="type">3</field>
+		<field name="yearly_investment_type">gt</field>
+		<field name="yearly_transaction_type">gt</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">eq</field>
+		<field name="num_employees_type">gt</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">trained_and_mid_tech</field>
+		<field name="yearly_investment_to">5000000</field>
+		<field name="yearly_investment_from">2400000</field>
+		<field name="yearly_transaction_to">4000000</field>
+		<field name="yearly_transaction_from">2500000</field>
+		<field name="min_monthly_income_to">100000</field>
+		<field name="min_monthly_income_from">100000</field>
+		<field name="family_contribution_to">100</field>
+		<field name="family_contribution_from">100</field>
+		<field name="num_employees_to">15</field>
+		<field name="num_employees_from">9</field>
+		<field name="num_experience_to">5</field>
+		<field name="num_experience_from">5</field>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+</record>
+	<record id="farmer_type_1" model="farmer.type">
+		<field name="type">2</field>
+		<field name="yearly_investment_type">gt</field>
+		<field name="yearly_transaction_type">gt</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">eq</field>
+		<field name="num_employees_type">gt</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">trained_and_advanced_tech</field>
+		<field name="yearly_investment_to">30000000</field>
+		<field name="yearly_investment_from">5000000</field>
+		<field name="yearly_transaction_to">20000000</field>
+		<field name="yearly_transaction_from">4000000</field>
+		<field name="min_monthly_income_to">200000</field>
+		<field name="min_monthly_income_from">200000</field>
+		<field name="family_contribution_to">100</field>
+		<field name="family_contribution_from">100</field>
+		<field name="num_employees_to">30</field>
+		<field name="num_employees_from">15</field>
+		<field name="num_experience_to">5</field>
+		<field name="num_experience_from">5</field>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+</record>
+	<record id="farmer_type_2" model="farmer.type">
+		<field name="type">4</field>
+		<field name="yearly_investment_type">gt</field>
+		<field name="yearly_transaction_type">gt</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">eq</field>
+		<field name="num_employees_type">gte</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">trained_and_mid_tech</field>
+		<field name="yearly_investment_to">2400000</field>
+		<field name="yearly_investment_from">500000</field>
+		<field name="yearly_transaction_to">2500000</field>
+		<field name="yearly_transaction_from">1200000</field>
+		<field name="min_monthly_income_to">30</field>
+		<field name="min_monthly_income_from">30</field>
+		<field name="family_contribution_to">80</field>
+		<field name="family_contribution_from">80</field>
+		<field name="num_employees_to">9</field>
+		<field name="num_employees_from">5</field>
+		<field name="num_experience_to">4</field>
+		<field name="num_experience_from">4</field>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+</record>
+	<record id="farmer_type_3" model="farmer.type">
+		<field name="type">5</field>
+		<field name="yearly_investment_type">gt</field>
+		<field name="yearly_transaction_type">gt</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">eq</field>
+		<field name="num_employees_type">gte</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">mid_tech</field>
+		<field name="yearly_investment_to">2400000</field>
+		<field name="yearly_investment_from">500000</field>
+		<field name="yearly_transaction_to">1200000</field>
+		<field name="yearly_transaction_from">500000</field>
+		<field name="min_monthly_income_to">15000</field>
+		<field name="min_monthly_income_from">15000</field>
+		<field name="family_contribution_to">50</field>
+		<field name="family_contribution_from">50</field>
+		<field name="num_employees_to">9</field>
+		<field name="num_employees_from">4</field>
+		<field name="num_experience_to">3</field>
+		<field name="num_experience_from">3</field>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+</record>
+	<record id="farmer_type_4" model="farmer.type">
+		<field name="type">1</field>
+		<field name="yearly_investment_type">gt</field>
+		<field name="yearly_transaction_type">gt</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">eq</field>
+		<field name="num_employees_type">gt</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">trained_and_advanced_tech</field>
+		<field name="yearly_investment_to">999999999</field>
+		<field name="yearly_investment_from">30000000</field>
+		<field name="yearly_transaction_to">30000000</field>
+		<field name="yearly_transaction_from">20000000</field>
+		<field name="min_monthly_income_to">500000</field>
+		<field name="min_monthly_income_from">500000</field>
+		<field name="family_contribution_to">100</field>
+		<field name="family_contribution_from">100</field>
+		<field name="num_employees_to">1000</field>
+		<field name="num_employees_from">30</field>
+		<field name="num_experience_to">7</field>
+		<field name="num_experience_from">7</field>
+		
+		
+		
+		
+		
+		<field name="yearly_investment_field_select">from</field>
+		
+		
+		
+		
+		
+
+</record>
+	<record id="farmer_type_5" model="farmer.type">
+		<field name="type">7</field>
+		<field name="yearly_investment_type">gte</field>
+		<field name="yearly_transaction_type">gte</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">gte</field>
+		<field name="num_employees_type">gte</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">mixed</field>
+		<field name="yearly_investment_to">100000</field>
+		
+		<field name="yearly_transaction_to">100000</field>
+		
+		<field name="min_monthly_income_to">1000</field>
+		<field name="min_monthly_income_from">1000</field>
+		<field name="family_contribution_to">40</field>
+		
+		<field name="num_employees_to">2</field>
+		
+		
+		
+		<field name="yearly_investment_lt">True</field>
+		<field name="yearly_transaction_lt">True</field>
+		
+		<field name="family_contribution_lt">True</field>
+		<field name="num_employees_lt">True</field>
+		<field name="yearly_investment_field_select">to</field>
+		<field name="yearly_transaction_field_select">to</field>
+		
+		<field name="family_contribution_field_select">to</field>
+		<field name="num_employees_field_select">to</field>
+		
+
+</record>
+	<record id="farmer_type_6" model="farmer.type">
+		<field name="type">6</field>
+		<field name="yearly_investment_type">gte</field>
+		<field name="yearly_transaction_type">gte</field>
+		<field name="min_monthly_income_type">eq</field>
+		<field name="family_contribution_type">gt</field>
+		<field name="num_employees_type">gte</field>
+		<field name="num_experience_type">eq</field>
+		<field name="ability_and_technology">mixed</field>
+		<field name="yearly_investment_to">500000</field>
+		<field name="yearly_investment_from">100000</field>
+		<field name="yearly_transaction_to">500000</field>
+		<field name="yearly_transaction_from">100000</field>
+		<field name="min_monthly_income_to">5000</field>
+		<field name="min_monthly_income_from">5000</field>
+		<field name="family_contribution_to">50</field>
+		<field name="family_contribution_from">40</field>
+		<field name="num_employees_to">2</field>
+		
+		<field name="num_experience_to">2</field>
+		<field name="num_experience_from">2</field>
+		<field name="yearly_investment_lt">True</field>
+		<field name="yearly_transaction_lt">True</field>
+		
+		<field name="family_contribution_lt">True</field>
+		<field name="num_employees_lt">True</field>
+		<field name="yearly_investment_field_select">to</field>
+		<field name="yearly_transaction_field_select">to</field>
+		
+		<field name="family_contribution_field_select">to</field>
+		<field name="num_employees_field_select">to</field>
+		
+
+</record>
+</data>
+</odoo>

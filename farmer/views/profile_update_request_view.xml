@@ -1,0 +1,196 @@
+<odoo>
+    <data>
+
+        <!--Profile Update Request Form View-->
+        <record id="view_profile_update_request_form" model="ir.ui.view">
+            <field name="name">Profile Update Request Form</field>
+            <field name="model">profile.update.request</field>
+            <field name="arch" type="xml">
+                <form string = 'Profile Update Request'>
+                    <field name="state" attrs="{'invisible':1}"/>
+                    <header class="d-flex">
+                        <field name="state" widget="statusbar" attrs="{'invisible':[('state','in',('Canceled'))]}" statusbar_visible='Pending,Approved,Declined'/>
+                        <button class="btn btn-primary" type="object" name="cancel_profile" attrs="{'invisible':[('state','not in',('Pending'))]}">Cancel</button>
+                        <div class="button-container" attrs="{'invisible':[('state','in',('Approved','Declined','Canceled'))]}">
+                            <button class="btn btn-primary" type="object" name="approve_profile">Approve</button>
+                            <button class="btn btn-secondary" type="object" name="decline_profile">Decline</button>
+                        </div>
+                    </header>               
+                    <sheet>
+                        <widget name="web_ribbon" title="Approved" bg_color="bg-success" attrs="{'invisible': [('state', 'in', ('Pending','Declined','Canceled'))]}"/>
+                        <widget name="web_ribbon" title="Declined" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Canceled'))]}"/>
+                        <widget name="web_ribbon" title="Canceled" bg_color="bg-danger" attrs="{'invisible': [('state', 'in', ('Pending','Approved','Declined'))]}"/>
+                        <group col="1">
+
+                            <br></br>
+                            <group col="1">
+                                <field name="decline_reason" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}"/>
+                                <field name="create_uid"/>
+                                <field name="create_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <field name="crop_ids_exists"/>
+                            <page name="crop_lines" string='Crops' attrs="{'invisible': [('crop_ids_exists', 'not in', (True))]}">
+                                <field name="crop_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree delete="0" decoration-danger="delete_request">
+                                        <field name="delete_request" invisible="1"/>
+                                        <field name="crop_name"/>
+                                        <field name="crops_types"/>
+                                        <field name="area"/>
+                                        <field name="production_quantity_crop"/>
+                                        <field name="selling_price_crop"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="land_ids_exists"/>
+                            <page name="land_lines" string='Land' attrs="{'invisible': [('land_ids_exists', 'not in', (True))]}">
+                                <field name="land_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="fish_ids_exists"/>
+                            <page name="fish_lines" string='Fish' attrs="{'invisible': [('fish_ids_exists', 'not in', (True))]}">
+                                <field name="fish_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="animal_ids_exists"/>
+                            <page name="animal_lines" string='Animals' attrs="{'invisible': [('animal_ids_exists', 'not in', (True))]}">
+                                <field name="animal_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="document_ids_exists"/>
+                            <page name="documents_lines" string='Documents' attrs="{'invisible': [('document_ids_exists', 'not in', (True))]}">
+                                <field name="document_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="loan_ids_exists"/>
+                            <page name="loan_lines" string='Loans' attrs="{'invisible': [('loan_ids_exists', 'not in', (True))]}">
+                                <field name="loan_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="associated_ids_exists"/>
+                            <page name="associated_lines" string='Associated Institution' attrs="{'invisible': [('associated_ids_exists', 'not in', (True))]}">
+                                <field name="associated_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="family_ids_exists"/>
+                            <page name="farmer_lines" string='Family Member' attrs="{'invisible': [('family_ids_exists', 'not in', (True))]}">
+                                <field name="family_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="local_production_ids_exists"/>
+                            <page string="Local Production" attrs="{'invisible': [('local_production_ids_exists', 'not in', (True))]}">
+                                <field name="local_production_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="farmer_group_membership_ids_exists"/>
+                            <page string="Farmer Group" attrs="{'invisible': [('farmer_group_membership_ids_exists', 'not in', (True))]}">
+                                <field name="farmer_group_membership_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                            <field name="insurance_ids_exists"/>
+                            <page string="Insurance" attrs="{'invisible': [('insurance_ids_exists', 'not in', (True))]}">
+                                <field name="insurance_ids" attrs="{'readonly': [('state', 'in', ('Approved','Declined'))]}">
+                                    <tree >
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!--Profile Update Request Tree View-->
+        <record id="profile_update_request_tree" model="ir.ui.view">
+            <field name="name">Profile Update Request Tree</field>
+            <field name="model">profile.update.request</field>
+            <field name="arch" type="xml">
+                <tree create="0">
+                    <field name="ref"/>
+                    <field name="producer_type"/>
+                    <field name="create_uid"/>
+                    <field name="creation_date_bs"/>
+                    <field name='state' widget="badge" decoration-success="state == 'Approved'" decoration-info="state == 'Pending'" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Farmer profile update Request Search View-->
+        <record id="view_profile_updates_request_search" model="ir.ui.view">
+            <field name="name">Farmer Profile Updates Request Search</field>
+            <field name="model">profile.update.request</field>
+            <field name="arch" type="xml">
+                <search>
+                    
+                    <field name="producer_type"/>
+                    <field name="create_uid"/>
+                    <field name="state"/>
+                    <filter string="Pending" name="profile_update_request_search_filter_pending" domain="[('state', '=', 'Pending')]"/>
+                    <filter string="Approved" name="profile_update_request_search_filter_approved" domain="[('state', '=', 'Approved')]"/>
+                    <filter string="Declined" name="profile_update_request_search_filter_declined" domain="[('state', '=', 'Declined')]"/>
+                    <!-- <group expand="0" string="Group By">
+                        <filter string="Farmer Type" name="expert_request_search_group_by_producer_type" context="{'group_by': 'producer_type'}"/>
+                    </group> -->
+                </search>
+            </field>
+        </record>
+
+        <!--Profile Update Request Form Inherited View-->
+        <record id="view_profile_update_request_form_inherit_user_access" model="ir.ui.view">
+            <field name="name">Profile Update Request Form Inherit User Access</field>
+            <field name="model">profile.update.request</field>
+            <field name="inherit_id" ref="farmer.view_profile_update_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="///div[hasclass('button-container')]" position="attributes">
+                    <attribute name="groups">farmer.group_user_access</attribute>
+                </xpath>
+                <xpath expr="//div[@class='oe_chatter']" position="replace">
+                    <t groups="farmer.group_user_access">
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids"/>
+                            <field name="activity_ids"/>
+                            <field name="message_ids"/>
+                        </div>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Profile Update Request Form Inherited View-->
+        <record id="view_profile_update_request_form_inherit_farmer_access" model="ir.ui.view">
+            <field name="name">Profile Update Request Form Inherit Farmer Access</field>
+            <field name="model">profile.update.request</field>
+            <field name="inherit_id" ref="farmer.view_profile_update_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="///button[@name='cancel_profile']" position="attributes">
+                    <attribute name="groups">farmer.group_producer_farmer_access</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

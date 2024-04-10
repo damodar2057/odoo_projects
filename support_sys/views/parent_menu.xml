@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+           <!-- Top Menu Item -->
+           <menuitem name="ERP"
+                    id="menu_root"
+            />
+            
+
+<!--           &lt;!&ndash; Menu Categories &ndash;&gt;-->
+<!--           <menuitem name="Overview"-->
+<!--                    id="support_sys_menu_1"-->
+<!--                    parent="menu_root"-->
+<!--                    sequence="1"-->
+<!--                    action="action_expense_request"/>-->
+
+
+           <menuitem   
+                    name="Ticket"
+                    id="ticket_request_menu"
+                    parent="menu_root"
+                    sequence="2"
+                    action="action_ticket_request"/>
+
+<!-- This below is for the expense related menu and sub menu -->
+           <menuitem name="Expense"
+                    id="expense_menu_3"
+                    parent="menu_root"
+                    sequence="3"
+                    />
+
+           <menuitem name="Expense Request"
+                    id="expense_request_sub_menu_1"
+                    parent="expense_menu_3"
+                    action="action_expense_request"/>
+    
+           <menuitem name="Advance Request"
+                    id="expense_request_sub_menu_2"
+                    parent="expense_menu_3"
+                    action="action_advance_request"/>
+
+<!-- This below is for the Employee Residence related menu and sub menu -->
+<menuitem name="Residence"
+id="residence_menu"
+parent="menu_root"
+sequence="4"
+action="action_employee_residence"/>
+
+<record  id="action_employee_residence" model="ir.actions.act_window">
+     <field name="name">Employee Residence Status</field>
+     <field name="res_model">hotel.stay.model</field>
+     <field name="view_mode">tree,form</field>
+ </record>
+
+
+<!-- this is the menus for the reporting  -->
+           <menuitem name="Reporting"
+                     id="reporting_menu"
+                     parent="menu_root" 
+                     sequence="5"
+/>
+           <menuitem name="Employee Work Report"
+                     id="employee_daily_work_report"
+                     parent="reporting_menu" 
+                     sequence="5"
+                     action="action_employee_daily_work_report"/>
+
+
+<!-- This below is for the expense related menu and sub menu -->
+                        <menuitem name="Task Assignment"
+                        id="task_assignment_menu"
+                        parent="menu_root"
+                        sequence="4"
+                        action="action_employee_task_assignment"
+                        />
+
+                     <!-- this below menu is for the configuration -->
+
+                     
+                     <menuitem name="Configuration"
+                               id="configuration_menu" 
+                               parent="menu_root" 
+                               />
+
+                     <menuitem name="Ticket Type"
+                               id="configuration_sub_menu_ticket_type" 
+                               parent="configuration_menu" 
+                               action="action_ticket_type"/>
+
+                     <menuitem name="Expense Type"
+                               id="configuration_sub_menu_expense_type" 
+                               parent="configuration_menu" 
+                               action="action_expense_type"/>
+
+                     <menuitem name="Employee Work Type"
+                               id="configuration_sub_menu_work_type" 
+                               parent="configuration_menu" 
+                               action="action_employee_work_type"/>
+
+                               <!-- this below is for company project related info -->
+
+
+                     <menuitem name="Company Product"
+                               id="configuration_sub_menu_company_product" 
+                               parent="configuration_menu" 
+                               />
+
+                <!-- menu company product category -->
+                     <menuitem name="Company Service Category"
+                               id="configuration_sub_menu_company_service_category" 
+                               parent="configuration_sub_menu_company_product" 
+                               action="action_company_service_category"/>
+                               
+                <!-- menu for company projects -->
+                     <menuitem name="Projects"
+                               id="configuration_sub_menu_company_projects" 
+                               parent="configuration_sub_menu_company_product" 
+                               action="action_company_project"/>
+
+
+                     <menuitem name="Client"
+                     id="configuration_sub_menu_client" 
+                     parent="configuration_menu" 
+                     />
+
+
+                     <menuitem name="Client Profile"
+                     id="client_sub_menu_client_info" 
+                     parent="configuration_sub_menu_client" 
+                     action="action_client_info"/>
+
+                     <menuitem name="Branches"
+                     id="client_sub_menu_branch_info" 
+                     parent="configuration_sub_menu_client" 
+                     action="action_branch_info"/>
+
+                     <menuitem name="Organization Positions"
+                     id="client_sub_menu_org_position" 
+                     parent="configuration_sub_menu_client" 
+                     action="action_organization_positions"/>
+
+                     <!-- this below is for the internal info of the company -->
+
+          <menuitem name="Internal Info"
+                     id="configuration_sub_menu_internal_info" 
+                     parent="configuration_menu" 
+                     />
+<!-- This below is for the Company Services related menu and sub menu -->
+
+          <record  id="action_company_services" model="ir.actions.act_window">
+               <field name="name">Company Services</field>
+               <field name="res_model">company.services</field>
+               <field name="view_mode">tree,form</field>
+          </record>
+          <menuitem name="Our Products"
+          id="company_services_menu"
+          parent="configuration_sub_menu_internal_info"
+          sequence="4"
+          action="action_company_services"/>
+
+          <!-- This below is for the Company Bank Details related menu and sub menu -->
+
+          <record  id="action_company_bank_details" model="ir.actions.act_window">
+               <field name="name">Company Bank Details</field>
+               <field name="res_model">company.bank.details</field>
+               <field name="view_mode">tree,form</field>
+          </record>
+                    <menuitem name="Bank Details"
+                    id="company_bank_details_menu"
+                    parent="configuration_sub_menu_internal_info"
+                    sequence="4"
+                    action="action_company_bank_details"/>
+
+
+
+
+</odoo>

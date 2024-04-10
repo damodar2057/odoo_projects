@@ -1,0 +1,32 @@
+<odoo noupdate="1">
+   <record id="local_production_category_other" model="local.production.category">
+       <field name="name">other</field>
+   </record>
+   <record id="local_production_category_flowers" model="local.production.category">
+       <field name="name">flowers</field>
+   </record>
+   <record id="local_production_category_herbs" model="local.production.category">
+       <field name="name">herbs</field>
+   </record>
+   <record id="local_production_category_dairy" model="local.production.category">
+       <field name="name">dairy</field>
+   </record>
+   <record id="local_production_category_honey" model="local.production.category">
+       <field name="name">honey</field>
+   </record>
+   <record id="local_production_category_handicraft" model="local.production.category">
+       <field name="name">handicraft</field>
+   </record>
+   <record id="local_production_category_tools" model="local.production.category">
+       <field name="name">tools</field>
+   </record>
+   <record id="local_production_category_furnitures" model="local.production.category">
+       <field name="name">furnitures</field>
+   </record>
+   <record id="local_production_category_plants_and_trees" model="local.production.category">
+       <field name="name">plants and trees</field>
+   </record>
+   <record id="local_production_category_garments" model="local.production.category">
+       <field name="name">garments</field>
+   </record>
+</odoo>

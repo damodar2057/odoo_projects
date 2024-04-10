@@ -1,0 +1,36 @@
+<odoo>
+    <!-- Farmer Associated Institute Form View -->
+    <record id="view_form_associated_institute" model="ir.ui.view">
+        <field name="name">Farmer Associated Institute Form</field>
+        <field name="model">associated.institute</field>
+        <field name="arch" type="xml">
+            <form string="Associated Institute">
+                <header>
+                    <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                    <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="institution_type" widget="many2many_tags"/>
+                        <field name="institution_name" widget="many2many_tags"/>
+                        <field name="delete_request" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Farmer Associated Institute Tree View -->
+    <record id="view_tree_associated_institute" model="ir.ui.view">
+        <field name="name">Farmer Associated Institute Tree</field>
+        <field name="model">associated.institute</field>
+        <field name="arch" type="xml">
+            <tree delete="0" decoration-danger="delete_request">
+                <field name="delete_request" invisible="1"/>
+                <field name="institution_type" widget="many2many_tags"/>
+                <field name="institution_name" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

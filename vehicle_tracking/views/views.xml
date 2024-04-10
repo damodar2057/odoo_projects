@@ -1,0 +1,610 @@
+<odoo>
+    <data>
+        <!--   This is for vehicle.location model-->
+        <!--        <record model="ir.actions.act_window" id="vehicle_current_location_action_window">-->
+        <!--            <field name="name">Vehicle Current Location</field>-->
+        <!--            <field name="res_model">vehicle.location</field>-->
+        <!--            <field name="view_mode">tree,form</field>-->
+        <!--        </record>-->
+
+
+        <!-- actions opening views on models -->
+        <menuitem
+            id="driver_related_menu"
+            name="Driver"
+            sequence="4"
+            parent="fleet.menu_root"
+        />
+        <menuitem
+            id="gps_related_menu"
+            name="GPS"
+            sequence="4"
+            parent="fleet.menu_root"
+        />
+        <menuitem
+            id="location_related_menu"
+            name="Location"
+            sequence="4"
+            parent="fleet.menu_root"
+        />
+
+
+        <record model="ir.ui.view" id="device_location_view">
+            <field name="name">vehicle location list view</field>
+            <field name="model">vehicle.location</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <h1 style="margin-bottom:20px;">Location Details</h1>
+
+                        <group>
+                            <group>
+
+                                <field name="vehicle_id" readonly="true" />
+                                <field name="latitude" readonly="true" />
+                                <field name="longitude" readonly="true" />
+                            </group>
+                            <group>
+
+                                <field name="gps_time" readonly="true" />
+                                <field name="address" readonly="true" />
+                                <field name="create_date" />
+                                <field name="status"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--        <menuitem-->
+        <!--                id="fleet_current_location_menu"-->
+        <!--                name="Fleet current Location"-->
+        <!--                action="vehicle_current_location_action_window"-->
+        <!--                sequence="1"-->
+        <!--                parent="fleet.fleet_vehicles"-->
+        <!--        />-->
+
+        <!--    &lt;!&ndash; actions opening views of vehicle.location model &ndash;&gt;-->
+
+        <!--    <record model="ir.actions.act_window" id="vehicle_tracking.action_window2">-->
+        <!--      <field name="name">device location window</field>-->
+        <!--      <field name="res_model">vehicle.location</field>-->
+        <!--      <field name="view_mode">tree,form,leaflet_map</field>-->
+        <!--    </record>-->
+
+        <record id="action_leaflet_map" model="ir.actions.act_window">
+            <field name="name">Vehicle Current Location</field>
+            <field name="res_model">vehicle.location</field>
+            <field name="view_mode">leaflet_map,tree,form</field>
+            <!--      <field name="view_id" ref="module_name.view_leaflet_map"/>-->
+        </record>
+        <record id="vehicle_location_tree_view" model="ir.ui.view">
+            <field name="name">Vehicle location tree list</field>
+            <field name="model">vehicle.location</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="vehicle_id" />
+                    <field name="gps_time" />
+                    <field name="latitude" />
+                    <field name="address" />
+                    <field name="longitude" position="before" />
+                    <field name="create_date" />
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="menu_leaflet_map"
+            name="GPS devie Location"
+            action="action_leaflet_map"
+            sequence="10"
+            parent="vehicle_tracking.location_related_menu"
+        />
+
+        <record id="view_leaflet_map" model="ir.ui.view">
+            <field name="name">leaflet.map.view</field>
+            <field name="model">vehicle.location</field>
+            <field name="arch" type="xml">
+                <leaflet_map>
+                    <leaflet_map
+                        field_latitude="FIELD_LATITUDE"
+                        field_longitude="FIELD_LONGITUDE"
+                        field_title="FIELD_TITLE"
+                        field_address="FIELD_ADDRESS"
+                        field_marker_icon_image="FIELD_MARKER_ICON_IMAGE"
+                    >
+                        <field name="__last_update" />
+                        <field name="latitude" />
+                        <field name="longitude" />
+                        <field name="title" />
+                        <field name="address" />
+                    </leaflet_map>
+                </leaflet_map>
+            </field>
+        </record>
+
+        <!--    This is the views and action for the vehicle.mileage.statistics model-->
+        <record model="ir.actions.act_window" id="vehicle_mileage_statistics_action_window">
+            <field name="name">Vehicle Mileage Statistics</field>
+            <field name="res_model">vehicle.mileage.statistics</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+
+        <record model="ir.ui.view" id="device_location_tree_view">
+            <field name="name">device location tree list</field>
+            <field name="model">vehicle.mileage.statistics</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="vehicle_id" position="after" />
+                    <field name="vehicle_engine_hours" />
+                    <field name="attached_gps_device" />
+                    <field name="related_driver" />
+                    <field name="travelled_distance" />
+                    <field name="run_time" />
+                    <field name="create_date" position="before" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_vehicle_mileage_statistics_graph" model="ir.ui.view">
+            <field name="name">vehicle.mileage.statistics.graph</field>
+            <field name="model">vehicle.mileage.statistics</field>
+            <field name="arch" type="xml">
+                <graph string="Travelled Distance Statistics" type="line">
+                    <field name="create_date" string="Time" type="datetime" />
+                    <field name="travelled_distance" sum="Total Travelled Distance" string="Mileage" />
+                </graph>
+            </field>
+        </record>
+
+        <menuitem
+            id="fleet_mileage_statistics_menu"
+            name="Mileage Statistics"
+            action="vehicle_mileage_statistics_action_window"
+            sequence="1"
+            parent="fleet.menu_fleet_reporting"
+        />
+
+        <!--        This is the view for gps.device.info model-->
+        <record model="ir.actions.act_window" id="gps_device_info_action_window">
+            <field name="name">GPS Devices</field>
+            <field name="res_model">gps.device.info</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="gps_device_info_tree_view">
+            <field name="name">GPS device info tree list</field>
+            <field name="model">gps.device.info</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="vin_no" />
+                    <field name="imei_no" />
+                    <field name="mobile_no" />
+                    <field name="account" />
+                    <field name="license_number" />
+                    <field name="device_type" />
+                    <field name="vehicle_owner" />
+                    <field name="last_communication_time" />
+                    <field name="firmware_version" />
+                    <field name="vendor_id" />
+                    <field name="vendor_type" />
+                    <field name="sim_card_info" />
+                </tree>
+            </field>
+        </record>
+        <menuitem
+            id="gps_device_info_menu"
+            name="GPS Devices"
+            action="gps_device_info_action_window"
+            sequence="3"
+            parent="vehicle_tracking.gps_related_menu"
+        />
+<!--    This is for mobile.gps    -->
+        <record model="ir.actions.act_window" id="mobile_gps_info_action_window">
+            <field name="name">Mobile GPS</field>
+            <field name="res_model">mobile.gps</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="mobile_gps_info_tree_view">
+            <field name="name">Mobile GPS info tree list</field>
+            <field name="model">mobile.gps</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="driver_id" />
+                    <field name="imei_no" />
+                    <field name="device_type" />
+                    <field name="device_model" />
+                    <field name="device_manufacturer" />
+                </tree>
+            </field>
+        </record>
+        <menuitem
+            id="mobile_gps_info_menu"
+            name="Mobile GPS"
+            action="mobile_gps_info_action_window"
+            sequence="3"
+            parent="vehicle_tracking.gps_related_menu"
+        />
+
+        <!--        This is for the bind fleet with gps model-->
+        <record model="ir.actions.act_window" id="bind_fleet_gps_action_window">
+            <field name="name">Binded Vehicles</field>
+            <field name="res_model">bind.fleet.gps</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="bind_fleet_gps_tree_view">
+            <field name="name">Bind Fleet Gps tree list</field>
+            <field name="model">bind.fleet.gps</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="vehicle_id" />
+                    <field name="status" />
+                    <field name="gps_device_id" />
+
+                </tree>
+            </field>
+        </record>
+        <menuitem
+            id="bind_fleet_gps_menu"
+            name="Fleet With GPS Device"
+            action="bind_fleet_gps_action_window"
+            parent="vehicle_tracking.gps_related_menu"
+            sequence="3" />
+
+
+        <!--        This is for the driver current state location model-->
+        
+        <record id="driver_current_location_search_view" model="ir.ui.view">
+            <field name="name">Driver current location Search View</field>
+            <field name="model">driver.current.state.location</field>
+            <field name="arch" type="xml">
+                <search string="Vehicles">
+
+                    <!-- <filter string="Vehicles" name="" -->
+                        <group expand="1" string="Group By">
+                            <filter string="Vehicle" name="vehicle_id"
+                            context="{'group_by':'vehicle_id'}" />
+                        </group>
+
+                    </search>
+                </field>
+            </record>
+            
+            <record id="driver_current_state_location_action_window" model="ir.actions.act_window">
+                <field name="name">Fleet Current Location</field>
+                <field name="res_model">driver.current.state.location</field>
+                <field name="view_mode">tree,form</field>
+                <field name="context">{'search_default_vehicle_id':1}</field>
+            </record>
+        <record id="driver_current_location_tree_view" model="ir.ui.view">
+            <field name="name">Driver current location tree list</field>
+            <field name="model">driver.current.state.location</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="vehicle_id" />
+                    <field name="license_plate_no"/>
+                    <field name="status" />
+                    <field name="current_latitude" />
+                    <field name="current_longitude" />
+                    <field name="create_date" />
+                </tree>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="driver_current_location_menu"
+            name="Fleet Current Location"
+            action="driver_current_state_location_action_window"
+            sequence="4"
+            parent="vehicle_tracking.location_related_menu"
+        />
+<!--This is for dashboard-->
+            <record id="action_vehicle_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">vehicle.dashboard.owl.use</field>
+        </record>
+             <menuitem
+            id="vehicle_dashboard_menu"
+            name="Dashboard"
+            action="action_vehicle_dashboard"
+            sequence="1"
+            parent="fleet.menu_root"
+        />
+
+        <!-- This is for driver details model  -->
+        <record model="ir.actions.act_window" id="driver_details_action_window">
+            <field name="name">Driver Details</field>
+            <field name="res_model">driver.details</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.ui.view" id="driver_details_tree_view">
+            <field name="name">Driver Info tree list</field>
+            <field name="model">driver.details</field>
+            <field name="arch" type="xml">
+                <tree>
+
+                    <field name="ref" />
+                    <field name="name" />
+                    <field name="gender" />
+                    <field name="mobile" />
+                    <field name="is_verified_driver" />
+                    <field name="driving_experience_years" />
+                    <field name="state" string="State" widget="badge"
+                        decoration-info="state == 'New Request'"
+                        decoration-success="state == 'Done' or state == 'Accept'"
+                        decoration-danger="state == 'Reject'" options="{'color_field': 'color'}" />
+
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="driver_details_form_view">
+            <field name="name">Driver Info form view</field>
+            <field name="model">driver.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header class="d-flex">
+                        <field name="state" widget="statusbar"
+                            statusbar_visible='New Request,Accept,Reject,Done' />
+                        <!--                    <button class="custom_cancel btn btn-primary btn-block" type="object"
+                        name="reject_request" attrs="{'invisible':[('state','not
+                        in',('Draft'))]}">Accept</button>-->
+                        <div class="button-container">
+                            <button class="custom_approve btn btn-primary btn-block" type="object"
+                                name="accept_request"
+                                attrs="{'invisible':['|',('state','in',('Accept')),('state','in',('Done')),]}">
+                                Accept</button>
+                            <button class="btn btn-primary btn-block" name="mark_as_done"
+                                string="Mark as Done" type="object"
+                                attrs="{'invisible':[('state','not in',('Accept'))]}" />
+                            <button class="custom_decline btn btn-secondary btn-block" type="object"
+                                name="reject_request"
+                                attrs="{'invisible':[('state','in',('Done'))]}">Reject</button>
+                            <button class="btn btn-primary btn-secondary" name="mark_as_undo"
+                                string="Undo" type="object"
+                                attrs="{'invisible':[('state','not in',('Done'))]}" />
+
+                        </div>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="ref" />
+                        </h1>
+                        <group>
+                            <group>
+                                <separator name="driver_general" string='Driver Personal Info'
+                                    colspan="2" />
+                                <field name="id" invisible="1" />
+                                <field name="name" />
+                                <field name="gender" />
+                                <field name="mobile" />
+                                <field name="email" />
+                                <field name="phone" />
+                                <separator name="driver_identity" string='Identity Document'
+                                    colspan="2" />
+                                <!-- <field name="citizenship_number"/>
+                                <field name="citizenship_issue_district" options="{'no_create': True}"/>
+                                <field name="citizenship_issue_date_bs" widget="nepali_datepicker"/> -->
+                                <field name="driving_experience_years" />
+                                <field name="license_validity" />
+                                <field name="driver_license_doc" />
+                                <field name="citizenship_doc" />
+                                <field name="areas_covered" />
+                            </group>
+                            <group>
+                                <field name="image_1920" colspan="2" widget="image" nolabel="1"
+                                    class="driver_profile" />
+
+                                <field name="salary_info" />
+                                <field name="allowances_info" />
+                                <field name="leave_balance" />
+                                <field name="attendance_records" />
+                                <field name="comment_about_driver" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Renewal">
+                                <field name="driver_renewal_documents_ids">
+                                    <tree>
+                                        <field name="document_id" string="Documents"/>
+                                        <field name="expiry_date"/>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                            <group>
+        
+                                                <field name="document_id" string="Document"/>
+                                                <field name="expiry_date" string="Expiry Date"/>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+        <menuitem
+            id="driver_info_menu"
+            name="Drivers Profile"
+            action="driver_details_action_window"
+            sequence="1"
+            parent="vehicle_tracking.driver_related_menu"
+        />
+
+        <!-- This below is for the view of the maintenanace log of vehicles -->
+        <!-- <record id="maintenance_log_action_window" model="ir.actions.act_window">
+            <field name="name">Maintenance Log</field>
+            <field name="res_model">vehicle.maintenance.log</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="vehicle_maintenance_log_tree_view" model="ir.ui.view">
+            <field name="name">vehicle maintenance log tree list</field>
+            <field name="model">vehicle.maintenance.log</field>
+            <field name="arch" type="xml">
+                <tree multi_edit="1" expand="1">
+                    <field name="vehicle_id" />
+                    <field name="related_driver" />
+                    <field name="last_maintenance_date" />
+                    <field name="next_maintenance_date" />
+                    <field name="maintenance_cost" />
+                    <field name="maintenance_vendor" />
+                </tree>
+            </field>
+        </record>
+        <record id="vehicle_maintenance_log_form_view" model="ir.ui.view">
+            <field name="name">vehicle maintenance log form</field>
+            <field name="model">vehicle.maintenance.log</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="vehicle_id" />
+                                <field name="related_driver" />
+                                <field name="last_maintenance_date" />
+                            </group>
+                            <group>
+
+                                <field name="next_maintenance_date" />
+                                <field name="maintenance_cost" />
+                                <field name="maintenance_vendor" />
+                            </group>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="maintenance_log_menu"
+            name="Maintenance Log"
+            action="maintenance_log_action_window"
+            sequence="4"
+            parent="fleet.menu_fleet_reporting"
+        /> -->
+
+        <!-- This below is for the view of vehicle requested by office administrator -->
+        <record id="vehicle_request_action_window" model="ir.actions.act_window">
+            <field name="name">Vehicle Request By Employee</field>
+            <field name="res_model">vehicle.request.office.employee</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="vehicle_request_tree_view" model="ir.ui.view">
+            <field name="name">vehicle Request tree list</field>
+            <field name="model">vehicle.request.office.employee</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="vehicle_id" />
+                    <field name="requested_by" />
+                    <field name="purpose" />
+                    <field name="requested_duration" />
+                    <field name="start_point" />
+                    <field name="destination_point" />
+                    <field name="use_date" />
+                    <field name="state" string="State" widget="badge"
+                        decoration-info="state == 'New Request'"
+                        decoration-success="state == 'Done' or state == 'Accept'"
+                        decoration-danger="state == 'Reject'" options="{'color_field': 'color'}" />
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="vehicle_request_form_view" model="ir.ui.view">
+            <field name="name">vehicle request form view</field>
+            <field name="model">vehicle.request.office.employee</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header class="d-flex">
+                        <field name="state" widget="statusbar"
+                            statusbar_visible='New Request,Accept,Reject,Done' />
+                        <!--                    <button class="custom_cancel btn btn-primary btn-block" type="object"
+                        name="reject_request" attrs="{'invisible':[('state','not
+                        in',('Draft'))]}">Accept</button>-->
+                        <div class="button-container">
+                            <button class="custom_approve btn btn-primary btn-block" type="object"
+                                name="accept_request"
+                                attrs="{'invisible':['|',('state','in',('Accept')),('state','in',('Done')),]}">
+                                Accept</button>
+                            <button class="btn btn-primary btn-block" name="mark_as_done"
+                                string="Mark as Done" type="object"
+                                attrs="{'invisible':[('state','not in',('Accept'))]}" />
+                            <button class="custom_decline btn btn-secondary btn-block" type="object"
+                                name="reject_request"
+                                attrs="{'invisible':[('state','in',('Done'))]}">Reject</button>
+                            <button class="btn btn-primary btn-secondary" name="mark_as_undo"
+                                string="Undo" type="object"
+                                attrs="{'invisible':[('state','not in',('Done'))]}" />
+
+                        </div>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="vehicle_id" readonly="true" />
+                                <field name="requested_by" readonly="true" />
+                                <field name="purpose" readonly="true" />
+                                <field name="requested_duration" readonly="true" />
+                            </group>
+                            <group>
+
+                                <field name="start_point" readonly="true" />
+                                <field name="destination_point" readonly="true" />
+                                <field name="use_date" readonly="true" />
+                            </group>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem
+            id="vehicle_request_menu"
+            name="Fleet Request"
+            action="vehicle_request_action_window"
+            sequence="4"
+            parent="fleet.fleet_vehicles"
+        />
+
+        <!-- This below is for the  documents -->
+
+        <record id="documents_action_window" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">document.list</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="renewal_documents_tree_view" model="ir.ui.view">
+            <field name="name"> Documents Tree VIew</field>
+            <field name="model">document.list</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" />
+
+                </tree>
+            </field>
+        </record>
+   
+
+
+        <menuitem
+            id="document_list_menu"
+            name="Documents"
+            action="documents_action_window"
+            sequence="4"
+            parent="fleet.fleet_configuration"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+<!--        Farmer Loan Form View-->
+        <record id="view_farmer_loan_form" model="ir.ui.view">
+            <field name="name">Farmer Loan Form</field>
+            <field name="model">farmer.loan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="delete" class="btn btn-danger" type="object" attrs="{'invisible':[('delete_request','=',True)]}">Delete</button>
+                        <button name="undo_delete" class="btn btn-info" type="object" attrs="{'invisible':[('delete_request','=',False)]}">Cancel Delete</button>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="institution_name" options= "{'no_create':True}"/>
+                            <field name="institution_type"/>
+                            <field name="loan_amount"/>
+                            <field name="delete_request" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+<!--        Farmer Loan Tree View-->
+        <record id="view_farmer_loan_tree" model="ir.ui.view">
+            <field name="name">Farmer Loan Tree</field>
+            <field name="model">farmer.loan</field>
+            <field name="arch" type="xml">
+                <tree delete="0" decoration-danger="delete_request">
+                    <field name="institution_type"/>
+                    <field name="delete_request" invisible="1"/>
+                    <field name="institution_name"/>
+                    <field name="loan_amount"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>
